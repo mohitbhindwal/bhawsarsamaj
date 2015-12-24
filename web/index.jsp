@@ -203,7 +203,7 @@
                 
                  <%@ include file="html/carousel.html" %>
                 
-                 
+                     
                  <p/>
                  <%@ include file="html/post.html" %>
                  
