@@ -35,6 +35,10 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    
+   
+    
+    
 </head>
 
 <body>
@@ -197,12 +201,19 @@
             <!-- /.navbar-collapse -->
         </nav>
 
-        <div id="page-wrapper">
+        <div id="page-wrapper" style="padding: 0px" >
              <div class="container-fluid">
              <div class="row">
-                
+              
                  <%@ include file="html/carousel.html" %>
                 
+                 
+                 
+  <input id="get-date" type="submit" value="Click Me" />
+ 
+  <input id="date" type="text"   value="Waiting for a date..." />
+ 
+                 
                  
                  <p/>
                  <%@ include file="html/post.html" %>
@@ -217,20 +228,10 @@
                 <%@ include file="html/comments.html" %>
             
              </div>
-        </div>
-             
-             
-             
-     
-        </div>
-
-       
-       
-	
-        
- 
-    </div>
-    <!-- /#wrapper -->
+          </div>  <!-- /# container-fluid -->
+        </div> <!-- /# page-wrapper -->
+    </div> <!-- /#wrapper -->
+    
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
@@ -243,7 +244,7 @@
     <script src="js/plugins/morris/morris.min.js"></script>
     <script src="js/plugins/morris/morris-data.js"></script>
     <script src="js/post.js"></script>
-
+     <script src="js/custom.js"></script>
 </body>
 
 </html>

@@ -8,3 +8,13 @@
 $(document).ready(function(){
     $("[data-toggle=tooltip]").tooltip();
 });
+
+$(document).ready(function(){
+  $("#post").click(function(e){
+      e.preventDefault();
+        alert('mohit');
+  });
+});
+
+
+

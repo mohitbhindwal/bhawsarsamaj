@@ -9,7 +9,24 @@
  .greencolor{background: #5FFB17 ;}
 
 
-
+.main {
+  padding: 0px;
+  
+/*    background-image: url('../img/sky22.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: bottom;  */
+ 
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right:200px;
+    padding-left: 0px;
+  }
+}
+.main .page-header {
+  margin-top: 0;
+}
 
 .bgimg {
     background-image: url('../img/ram1.jpg');
