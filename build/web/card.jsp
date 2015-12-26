@@ -2,14 +2,13 @@
     <div class="card hovercard" style="margin: 0px;padding: 0px;">
      <div class="card-background" style="margin: 0px;padding: 0px;">
     
-            <img class="card-bkimg" alt="" src="http://lorempixel.com/100/100/people/9">
+         <img class="card-bkimg" alt="" src="img/mohit.png">
             <!-- http://lorempixel.com/850/280/people/9/ -->
         </div>
         <div class="useravatar">
-            <img alt="" src="http://lorempixel.com/100/100/people/9/">
+            <img alt="" src="img/mohit.png">
         </div>
-        <div class="card-info"> <span class="card-title">Pamela Anderson</span>
-
+        <div class="card-info">  <span class="card-title">Mohit Bhindwal</span>
         </div>
     </div>
     <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
@@ -34,6 +33,7 @@
       <div class="tab-content">
         <div class="tab-pane fade in active" id="tab1">
           <h3>This is tab 1</h3>
+          <jsp:include page="html/post.html"></jsp:include>
         </div>
         <div class="tab-pane fade in" id="tab2">
           <h3>This is tab 2</h3>

@@ -9,12 +9,33 @@ $(document).ready(function(){
     $("[data-toggle=tooltip]").tooltip();
 });
 
-$(document).ready(function(){
-  $("#post").click(function(e){
-      e.preventDefault();
-        alert('mohit');
-  });
-});
+     $("#post").click(function(evt){
+         postdata(evt);
+
+   });
+   
+   
+   function postdata(evt){
+             var dataString = 'mdata='+$('#postdata').val() ;
+         if(evt!==null)
+             evt.preventDefault();
+         $.ajax({
+                type: 'POST',
+                url: 'getpost.jsp',
+                dataType: 'html',
+                data:dataString,
+                success: function(data) {
+                //   alert(data);
+                    
+                     $('#wal').append(data);
+                       setTimeout("postdata(null)",1000000);
+                },
+                error : function(request,error){
+                   alert("Request: "+JSON.stringify(request));
+    }
+            });
+   }
+ 
 
 
 

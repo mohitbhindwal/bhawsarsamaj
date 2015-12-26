@@ -206,26 +206,25 @@
              <div class="row">
               
                  <%@ include file="html/carousel.html" %>
+                 
+                 <jsp:include page="card.jsp"></jsp:include>
+                 
+            
+            <p/>
+                              
+  
+                 <p/>
+                 <!--%@ include file="html/post.html" %-->
+                 
+                 <p/>
+                                
+      
+          <div id="wal">
+            <!--%@ include file="html/comments.html" %-->
+          </div>
                 
-                 
-                 
-  <input id="get-date" type="submit" value="Click Me" />
- 
-  <input id="date" type="text"   value="Waiting for a date..." />
- 
-                 
-                 
-                 <p/>
-                 <%@ include file="html/post.html" %>
-                 
-                 <p/>
-                 
-                 <%@ include file="html/card.html" %>
-                 <p/>
-                 
-            <%@ include file="html/comments.html" %>
-              <%@ include file="html/comments.html" %>
-                <%@ include file="html/comments.html" %>
+                
+                
             
              </div>
           </div>  <!-- /# container-fluid -->

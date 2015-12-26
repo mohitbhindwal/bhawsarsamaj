@@ -1,5 +1,5 @@
 <!--link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"-->
-<link rel="stylesheet" type="text/css" href="/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css">
 <div class="container">
     <div class="col-sm-8">
         <div class="panel panel-primary post panel-shadow">
@@ -34,7 +34,7 @@
                             </div>
             </div> 
             <div class="post-description"> 
-                <p>Bhawsar samaj people happy Hinglaj jayanti</p>
+                <p><%=request.getParameter("mdata")%></p>
                 <div class="stats">
                     <a href="#" class="btn btn-default stat-item"><i class="fa fa-thumbs-up icon"></i>250</a>
                     <a href="#" class="btn btn-default stat-item"><i class="fa fa-share icon"></i>12</a>
@@ -61,6 +61,8 @@
                             <p>Sure, oooooooooooooooohhhhhhhhhhhhhhhh</p>
                         </div>
                         <ul class="comments-list">
+                            
+                            
                             <li class="comment">
                                 <a class="pull-left" href="#">
                                     <img class="avatar" src="http://bootdey.com/img/Content/user_3.jpg" alt="avatar">
@@ -72,7 +74,12 @@
                                     </div>
                                     <p>Relax my friend</p>
                                 </div>
-                            </li> 
+                            </li>
+                            
+                            
+                            
+                            
+                            
                             <li class="comment">
                                 <a class="pull-left" href="#">
                                     <img class="avatar" src="http://bootdey.com/img/Content/user_2.jpg" alt="avatar">
@@ -90,3 +97,7 @@
                 </ul>
             </div>
         </div>
+
+
+
+ 

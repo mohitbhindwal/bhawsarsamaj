@@ -4,20 +4,31 @@
         <servlet-name>Login</servlet-name>
         <servlet-class>p1.Login</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Registration</servlet-name>
+        <servlet-class>p1.Registration</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Registration</servlet-name>
+        <url-pattern>/Registration</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    <welcome-file-list>
-          <welcome-file>registration.jsp</welcome-file>
-         <welcome-file>login.jsp</welcome-file>
-          <welcome-file>index.jsp</welcome-file>
-          <welcome-file>index.html</welcome-file>
-    </welcome-file-list>
-   </web-app>
     
+    
+    
+    <welcome-file-list>
+             <welcome-file>index.jsp</welcome-file>
+        <welcome-file>registration.jsp</welcome-file>
+        <welcome-file>login.jsp</welcome-file>
+   
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+</web-app>

@@ -67,7 +67,7 @@
 
 
                         <div class="panel-body" >
-                            <form id="defaultForm" class="form-horizontal" role="form">
+                            <form id="defaultForm" class="form-horizontal" role="form" action="index.jsp" method="post">
                                 
                          
                                 
@@ -124,18 +124,21 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">Birth Date</label>
                             <div class="col-md-3">
-                                <select class="form-control" name="country">
-                                    <option value="">00</option>
+                                <select class="form-control" name="day">
+                                    <% for(int i=1;i<=31;i++){%>
+                                    <option value="<%=i%>"><%=i%></option><%}%>
                                 </select>
                             </div>
                             <div class="col-md-3">
-                                <select class="form-control" name="country">
-                                    <option value="">00</option>
+                                <select class="form-control" name="month">
+                                    <% for(int i=1;i<=12;i++){%>
+                                    <option value="<%=i%>"><%=i%></option><%}%>
                                 </select>
                             </div>
                             <div class="col-md-3">
-                                <select class="form-control" name="country">
-                                    <option value="">00</option>
+                                <select class="form-control" name="year">
+                                   <% for(int i=1900;i<=2050;i++){%>
+                                    <option value="<%=i%>"><%=i%></option><%}%>
                                 </select>
                             </div>
                         </div>
@@ -145,18 +148,21 @@
                                    <div class="form-group">
                             <label class="col-md-3 control-label">Birth Time</label>
                             <div class="col-md-3">
-                                <select class="form-control" name="country">
-                                    <option value="">00</option>
+                                <select class="form-control" name="hour">
+                                  <% for(int i=0;i<=23;i++){%>
+                                    <option value="<%=i%>"><%=i%></option><%}%>
                                 </select>
                             </div>
                             <div class="col-md-3">
-                                <select class="form-control" name="country">
-                                    <option value="">00</option>
+                                <select class="form-control" name="minute">
+                                <% for(int i=0;i<=59;i++){%>
+                                    <option value="<%=i%>"><%=i%></option><%}%>
                                 </select>
                             </div>
                             <div class="col-md-3">
-                                <select class="form-control" name="country">
-                                    <option value="">00</option>
+                                <select class="form-control" name="seconds">
+                                      <% for(int i=0;i<=59;i++){%>
+                                    <option value="<%=i%>"><%=i%></option><%}%>
                                 </select>
                             </div>
                         </div>   
@@ -183,7 +189,7 @@
                                     <!-- Button -->                                        
                                     <div class="col-md-offset-3 col-md-9">
                                         
-                                        <button id="btn-signup" type="button" class="btn btn-info"><i class="icon-hand-right"></i> &nbsp Sign Up</button>
+                                        <button id="btn-signup" type="submit" class="btn btn-info"><i class="icon-hand-right"></i> &nbsp Sign Up</button>
                                      
                                     </div>
                                 </div>
