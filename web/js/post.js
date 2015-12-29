@@ -9,9 +9,11 @@ $(document).ready(function(){
     $("[data-toggle=tooltip]").tooltip();
 });
 
+
+
+
      $("#post").click(function(evt){
          postdata(evt);
-
    });
    
    
@@ -28,7 +30,7 @@ $(document).ready(function(){
                 //   alert(data);
                     
                      $('#wal').append(data);
-                       setTimeout("postdata(null)",1000000);
+                   //    setTimeout("postdata(null)",1000000);
                 },
                 error : function(request,error){
                    alert("Request: "+JSON.stringify(request));

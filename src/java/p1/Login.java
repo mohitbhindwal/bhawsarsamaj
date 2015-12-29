@@ -5,13 +5,16 @@
  */
 package p1;
 
+import introb.SessioniUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Enumeration;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -59,9 +62,24 @@ public class Login extends HttpServlet {
 
 		}
                  out.println("</html>");
-                 
-                 if(request.getParameter("Username")!=null&&request.getParameter("Username").equals("q")&&request.getParameter("Password")!=null&&request.getParameter("Password").equals("q"))
-                 response.sendRedirect("index.jsp");
+                 System.out.println("p1.Login.processRequest()");
+                 if(request.getParameter("Username")!=null&&request.getParameter("Password")!=null)
+                 {
+                     
+                     User user = new User();
+                     user.setPwd(request.getParameter("Password"));
+                     user.setName(request.getParameter("Username"));
+                     if(user.validate()){                  // login
+                         HttpSession session=request.getSession();  
+                         user.setSessionId(session.getId());
+                         session.setAttribute("user", user);
+                         //response.sendRedirect("index.jsp");
+                         RequestDispatcher dr=request.getRequestDispatcher("index.jsp"); 
+                         dr.forward(request, response); 
+                     }
+                     else
+                         response.sendRedirect("login.jsp?error=Invalid UserName or Password");
+                 }
                  else
                  response.sendRedirect("login.jsp?error=Invalid UserName or Password");
         }

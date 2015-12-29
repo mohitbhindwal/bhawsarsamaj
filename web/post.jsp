@@ -1,12 +1,6 @@
-
-<%@page import="p1.User"%>
 <!--link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"-->
 
-<%
-User user = (User)session.getAttribute("user");
-user.postText(user.getName(), user.getSessionId(),request.getParameter("mdata"));
 
-%>
 
 
 
@@ -52,7 +46,13 @@ user.postText(user.getName(), user.getSessionId(),request.getParameter("mdata"))
                 </div>
             </div>
             <div class="post-footer">
-             
+                <div class="input-group"> 
+                    <!--input class="form-control" placeholder="Add a comment" type="text"-->
+                    <textarea class="form-control" placeholder="What are you doing right now?" ></textarea>
+                    <span class="input-group-addon">
+                        <a href="#"><i class="fa fa-edit"></i></a>  
+                    </span>
+                </div>
                 <ul class="comments-list">
                     <li class="comment">
                         <a class="pull-left" href="#">
@@ -65,7 +65,7 @@ user.postText(user.getName(), user.getSessionId(),request.getParameter("mdata"))
                             </div>
                             <p>Sure, oooooooooooooooohhhhhhhhhhhhhhhh</p>
                         </div>
-                       
+                        <ul class="comments-list">
                             
                             
                             <li class="comment">
@@ -97,16 +97,9 @@ user.postText(user.getName(), user.getSessionId(),request.getParameter("mdata"))
                                     <p>Ok, cool.</p>
                                 </div>
                             </li> 
-                        
+                        </ul>
                     </li>
                 </ul>
-                   <div class="input-group"> 
-                    <!--input class="form-control" placeholder="Add a comment" type="text"-->
-                    <textarea class="form-control" placeholder="What are you doing right now?" ></textarea>
-                    <span class="input-group-addon">
-                        <a href="#"><i class="fa fa-edit"></i></a>  
-                    </span>
-                </div>
             </div>
         </div>
 
