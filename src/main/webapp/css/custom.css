@@ -1,0 +1,124 @@
+ .whitecolor{background: #FFFFFF}
+ .bluecolor{background: #00B2EE ;}
+ .redcolor {background:  #b92c28 ;}
+ .purplecolor {background: #800080 ;}
+ .magentacolor{background: #FF00FF ;}
+ .limecolor{background: #00FF00 ;}
+ .pinkcolor{background: #FAAFBE ;}
+ .orangecolor{background: #F88017 ;}
+ .greencolor{background: #5FFB17 ;}
+
+
+.main {
+  padding: 0px;
+  
+/*    background-image: url('../img/sky22.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: bottom;  */
+ 
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right:200px;
+    padding-left: 0px;
+  }
+}
+.main .page-header {
+  margin-top: 0;
+}
+
+.bgimg {
+    background-image: url('../img/ram1.jpg');
+    background-repeat: repeat;
+    background-attachment: fixed;
+    background-position: top; 
+}
+
+
+ 
+
+ /* Note: a:hover MUST come after a:link and a:visited in the CSS definition in order to be effective.
+ Note: a:active MUST come after a:hover in the CSS definition in order to be effective. */
+ a{
+ color: white;
+ }
+ 
+ a:hover {
+    color: #b92c28;
+}
+ 
+/*  .whitecolor{
+ color: white;
+ }
+ */
+
+.btn {
+    border-radius: 0px;
+    margin: 5px;
+ }
+
+.nav{
+ margin: 0px;
+ background-color: #FB4F14;
+}
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+  color: #FB4F14;
+  background-color: #ffffff;
+}
+ 
+/*  .panel-primary > .panel-heading {
+ background-image:url('../img/bgimage.jpg');
+ color: #FFFFFF;
+}
+
+ .panel-primary > .panel-footer {
+ background-image:url('../img/bgimage.jpg');
+ color: #FFFFFF;
+} */
+
+/* label{
+color: #FFFFFF;
+} */
+
+.redcolor{
+  color: #b92c28;
+  background-color: #b92c28; 
+   background-image:url('../img/bgimage.jpg');
+}
+
+.navbar-inverse{
+color: #b92c28;
+  background-color: #b92c28;
+}
+ 
+
+ .panel{
+ border: 0px;
+ }
+ 
+     .panel-transparent .panel-heading{
+        background:  #FB4F14;
+        border:5px;
+    }
+    
+   
+ 
+ 
+/*      .panel-transparent {
+        background: none;
+        border:0px;
+    }
+
+    .panel-transparent .panel-heading{
+        background: rgba(245, 245, 245, 0)!important;
+        border:0px;
+    }
+
+    .panel-transparent .panel-body{
+        background: rgba(245, 245, 245, 0)!important;
+        border:0px;
+    } */
