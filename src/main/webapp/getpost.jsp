@@ -2,6 +2,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="p1.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
  
 <!--link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"-->
 
@@ -12,6 +13,7 @@ user.postText(user.getName(), user.getSessionId(),request.getParameter("mdata"))
 
 <jsp:useBean id = "userposts" class = "p1.UserPosts" scope = "session"></jsp:useBean>
 <jsp:useBean id = "user" class = "p1.User" scope = "session"></jsp:useBean>
+
 
 
     <c:forEach var="post" items="${userposts.posts}">
@@ -27,7 +29,7 @@ user.postText(user.getName(), user.getSessionId(),request.getParameter("mdata"))
 		
 	</c:forEach>
     
-    
+  
     
 
 <!--%

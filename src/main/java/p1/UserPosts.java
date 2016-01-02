@@ -36,8 +36,13 @@ public class UserPosts {
         this.posts = posts;
     }
     
-    public void addPosts(ArrayList<Post> posts) {
-        this.posts = posts;
+    public Integer addPosts(String sessionid ,String posttext) {
+        Integer postid = null;
+        Post post = new Post(user);
+        postid =  post.addPost(sessionid, posttext);
+        getPosts().add(post);
+        return postid;
+        
     }
     
     public void loadPost(int lastNumberOfPost ){

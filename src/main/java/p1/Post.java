@@ -17,6 +17,11 @@ public class Post {
     Integer id ;
     String post ;
 
+    public Post() {
+    }
+    
+    
+
     public String getPost() {
         return post;
     }
@@ -24,6 +29,15 @@ public class Post {
     public void setPost(String post) {
         this.post = post;
     }
+    
+    public Integer addPost(String sessionid , String posttext) {
+       Integer postid = null;
+        SamajUtils utils = new SamajUtils();
+       postid = utils.postText(user.getName(), sessionid, posttext);
+       return postid;
+    }
+    
+    
 
     private User user ;
 

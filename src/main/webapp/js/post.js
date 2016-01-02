@@ -16,6 +16,14 @@ $(document).ready(function(){
          postdata(evt);
    });
    
+          
+ 
+     
+     
+     
+    
+  
+   
    
    function postdata(evt){
              var dataString = 'data='+$('#postdata').val() ;

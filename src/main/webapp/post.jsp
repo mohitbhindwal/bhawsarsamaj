@@ -2,9 +2,39 @@
 
 
 
-
-
 <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css">
+<script>
+      $('#<%= request.getParameter("id")%>').click(function(evt){
+      evt.preventDefault();
+      alert(evt.target.id);
+      postcomment(evt);
+   });
+   
+   
+      function postcomment(evt){
+             var dataString = 'data='+$('#<%= request.getParameter("id")%>_comment').val() ;
+         if(evt!==null)
+             evt.preventDefault();
+         $.ajax({
+                type: 'POST',
+                url: 'sharecomment.jsp',
+                dataType: 'html',
+                data:dataString,
+                success: function(data) {
+                //   alert(data);
+                    
+                      $('#<%= request.getParameter("id")%>_commentlist').append(data);
+                   //    setTimeout("postdata(null)",1000000);
+                },
+                error : function(request,error){
+                   alert("Request: "+JSON.stringify(request));
+    }
+            });
+   }
+   
+   
+</script>
+   
 <div class="container">
     <div class="col-sm-8">
         <div class="panel panel-primary post panel-shadow">
@@ -46,14 +76,7 @@
                 </div>
             </div>
             <div class="post-footer">
-                <div class="input-group"> 
-                    <!--input class="form-control" placeholder="Add a comment" type="text"-->
-                    <textarea class="form-control" placeholder="What are you doing right now?" ></textarea>
-                    <span class="input-group-addon">
-                        <a href="#"><i class="fa fa-edit"></i></a>  
-                    </span>
-                </div>
-                <ul class="comments-list">
+                <ul id="<%= request.getParameter("id")%>_commentlist" class="comments-list">
                     <li class="comment">
                         <a class="pull-left" href="#">
                             <img class="avatar" src="http://bootdey.com/img/Content/user_1.jpg" alt="avatar">
@@ -65,44 +88,21 @@
                             </div>
                             <p>Sure, oooooooooooooooohhhhhhhhhhhhhhhh</p>
                         </div>
-                        <ul class="comments-list">
-                            
-                            
-                            <li class="comment">
-                                <a class="pull-left" href="#">
-                                    <img class="avatar" src="http://bootdey.com/img/Content/user_3.jpg" alt="avatar">
-                                </a>
-                                <div class="comment-body">
-                                    <div class="comment-heading">
-                                        <h4 class="user">Ryan Haywood</h4>
-                                        <h5 class="time">3 minutes ago</h5>
-                                    </div>
-                                    <p>Relax my friend</p>
-                                </div>
-                            </li>
-                            
-                            
-                            
-                            
-                            
-                            <li class="comment">
-                                <a class="pull-left" href="#">
-                                    <img class="avatar" src="http://bootdey.com/img/Content/user_2.jpg" alt="avatar">
-                                </a>
-                                <div class="comment-body">
-                                    <div class="comment-heading">
-                                        <h4 class="user">Gavino Free</h4>
-                                        <h5 class="time">3 minutes ago</h5>
-                                    </div>
-                                    <p>Ok, cool.</p>
-                                </div>
-                            </li> 
-                        </ul>
                     </li>
                 </ul>
+                
+               <div class="input-group"> 
+                    <!--input class="form-control" placeholder="Add a comment" type="text"-->
+                    <textarea class="form-control" id="<%= request.getParameter("id")%>_comment" placeholder="What are you doing right now?" ></textarea>
+                    <span class="input-group-addon">
+                        <a href="post.jsp"  ><i id="<%= request.getParameter("id") %>" class="fa fa-edit"></i></a>  
+                    </span>
+                </div>
             </div>
         </div>
-
+    </div>
+</div>
+                    
 
 
  

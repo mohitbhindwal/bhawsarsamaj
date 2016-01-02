@@ -58,33 +58,7 @@ public class User implements Serializable{
          return true;
     }
     
-    public Integer postText(String username , String sessionid , String post){
-        Integer id = new Integer(0);
-        String sql = "insert into post(username,sessionid,post) values ('"+username+"','"+sessionid+"','"+post+"')";
-         IntrobSession session = new IntrobSession(username);
-         
-        try {
-        //    SessioniUtils.executeUpdate(sql);
-        
-              session.open();
-            DataObject dataObj = new DataObject();
-            dataObj.set("username", username);
-            dataObj.set("sessionid", sessionid);
-            dataObj.set("post", post);
-            System.out.println("Before"+dataObj);
-            session.insert(dataObj, "post", "id");
-                    System.out.println("After"+dataObj);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }finally{try{
-        if(session!=null)session.close();
-        }catch(Exception e){e.printStackTrace();}
-        }
-        
-        
-        return id ;
-        
-    }
+
     
     
 }
