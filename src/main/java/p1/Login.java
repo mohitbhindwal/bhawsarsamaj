@@ -73,6 +73,9 @@ public class Login extends HttpServlet {
                          HttpSession session=request.getSession();  
                          user.setSessionId(session.getId());
                          session.setAttribute("user", user);
+                         UserPosts userposts = new UserPosts(user);
+                         userposts.loadPost(5);
+                         session.setAttribute("userposts", userposts);
                          //response.sendRedirect("index.jsp");
                          RequestDispatcher dr=request.getRequestDispatcher("index.jsp"); 
                          dr.forward(request, response); 

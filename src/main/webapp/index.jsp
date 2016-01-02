@@ -8,25 +8,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>SB Admin - Bootstrap Admin Template</title>
-
+    <title>bhawsar.com</title>
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    
     <link href="css/comments.css" rel="stylesheet">
     <link href="css/post.css" rel="stylesheet">
     <link href="css/card.css" rel="stylesheet">
-     <link rel="stylesheet" type="text/css" href="css/carousel.css">
-
-    <!-- Custom CSS -->
+    <link href="css/carousel.css"rel="stylesheet">
     <link href="css/sb-admin.css" rel="stylesheet">
-
-    <!-- Morris Charts CSS -->
-    <link href="css/plugins/morris.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,15 +26,10 @@
     <![endif]-->
 
     
-   
-    
-    
 </head>
 
 <body>
-
     <div id="wrapper">
-
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -208,7 +193,7 @@
                  <%@ include file="html/carousel.html" %>
                  
                  <jsp:include page="card.jsp"></jsp:include>
-                 
+           
             
             <p/>
                               

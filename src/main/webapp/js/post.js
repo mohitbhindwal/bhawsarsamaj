@@ -18,18 +18,18 @@ $(document).ready(function(){
    
    
    function postdata(evt){
-             var dataString = 'mdata='+$('#postdata').val() ;
+             var dataString = 'data='+$('#postdata').val() ;
          if(evt!==null)
              evt.preventDefault();
          $.ajax({
                 type: 'POST',
-                url: 'getpost.jsp',
+                url: 'sharepost.jsp',
                 dataType: 'html',
                 data:dataString,
                 success: function(data) {
                 //   alert(data);
                     
-                     $('#wal').append(data);
+                      $('#wal').append(data);
                    //    setTimeout("postdata(null)",1000000);
                 },
                 error : function(request,error){

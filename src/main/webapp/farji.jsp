@@ -1,6 +1,12 @@
+
+<%@page import="p1.User"%>
 <!--link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"-->
 
+<%
+User user = (User)session.getAttribute("user");
+user.postText(user.getName(), user.getSessionId(),request.getParameter("mdata"));
 
+%>
 
 
 
@@ -14,7 +20,7 @@
                 </div>
                 <div class="pull-left meta">
                     <div class="title h5">
-                        <a href="#"><b><%= request.getParameter("id") %></b></a>
+                        <a href="#"><b>Mohit Bhindwal</b></a>
                     </div>
                     <h6 class="text-muted time">1 minute ago</h6>
                 </div>
@@ -39,20 +45,14 @@
                             </div>
             </div> 
             <div class="post-description"> 
-                <p><%= request.getParameter("post") %></p>
+                <p><%=request.getParameter("mdata")%></p>
                 <div class="stats">
                     <a href="#" class="btn btn-default stat-item"><i class="fa fa-thumbs-up icon"></i>250</a>
                     <a href="#" class="btn btn-default stat-item"><i class="fa fa-share icon"></i>12</a>
                 </div>
             </div>
             <div class="post-footer">
-                <div class="input-group"> 
-                    <!--input class="form-control" placeholder="Add a comment" type="text"-->
-                    <textarea class="form-control" placeholder="What are you doing right now?" ></textarea>
-                    <span class="input-group-addon">
-                        <a href="#"><i class="fa fa-edit"></i></a>  
-                    </span>
-                </div>
+             
                 <ul class="comments-list">
                     <li class="comment">
                         <a class="pull-left" href="#">
@@ -65,7 +65,7 @@
                             </div>
                             <p>Sure, oooooooooooooooohhhhhhhhhhhhhhhh</p>
                         </div>
-                        <ul class="comments-list">
+                       
                             
                             
                             <li class="comment">
@@ -97,9 +97,16 @@
                                     <p>Ok, cool.</p>
                                 </div>
                             </li> 
-                        </ul>
+                        
                     </li>
                 </ul>
+                   <div class="input-group"> 
+                    <!--input class="form-control" placeholder="Add a comment" type="text"-->
+                    <textarea class="form-control" placeholder="What are you doing right now?" ></textarea>
+                    <span class="input-group-addon">
+                        <a href="#"><i class="fa fa-edit"></i></a>  
+                    </span>
+                </div>
             </div>
         </div>
 

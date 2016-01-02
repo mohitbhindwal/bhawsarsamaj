@@ -1,16 +1,49 @@
 
-<%@page import="p1.User"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="p1.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ 
 <!--link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"-->
 
-<%
+<!--
 User user = (User)session.getAttribute("user");
 user.postText(user.getName(), user.getSessionId(),request.getParameter("mdata"));
+%-->
 
-%>
+<jsp:useBean id = "userposts" class = "p1.UserPosts" scope = "session"></jsp:useBean>
+<jsp:useBean id = "user" class = "p1.User" scope = "session"></jsp:useBean>
+
+
+    <c:forEach var="post" items="${userposts.posts}">
+       
+        <jsp:include page="post.jsp">
+     
+        <jsp:param name="post" value="${post.post}"/>
+ 
+        <jsp:param name="id" value="${post.id}"/>
+ 
+    </jsp:include>
+    
+		
+	</c:forEach>
+    
+    
+    
+
+<!--%
+
+     UserPosts  userposts =  (UserPosts)session.getAttribute("userposts");
+      ArrayList<Post> list =  userposts.getPosts();
+        for(Post post : list){
+        RequestDispatcher dr=request.getRequestDispatcher("post.jsp"); 
+        dr.include(request, response); 
+        }
+%-->
+ 
 
 
 
-<link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css">
+<!--link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css">
 <div class="container">
     <div class="col-sm-8">
         <div class="panel panel-primary post panel-shadow">
@@ -20,7 +53,7 @@ user.postText(user.getName(), user.getSessionId(),request.getParameter("mdata"))
                 </div>
                 <div class="pull-left meta">
                     <div class="title h5">
-                        <a href="#"><b>Mohit Bhindwal</b></a>
+                        <a href="#"><b>${user.name}</b></a>
                     </div>
                     <h6 class="text-muted time">1 minute ago</h6>
                 </div>
@@ -45,70 +78,22 @@ user.postText(user.getName(), user.getSessionId(),request.getParameter("mdata"))
                             </div>
             </div> 
             <div class="post-description"> 
-                <p><%=request.getParameter("mdata")%></p>
+                <p>${user.name}</p>
                 <div class="stats">
                     <a href="#" class="btn btn-default stat-item"><i class="fa fa-thumbs-up icon"></i>250</a>
                     <a href="#" class="btn btn-default stat-item"><i class="fa fa-share icon"></i>12</a>
                 </div>
             </div>
             <div class="post-footer">
-             
-                <ul class="comments-list">
-                    <li class="comment">
-                        <a class="pull-left" href="#">
-                            <img class="avatar" src="http://bootdey.com/img/Content/user_1.jpg" alt="avatar">
-                        </a>
-                        <div class="comment-body">
-                            <div class="comment-heading">
-                                <h4 class="user">Gavino Free</h4>
-                                <h5 class="time">5 minutes ago</h5>
-                            </div>
-                            <p>Sure, oooooooooooooooohhhhhhhhhhhhhhhh</p>
-                        </div>
-                       
-                            
-                            
-                            <li class="comment">
-                                <a class="pull-left" href="#">
-                                    <img class="avatar" src="http://bootdey.com/img/Content/user_3.jpg" alt="avatar">
-                                </a>
-                                <div class="comment-body">
-                                    <div class="comment-heading">
-                                        <h4 class="user">Ryan Haywood</h4>
-                                        <h5 class="time">3 minutes ago</h5>
-                                    </div>
-                                    <p>Relax my friend</p>
-                                </div>
-                            </li>
-                            
-                            
-                            
-                            
-                            
-                            <li class="comment">
-                                <a class="pull-left" href="#">
-                                    <img class="avatar" src="http://bootdey.com/img/Content/user_2.jpg" alt="avatar">
-                                </a>
-                                <div class="comment-body">
-                                    <div class="comment-heading">
-                                        <h4 class="user">Gavino Free</h4>
-                                        <h5 class="time">3 minutes ago</h5>
-                                    </div>
-                                    <p>Ok, cool.</p>
-                                </div>
-                            </li> 
-                        
-                    </li>
-                </ul>
                    <div class="input-group"> 
-                    <!--input class="form-control" placeholder="Add a comment" type="text"-->
+                    <!--input class="form-control" placeholder="Add a comment" type="text">
                     <textarea class="form-control" placeholder="What are you doing right now?" ></textarea>
                     <span class="input-group-addon">
                         <a href="#"><i class="fa fa-edit"></i></a>  
                     </span>
                 </div>
             </div>
-        </div>
+        </div-->
 
 
 
