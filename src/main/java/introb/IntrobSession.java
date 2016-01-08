@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class IntrobSession {
@@ -48,12 +50,19 @@ public class IntrobSession {
 	m_strUserName = strUserName;
          ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
               Properties  properties = new Properties();
+               InputStream resourceStream = null;
             try {
                 
-                InputStream resourceStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("introb.properties"); 
+               resourceStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("introb.properties"); 
                properties.load(resourceStream);
             } catch (IOException ex) {
               ex.printStackTrace();
+            }finally{
+            try {
+                resourceStream.close();
+            } catch (IOException ex) {
+                Logger.getLogger(IntrobSession.class.getName()).log(Level.SEVERE, null, ex);
+            }
             }
  	m_dataSrouceName = properties.getProperty("datasource");
 	m_isDebugOn = "true".startsWith(properties.getProperty("debug").trim().toLowerCase());

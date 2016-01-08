@@ -3,7 +3,7 @@
 <%
 
     UserPosts userposts =  (UserPosts)session.getAttribute("userposts");
-   Integer postid = userposts.addPosts(session.getId(),request.getParameter("data"));
+   Long postid = userposts.addPosts(session.getId(),request.getParameter("data"));
    System.out.print("Generated postid is "+postid);
    request.setAttribute("postid", postid);
 request.setAttribute("post", request.getParameter("data"));

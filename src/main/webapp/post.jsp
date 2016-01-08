@@ -12,7 +12,9 @@
    
    
       function postcomment(evt){
-             var dataString = 'data='+$('#<%= request.getParameter("id")%>_comment').val() ;
+          alert('postcomment');
+          
+             var dataString = 'commentdata='+$('#<%= request.getParameter("id")%>_comment').val()+'&commentid=<%= request.getParameter("id")%>' ;
          if(evt!==null)
              evt.preventDefault();
          $.ajax({
@@ -21,7 +23,7 @@
                 dataType: 'html',
                 data:dataString,
                 success: function(data) {
-                //   alert(data);
+                 alert(data);
                     
                       $('#<%= request.getParameter("id")%>_commentlist').append(data);
                    //    setTimeout("postdata(null)",1000000);
@@ -95,10 +97,10 @@
                     <!--input class="form-control" placeholder="Add a comment" type="text"-->
                     <textarea class="form-control" id="<%= request.getParameter("id")%>_comment" placeholder="What are you doing right now?" ></textarea>
                     <span class="input-group-addon">
-                        <a href="post.jsp"  ><i id="<%= request.getParameter("id") %>" class="fa fa-edit"></i></a>  
+                        <a href="sharecomment.jsp"  ><i id="<%= request.getParameter("id") %>" class="fa fa-edit"></i></a>  
                     </span>
                 </div>
-            </div>
+            </div>  
         </div>
     </div>
 </div>

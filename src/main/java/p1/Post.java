@@ -6,6 +6,7 @@
 package p1;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -13,8 +14,11 @@ import java.util.ArrayList;
  */
 public class Post {
     
-    ArrayList<Comments> comments = new ArrayList<Comments>();
-    Integer id ;
+    HashMap<Long,Comments> comments = new HashMap<Long,Comments>();
+    
+    
+    
+    Long id ;
     String post ;
 
     public Post() {
@@ -30,8 +34,8 @@ public class Post {
         this.post = post;
     }
     
-    public Integer addPost(String sessionid , String posttext) {
-       Integer postid = null;
+    public Long addPost(String sessionid , String posttext) {
+       Long postid = null;
         SamajUtils utils = new SamajUtils();
        postid = utils.postText(user.getName(), sessionid, posttext);
        return postid;
@@ -41,19 +45,32 @@ public class Post {
 
     private User user ;
 
-    public ArrayList<Comments> getComments() {
-        return comments;
+    public Comments getComments(Long commentid) {
+        return comments.get(commentid);
     }
 
-    public void setComments(ArrayList<Comments> comments) {
-        this.comments = comments;
+    public void setComments(Long commentid , Comments comment ) {
+        comments.put(commentid, comment);
     }
+    
+    public Long addComments(String commenttext) {
+        Long commentid = new Long(0L);
+        Comments comment = new Comments(this);
+        comment.setCommentText(commenttext);
+         SamajUtils utils = new SamajUtils();
+         System.out.println("p1.Post.addComments()"+id);
+        commentid = utils.postComments(commenttext,id,user.getName());
+        comments.put(commentid, comment);
+        return commentid;
+    }
+    
+    
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
     

@@ -12,10 +12,22 @@ package p1;
 public class Comments {
 
     private Post post ;
+    private String commentText ;
     
     public Comments(Post post) {
         this.post=post;
     }
+
+    public String getCommentText() {
+        return commentText;
+    }
+
+    public void setCommentText(String commentText) {
+        this.commentText = commentText;
+    }
+    
+    
+    
 
     public Post getPost() {
         return post;

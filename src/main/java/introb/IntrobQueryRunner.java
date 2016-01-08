@@ -44,14 +44,20 @@ public class IntrobQueryRunner {
 		m_strUserName = strUserName;
               
                 properties = new Properties();
-             
+               InputStream resourceStream = null;
              
             try {
-             InputStream resourceStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("introb.properties"); 
+           resourceStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("introb.properties"); 
                properties.load(resourceStream);
            //  System.out.println("introb.IntrobQueryRunner.<init>11111()"+IntrobQueryRunner.class.getResourceAsStream(".").toString());
             } catch (Exception ex) {
                 Logger.getLogger(IntrobQueryRunner.class.getName()).log(Level.SEVERE, null, ex);
+            }finally{
+                    try {
+                        resourceStream.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger(IntrobQueryRunner.class.getName()).log(Level.SEVERE, null, ex);
+                    }
             }
                 
 		//ResourceBundle objResourceBundle = ResourceBundle.getBundle("E:\\mohit\\bhawsarsamaj\\src\\java\\introb\\introb");

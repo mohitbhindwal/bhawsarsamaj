@@ -6,6 +6,8 @@
 package p1;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.SortedMap;
 
 /**
  *
@@ -19,35 +21,36 @@ public class UserPosts {
     }
     
     
+    public HashMap<Long,Post> posts = new HashMap<Long,Post>();
     
-    
-    public ArrayList<Post> posts = new ArrayList<Post>();
+ //  public ArrayList<Post> posts = new ArrayList<Post>();
     
 
     public User getUser() {
         return user;
     }
 
-    public ArrayList<Post> getPosts() {
-        return posts;
+    public  Post getPosts(Long postid) {
+        return posts.get(postid);
     }
 
-    public void setPosts(ArrayList<Post> posts) {
-        this.posts = posts;
+    public void setPosts(Long postid,Post post ) {
+        posts.put(postid, post);
     }
     
-    public Integer addPosts(String sessionid ,String posttext) {
-        Integer postid = null;
+    public Long addPosts(String sessionid ,String posttext) {
+        Long postid = null;
         Post post = new Post(user);
-        postid =  post.addPost(sessionid, posttext);
-        getPosts().add(post);
+        postid =   post.addPost(sessionid, posttext);
+        post.setId(postid);
+        setPosts(postid,post);
         return postid;
         
     }
     
     public void loadPost(int lastNumberOfPost ){
     SamajUtils utils = new SamajUtils();
-    posts.addAll(utils.loadPostOfUser(user, lastNumberOfPost));
+    posts.putAll(utils.loadPostOfUser(user, lastNumberOfPost));
     }
     
     
