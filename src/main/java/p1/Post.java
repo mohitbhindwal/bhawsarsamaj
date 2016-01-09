@@ -12,6 +12,7 @@ import java.util.HashMap;
  *
  * @author m
  */
+
 public class Post {
     
     HashMap<Long,Comments> comments = new HashMap<Long,Comments>();
@@ -34,10 +35,10 @@ public class Post {
         this.post = post;
     }
     
-    public Long addPost(String sessionid , String posttext) {
+    public Long addPost(String sessionid , String posttext,Long userid) {
        Long postid = null;
         SamajUtils utils = new SamajUtils();
-       postid = utils.postText(user.getName(), sessionid, posttext);
+       postid = utils.postText(user.getName(), sessionid, posttext,userid);
        return postid;
     }
     
@@ -53,13 +54,13 @@ public class Post {
         comments.put(commentid, comment);
     }
     
-    public Long addComments(String commenttext) {
+    public Long addComments(String commenttext,Long userid) {
         Long commentid = new Long(0L);
         Comments comment = new Comments(this);
         comment.setCommentText(commenttext);
          SamajUtils utils = new SamajUtils();
          System.out.println("p1.Post.addComments()"+id);
-        commentid = utils.postComments(commenttext,id,user.getName());
+        commentid = utils.postComments(commenttext,id,user.getName(),userid);
         comments.put(commentid, comment);
         return commentid;
     }

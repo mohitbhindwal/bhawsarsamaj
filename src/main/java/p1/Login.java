@@ -33,59 +33,32 @@ public class Login extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Login</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Login at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-         
-            Enumeration<String> parameterNames = request.getParameterNames();
-
-		while (parameterNames.hasMoreElements()) {
-
-			String paramName = parameterNames.nextElement();
-			out.write(paramName);
-			out.println("\n");
-
-			String[] paramValues = request.getParameterValues(paramName);
-			for (int i = 0; i < paramValues.length; i++) {
-				String paramValue = paramValues[i];
-				out.println("\t" + paramValue);
-				out.println("\n");
-			}
-
-		}
-                 out.println("</html>");
-                 System.out.println("p1.Login.processRequest()");
+         RequestDispatcher dlr=request.getRequestDispatcher("login.jsp"); 
+             System.out.println("p1.Login.processRequest()");
                  if(request.getParameter("Username")!=null&&request.getParameter("Password")!=null)
                  {
                      
-                     User user = new User();
-                     user.setPwd(request.getParameter("Password"));
-                     user.setName(request.getParameter("Username"));
-                     if(user.validate()){                  // login
+                    User user = User.validate(request.getParameter("Username"),request.getParameter("Password"));
+                     if(user!=null){                  // login
                          HttpSession session=request.getSession();  
                          user.setSessionId(session.getId());
                          session.setAttribute("user", user);
                          UserPosts userposts = new UserPosts(user);
                          userposts.loadPost(5);
                          session.setAttribute("userposts", userposts);
-                         //response.sendRedirect("index.jsp");
-                         RequestDispatcher dr=request.getRequestDispatcher("index.jsp"); 
+                          RequestDispatcher dr=request.getRequestDispatcher("index.jsp"); 
                          dr.forward(request, response); 
                      }
-                     else
-                         response.sendRedirect("login.jsp?error=Invalid UserName or Password");
+                     else{System.out.println("p1.Login.processRequest()redirect");
+                     request.setAttribute("error","Invalid UserName or Password");
+                     dlr.forward(request, response);
+                    }
                  }
-                 else
-                 response.sendRedirect("login.jsp?error=Invalid UserName or Password");
-        }
+                 else{System.out.println("p1.Login.processRequest()redirect3");
+                 request.setAttribute("error","Invalid UserName or Password");
+                 dlr.forward(request, response);
+                 }
+     
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -22,7 +22,25 @@ public class User implements Serializable{
     
     private String name ;
     private String pwd ;
+    private String username ;
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     private String sessionId;
+    private Long id ;
 
     public String getSessionId() {
         return sessionId;
@@ -48,14 +66,18 @@ public class User implements Serializable{
         this.pwd = pwd;
     }
     
-    public boolean validate(){
+    public static User validate(String name ,String pwd){
         System.out.println("p1.User.validate().......");
-    boolean isValid = false ;
-        String sql = "select username from profile where username = '"+name+"' and password = '"+pwd+"'";
-         DataSet ds = SessioniUtils.query(sql);
-         if(ds==null||ds.size()==0)
-             return false ;
-         return true;
+        User user = null ;
+        String sql = "select * from users where username = '"+name+"' and password = '"+pwd+"'";
+        DataSet ds = SessioniUtils.query(sql);
+        if(ds==null||ds.size()==0)
+            return null;
+         user = new User();
+         user.setId(Long.valueOf(ds.get(0).get("id").toString()));
+         user.setUsername(ds.get(0).get("username").toString());
+         user.setName(ds.get(0).get("name").toString());
+         return user ;
     }
     
 

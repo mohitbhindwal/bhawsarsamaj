@@ -38,10 +38,10 @@ public class UserPosts {
         posts.put(postid, post);
     }
     
-    public Long addPosts(String sessionid ,String posttext) {
+    public Long addPosts(String sessionid ,String posttext,Long userid) {
         Long postid = null;
         Post post = new Post(user);
-        postid =   post.addPost(sessionid, posttext);
+        postid =   post.addPost(sessionid, posttext,userid);
         post.setId(postid);
         setPosts(postid,post);
         return postid;

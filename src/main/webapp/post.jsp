@@ -11,10 +11,9 @@
    });
    
    
-      function postcomment(evt){
-          alert('postcomment');
-          
-             var dataString = 'commentdata='+$('#<%= request.getParameter("id")%>_comment').val()+'&commentid=<%= request.getParameter("id")%>' ;
+   function postcomment(evt){
+         alert('postcomment');
+         var dataString = 'commentdata='+$('#<%= request.getParameter("id")%>_comment').val()+'&postid=<%= request.getParameter("id")%>' ;
          if(evt!==null)
              evt.preventDefault();
          $.ajax({
@@ -23,9 +22,8 @@
                 dataType: 'html',
                 data:dataString,
                 success: function(data) {
-                 alert(data);
-                    
-                      $('#<%= request.getParameter("id")%>_commentlist').append(data);
+                alert(data);
+                $('#<%= request.getParameter("id")%>_commentlist').append(data);
                    //    setTimeout("postdata(null)",1000000);
                 },
                 error : function(request,error){
@@ -34,6 +32,7 @@
             });
    }
    
+ 
    
 </script>
    
@@ -46,7 +45,7 @@
                 </div>
                 <div class="pull-left meta">
                     <div class="title h5">
-                        <a href="#"><b><%= request.getParameter("id") %></b></a>
+                        <a href="#"><b><%= request.getParameter("postman")%><%= request.getParameter("id")%></b></a>
                     </div>
                     <h6 class="text-muted time">1 minute ago</h6>
                 </div>
@@ -79,25 +78,16 @@
             </div>
             <div class="post-footer">
                 <ul id="<%= request.getParameter("id")%>_commentlist" class="comments-list">
-                    <li class="comment">
-                        <a class="pull-left" href="#">
-                            <img class="avatar" src="http://bootdey.com/img/Content/user_1.jpg" alt="avatar">
-                        </a>
-                        <div class="comment-body">
-                            <div class="comment-heading">
-                                <h4 class="user">Gavino Free</h4>
-                                <h5 class="time">5 minutes ago</h5>
-                            </div>
-                            <p>Sure, oooooooooooooooohhhhhhhhhhhhhhhh</p>
-                        </div>
-                    </li>
+                  
+                    
+                    
                 </ul>
                 
                <div class="input-group"> 
                     <!--input class="form-control" placeholder="Add a comment" type="text"-->
                     <textarea class="form-control" id="<%= request.getParameter("id")%>_comment" placeholder="What are you doing right now?" ></textarea>
                     <span class="input-group-addon">
-                        <a href="sharecomment.jsp"  ><i id="<%= request.getParameter("id") %>" class="fa fa-edit"></i></a>  
+                        <a href="sharecomment.jsp"><i id="<%= request.getParameter("id") %>" class="fa fa-edit"></i></a>  
                     </span>
                 </div>
             </div>  

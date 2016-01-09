@@ -9,23 +9,54 @@ $(document).ready(function(){
     $("[data-toggle=tooltip]").tooltip();
 });
 
-
-
-
-     $("#post").click(function(evt){
+$("#post").click(function(evt){
          postdata(evt);
-   });
+});
    
           
+ $("#upload").click(function(event) {
+    alert("post.js uploadImage");  
+    uploadImage(event);
+});
+
+
+     
+     
+        
+   function uploadImage(evt){
+       alert('post data of post.js');
+             var dataString = 'data='+$('#postdata').val() ;
+         if(evt!==null)
+             evt.preventDefault();
+         $.ajax({
+                type: 'POST',
+                url: 'uploader.jsp',
+                dataType: 'html',
+                data:dataString,
+                success: function(data) {
+                    alert(data);
+                    
+                      $('#loadimage').append(data);    
+                   //    setTimeout("postdata(null)",1000000);
+                },
+                error : function(request,error){
+                   alert("Request: "+JSON.stringify(request));
+    }
+            });
+   }
  
-     
-     
-     
+        
+            
+            
+ 
+ 
+ 
     
   
    
    
    function postdata(evt){
+       alert('post data of post.js');
              var dataString = 'data='+$('#postdata').val() ;
          if(evt!==null)
              evt.preventDefault();

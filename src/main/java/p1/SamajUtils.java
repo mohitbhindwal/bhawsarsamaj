@@ -51,7 +51,7 @@ public class SamajUtils {
     }
     
     
-    public Long postComments(String comment , Long postid,String username){
+    public Long postComments(String comment , Long postid,String username,Long userid){
         System.out.println("post Comments of SamajUtils");
          Long id = new Long(0);
        IntrobSession session = new IntrobSession(username);
@@ -61,6 +61,7 @@ public class SamajUtils {
             dataObj.set("username", username);
             dataObj.set("comment", comment);
             dataObj.set("postid", postid);
+            dataObj.set("userid", userid);
             System.out.println("Before"+dataObj);
             session.insert(dataObj, "comment", "id");
             System.out.println("After"+dataObj);
@@ -74,11 +75,10 @@ public class SamajUtils {
        return id ;
     }
     
-        public Long postText(String username , String sessionid , String post){
+        public Long postText(String username , String sessionid , String post,Long userid){
             System.out.println("Post Text of SamajUtils");
         Long id = new Long(0);
-        String sql = "insert into post(username,sessionid,post) values ('"+username+"','"+sessionid+"','"+post+"')";
-         IntrobSession session = new IntrobSession(username);
+        IntrobSession session = new IntrobSession(username);
          
         try {
         //    SessioniUtils.executeUpdate(sql);
@@ -88,6 +88,7 @@ public class SamajUtils {
             dataObj.set("username", username);
             dataObj.set("sessionid", sessionid);
             dataObj.set("post", post);
+            dataObj.set("userid", userid);
             System.out.println("Before"+dataObj);
             session.insert(dataObj, "post", "id");
             System.out.println("After"+dataObj);

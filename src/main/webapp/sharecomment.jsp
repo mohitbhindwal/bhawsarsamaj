@@ -1,12 +1,14 @@
 <%@page import="p1.Post"%>
 <%@page import="p1.UserPosts"%>
+<jsp:include page="print.jsp"></jsp:include>
 <%
 
+    
   UserPosts userposts =  (UserPosts)session.getAttribute("userposts");
-  Post post = userposts.getPosts(Long.valueOf(request.getParameter("commentid").toString()));
-  System.out.print("sharecooment"+post.getId());
-  post.addComments(request.getParameter("commentdata").toString());
-
+  Post post = userposts.getPosts(Long.valueOf(request.getParameter("postid").toString()));
+  System.out.print("postid of comment"+post.getId());
+  post.addComments(request.getParameter("commentdata").toString(),userposts.getUser().getId());
+  
 
 %>
 
