@@ -378,7 +378,7 @@ public class IntrobQueryRunner {
 		String strSQL = null;
 		Vector params = new Vector();
 		int rows = 0;
-
+           
 		//When pk is not null we will generate the primary key..
 		if (pk != null) {
 			KeyGenerator generator = null;
@@ -389,17 +389,20 @@ public class IntrobQueryRunner {
 				e.printStackTrace();
 				throw new IntrobQueryException("Cannot instantiate primary key generator. " + ResourceBundle.getBundle("introb").getString("pk.generator") + " " + e.getMessage());
 			}
-			
+			 
 			//Set the value of primary key generated from the KeyGenerator
 			try {
-				dobj.set(pk, generator.generate(conn, tblName));
+                            Object obj = generator.generate(conn, tblName);
+                          
+				dobj.set(pk,obj );
+                               
 			} catch (SQLException e) {
 				SQLException se = new SQLException("PRIMARY KEY: " + e.getMessage());
 				se.setNextException(e);
 				throw se;
 			}
 		}
-		
+		 
 		//Build the query here..
 		String strFields = "";
 		String strValues = "";
@@ -420,7 +423,7 @@ public class IntrobQueryRunner {
 			}
 			
 		}
-
+ 
 		strFields = "(" + strFields + ")";
 		strValues = " VALUES (" + strValues + ")";
 		
@@ -437,13 +440,14 @@ public class IntrobQueryRunner {
 		try {
 			stmt = conn.prepareStatement(strSQL);
 			fillStatement(stmt, params);
+                      
 			rows = stmt.executeUpdate();
 		} catch (SQLException e) {
 			this.rethrow(e, strSQL, params, "INSERT: ");
 		} finally {
 			close(stmt);
 		}
-		
+		 
 		//Query Executed..
 		return rows;
 	}

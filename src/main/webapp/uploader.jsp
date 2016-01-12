@@ -5,22 +5,57 @@
     <link href="js/upload.js" rel="stylesheet">
     
     <script>
+       
         
-        alert('sdsdsdfd');
-        
-        
-         $("#uploadtoserver").click(function(event) {
-       evt.preventDefault();
-    alert("post.js uploadtoserver");  
-    uploadtoserver(event);
-});
+   function callback(response)
+    {
+         postdata(evt,response);
+          // alert('callback' +response); //response data from ajax call
+    }
 
-
-alert('sdfsdfsdf');
-
-function uploadtoserver(evt){
+function ShowContent(jud,callback){
     
+    var url = 'imageuploader.jsp';
+    var form = $("#pimage");
+    var data = new FormData(form[0]);
+
+    $.ajax({
+        type        : 'post',
+        dataType    : 'html',
+        url         : url,
+         async: true, 
+        data        : data,
+        enctype     : "multipart/form-data",
+        cache       : false,
+        contentType : false,
+
+        processData : false,
+        success     : function(data) {
+            alert('['+data+']');
+            callback(data.trim());
+           // return data.trim() ; 
+            
+          //  $('#applyPop').css('display', 'none');
+        },
+        complete : function(data) {
+
+        },
+        error : function(data, status, error) {
+            alert('Fail! :<');
+        
+           
+                removeElement('pimage');
+        }
+    });
 }
+
+    function removeElement(elementId) {
+        // Removes an element from the document
+        var element = document.getElementById(elementId);
+        element.parentNode.removeChild(element);
+    }
+ 
+ 
     </script>
     
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -30,19 +65,21 @@ function uploadtoserver(evt){
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
   
-<div class="fileinput fileinput-new" data-provides="fileinput">
-  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
-  <div>
-    <span class="btn btn-default btn-file">
-        <span class="fileinput-new">Select image</span>
-        <span class="fileinput-exists">Change</span>
-        <input type="file" name="...">
-    </span>
-    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-    <a id ="uploadtoserver" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Upload</a>
-  </div>
-</div>
-  
+    <form action="imageuploader.jsp" id="pimage" method="post"  enctype="multipart/form-data">
+        <div class="fileinput fileinput-new" data-provides="fileinput">
+            <div id="imagepic" class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+            <div>
+                    <span class="btn btn-default btn-file">
+                    <span class="fileinput-new">Select image</span>
+                    <span class="fileinput-exists">Change</span>
+                    <input id="file" type="file" name="file" />
+                </span>
+                <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                <a onclick='ShowContent()' class="btn btn-default fileinput-exists" data-dismiss="fileinput">Upload</a>
+            </div>
+        </div>
+    </form>
+    
         
     <script src="jancy/js/jasny-bootstrap.min.js"></script>
     <script src="jancy/js/jasny-bootstrap.js"></script>
@@ -62,3 +99,5 @@ function uploadtoserver(evt){
     <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
   </div>
 </div-->
+    
+    

@@ -8,6 +8,7 @@ package p1;
 import introb.DataObject;
 import introb.DataSet;
 import introb.IntrobSession;
+import introb.SessioniUtils;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -74,6 +75,38 @@ public class SamajUtils {
         }
        return id ;
     }
+    
+    public static Integer insertImage(String path, String imgname, String imgpath, String username) {
+        System.out.println("p1.SamajUtils.insertImage()");
+        Integer id = null;
+        String oidsql = "select lo_import('" + path + "') as imgoid";
+        DataSet ds = SessioniUtils.query(oidsql);
+        IntrobSession session = new IntrobSession(username);
+        try {
+            session.open();
+            DataObject dob = new DataObject();
+            dob.set("imgoid", ds.get(0).get("imgoid"));
+            dob.set("imgname", imgname);
+            dob.set("imgpath", imgpath);
+            session.execute(dob, "images", "id");
+            System.out.println("p1.SamajUtils.insertImage()" + dob);
+            id = Integer.valueOf(dob.get("id").toString());
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (session != null) {
+                    session.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return id;
+    }
+
+
+    
     
         public Long postText(String username , String sessionid , String post,Long userid){
             System.out.println("Post Text of SamajUtils");

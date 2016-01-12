@@ -2,12 +2,10 @@
 <%@page import="p1.User"%>
 <!--link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"-->
 
-<%
-User user = (User)session.getAttribute("user");
-user.postText(user.getName(), user.getSessionId(),request.getParameter("mdata"));
-
-%>
-
+          
+        <img  src="file:///D:/ram9.jpg"  alt="Mountain View" style="width:304px;height:228px;"/>  
+ 
+      
 
 
 <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css">

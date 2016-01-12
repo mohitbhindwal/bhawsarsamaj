@@ -71,6 +71,15 @@
             </div> 
             <div class="post-description"> 
                 <p><%= request.getParameter("post") %></p>
+                
+
+                <div class="row">
+                    <div class="col-xs-6 col-md-6">
+                    <img src="img/test1.jpg"/></div>
+                </div>
+
+                
+                
                 <div class="stats">
                     <a href="#" class="btn btn-default stat-item"><i class="fa fa-thumbs-up icon"></i>250</a>
                     <a href="#" class="btn btn-default stat-item"><i class="fa fa-share icon"></i>12</a>
