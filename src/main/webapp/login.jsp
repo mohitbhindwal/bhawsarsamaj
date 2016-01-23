@@ -26,25 +26,21 @@
 </head>
 
 <body style="margin-top: 0px">
- 
-    
-
-      <div class="container" >
+  <div class="container" >
     <div class="row">
         <div class="col-md-12">
             <div class="pr-wrap">
                 <div class="pass-reset">
-                    <label>
-                        Enter the email you signed up with</label>
+                    <label>Enter the email you signed up with</label>
                     <input type="email" placeholder="Email" />
                     <input type="submit" value="Submit" class="pass-reset-submit btn btn-success btn-sm" />
                 </div>
             </div>
             <div class="wrap">
-                <p class="form-title">
-                    Sign In</p>
-                <form class="login" action="Login" >
-                    <input type="text" placeholder="Username" name="Username" />
+                <p class="form-title">Sign In</p>
+                
+                <form class="login" action="Login" method="post">
+                <input type="text" placeholder="Username" name="Username" />
                 <input type="password" placeholder="Password" name="Password" />
                 <label id="output"><%= request.getAttribute("error")==null?"":request.getAttribute("error")%></label>
                 <input type="submit" value="Sign In" class="btn btn-success btn-sm" id="callme"/>

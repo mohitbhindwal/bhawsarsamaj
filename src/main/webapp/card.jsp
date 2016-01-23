@@ -8,7 +8,9 @@
         <div class="useravatar">
             <img alt="" src="img/mohit.png">
         </div>
-        <div class="card-info">  <span class="card-title">Mohit Bhindwal</span>
+        <br/>
+        <div class="card-info">
+            <span class="card-title">Mohit Bhindwal</span>
         </div>
     </div>
     <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">

@@ -22,68 +22,43 @@ import javax.servlet.http.HttpSession;
  */
 public class Login extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+      protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
          RequestDispatcher dlr=request.getRequestDispatcher("login.jsp"); 
              System.out.println("p1.Login.processRequest()");
                  if(request.getParameter("Username")!=null&&request.getParameter("Password")!=null)
                  {
-                     
                     User user = User.validate(request.getParameter("Username"),request.getParameter("Password"));
                      if(user!=null){                  // login
                          HttpSession session=request.getSession();  
                          user.setSessionId(session.getId());
-                         session.setAttribute("user", user);
+                         session.setAttribute("user",user);
                          UserPosts userposts = new UserPosts(user);
-                         userposts.loadPost(5);
+                         userposts.loadPost(15);
                          session.setAttribute("userposts", userposts);
                           RequestDispatcher dr=request.getRequestDispatcher("index.jsp"); 
                          dr.forward(request, response); 
                      }
-                     else{System.out.println("p1.Login.processRequest()redirect");
+                     else{
+                     System.out.println("p1.Login.processRequest()redirect");
                      request.setAttribute("error","Invalid UserName or Password");
                      dlr.forward(request, response);
                     }
                  }
-                 else{System.out.println("p1.Login.processRequest()redirect3");
+                 else{
+                 System.out.println("p1.Login.processRequest()redirect3");
                  request.setAttribute("error","Invalid UserName or Password");
                  dlr.forward(request, response);
                  }
      
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+ 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+ 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

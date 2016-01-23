@@ -1,2 +1,1 @@
-<jsp:include page="displayimage.jsp"></jsp:include>
-
+<%out.print( Integer.parseInt(request.getParameter("value"))+1);%>

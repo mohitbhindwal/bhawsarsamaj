@@ -28,6 +28,18 @@ fdatetime timestamp without time zone DEFAULT now(),
 comment text
 );
 
+create table likes (
+id serial primary key,
+postid integer REFERENCES post(id),
+likeby   text[][]
+);
+--select * from likes;
+--insert into likes(postid,likeby) values(3,'{mohit bhindwal}');
+--update likes set likeby = likeby || '{rohit bhindwal}' 
+
+--insert into likes(postid,likeby) values(3,'{"mohit bhindwal","sham"}');
+--update likes set likeby = likeby || '{"mohitji bhindwal","shamji"}' 
+
 CREATE TABLE images(id serial primary key , imgoid oid , imgname character varying(100), imgpath character varying(200)); 
 
 drop table comment;

@@ -157,7 +157,7 @@
                     </li>
                     <li>
                         <a href="tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>
-                    </li>
+                    </li>   
                     <li>
                         <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
                     </li>
@@ -192,31 +192,19 @@
         <div id="page-wrapper" style="padding: 0px" >
              <div class="container-fluid">
              <div class="row">
-              
                  <%@ include file="html/carousel.html" %>
-                 
                  <jsp:include page="card.jsp"></jsp:include>
-           
-            
             <p/>
-                              
-  
                  <p/>
                  <!--%@ include file="html/post.html" %-->
-                 
                  <p/>
-                                
-      
           <div id="wal">
             <!--%@ include file="html/comments.html" %-->
+          <jsp:include page="getpost.jsp"></jsp:include>
           </div>
-                
-                
-                
-            
-             </div>
-          </div>  <!-- /# container-fluid -->
-        </div> <!-- /# page-wrapper -->
+        </div>
+       </div>  <!-- /# container-fluid -->
+      </div> <!-- /# page-wrapper -->
     </div> <!-- /#wrapper -->
     
 

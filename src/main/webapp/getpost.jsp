@@ -14,21 +14,30 @@ user.postText(user.getName(), user.getSessionId(),request.getParameter("mdata"))
 <jsp:useBean id = "userposts" class = "p1.UserPosts" scope = "session"></jsp:useBean>
 <jsp:useBean id = "user" class = "p1.User" scope = "session"></jsp:useBean>
 
+<%
 
+ for(Long postid : userposts.posts.keySet()){
+ Post post =  userposts.getPosts(postid);
+ request.setAttribute("postid", post.getId());
+   request.setAttribute("post", post.getPost());
+   request.setAttribute("postman", user.getName());
+     request.setAttribute("imageid", post.getImageid());
 
-    <c:forEach var="post" items="${userposts.posts}">
-       
-        <jsp:include page="post.jsp">
-     
-        <jsp:param name="post" value="${post.post}"/>
+%>
  
-        <jsp:param name="id" value="${post.id}"/>
+  <jsp:include page="post.jsp">
+     
+         <jsp:param name="post" value="${requestScope.post}"/>
+        <jsp:param name="id" value="${requestScope.postid}"/>
+        <jsp:param name="postman" value="${requestScope.postman}"/>
+        <jsp:param name="imageid" value="${requestScope.imageid}"/>
  
     </jsp:include>
-    
-		
-	</c:forEach>
-    
+ 
+ 
+ <%}%>
+
+     
   
     
 

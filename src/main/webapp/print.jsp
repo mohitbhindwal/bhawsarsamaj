@@ -5,7 +5,7 @@
     Enumeration headerNames = request.getParameterNames(); 
 while(headerNames.hasMoreElements()) { 
     String paramName = (String)headerNames.nextElement(); 
-    String paramValue = request.getHeader(paramName); 
+    String paramValue = request.getParameter(paramName); 
     System.out.println(paramName+"["+paramValue+"]");
 } 
 System.out.println("-----------------------------------------------");

@@ -22,6 +22,15 @@ public class Post {
     Long id ;
     String post ;
 
+    public Long getImageid() {
+        return imageid;
+    }
+
+    public void setImageid(Long imageid) {
+        this.imageid = imageid;
+    }
+    Long imageid ;
+
     public Post() {
     }
     

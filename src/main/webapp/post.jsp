@@ -1,69 +1,5 @@
-<!--link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"-->
+<!--Post start-->
 
-
-
-<link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css">
-
-
-
-
-
-
-
-<script>
-    
-      $('#<%= request.getParameter("id")%>').click(function(evt){
-      evt.preventDefault();
-      alert(evt.target.id);
-      postcomment(evt);
-   });
-   
-   
-   
-   
-   function postcomment(evt){
-         alert('postcomment');
-         var dataString = 'commentdata='+$('#<%= request.getParameter("id")%>_comment').val()+'&postid=<%= request.getParameter("id")%>' ;
-         if(evt!==null)
-             evt.preventDefault();
-         $.ajax({
-                type: 'POST',
-                url: 'sharecomment.jsp',
-                dataType: 'html',
-                data:dataString,
-                success: function(data) {
-                alert(data);
-                $('#<%= request.getParameter("id")%>_commentlist').append(data);
-                   //    setTimeout("postdata(null)",1000000);
-                },
-                error : function(request,error){
-                   alert("Request: "+JSON.stringify(request));
-    }
-            });
-   }
-   
- 
-   
-</script>
-
-
- 
-     <script>
-                                
-                $('#like').click(function(event) {
-                    event.preventDefault();   
-                    alert( $(this).attr("name"));
-             
-                });
-           
-
-        
-
-        </script>
-    
-    
-    
- 
    
 <div class="container">
     <div class="col-sm-8">
@@ -129,7 +65,7 @@
                     <!--input class="form-control" placeholder="Add a comment" type="text"-->
                     <textarea class="form-control" id="<%= request.getParameter("id")%>_comment" placeholder="What are you doing right now?" ></textarea>
                     <span class="input-group-addon">
-                        <a href="sharecomment.jsp"><i id="<%= request.getParameter("id") %>" class="fa fa-edit"></i></a>  
+                        <a   href="#" > <i class="fa fa-edit" id="<%= request.getParameter("id") %>"></i></a>  
                     </span>
                 </div>
             </div>  
@@ -138,5 +74,75 @@
 </div>
                     
 
+<script>
+    
+      $('#<%= request.getParameter("id")%>').click(function(evt){
+      evt.preventDefault();
+      alert(evt.target.id);
+      postcomment<%= request.getParameter("id")%>(evt);
+   });
+   
+   
+   
+   
+   function postcomment<%= request.getParameter("id")%>(evt){
+         alert('postcomment');
+         var dataString = 'commentdata='+$('#<%= request.getParameter("id")%>_comment').val()+'&postid=<%= request.getParameter("id")%>' ;
+         if(evt!==null)
+             evt.preventDefault();
+         $.ajax({
+                type: 'POST',
+                url: 'sharecomment.jsp',
+                dataType: 'html',
+                data:dataString,
+                success: function(data) {
+                alert(data);
+                $('#<%= request.getParameter("id")%>_commentlist').append(data);
+                   //    setTimeout("postdata(null)",1000000);
+                },
+                error : function(request,error){
+                   alert("Request: "+JSON.stringify(request));
+    }
+            });
+   }
+   
+ 
+   
+</script>
 
+
+ 
+     <script>
+                                
+                $('#like').click(function(event) {
+                       if(event!==null)
+                    event.preventDefault();   
+                    alert( $(this).attr("name"));
+                    alert( $(this).text());
+                    var value1 = $(this).attr("value")
+                     var dataString = 'value='+ $(this).text()+'&postid=<%= request.getParameter("id")%>' ;
+       
+                $.ajax({
+                type: 'POST',
+                url: 'like.jsp',
+                dataType: 'html',
+                data:dataString,
+                success: function(data) {
+                alert(data);
+                    $('#like').text(data.trim());
+                },
+                error : function(request,error){
+                   alert("Request: "+JSON.stringify(request));
+    }
+            });
+                });
+           
+
+        
+
+        </script>
+    
+    
+    
+ 
  
