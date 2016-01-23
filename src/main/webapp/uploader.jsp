@@ -2,19 +2,14 @@
    
     <link href="jancy/css/jasny-bootstrap.css" rel="stylesheet" media="screen">
     <link href="jancy/css/jasny-bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="js/upload.js" rel="stylesheet">
+    
     
     <script>
        
-        
-   function callback(response)
-    {
-         postdata(evt,response);
-          // alert('callback' +response); //response data from ajax call
-    }
+ 
 
-function ShowContent(jud,callback){
-    
+function ShowContent(jud){
+    alert('ShowContent');
     var url = 'imageuploader.jsp';
     var form = $("#pimage");
     var data = new FormData(form[0]);
@@ -31,8 +26,27 @@ function ShowContent(jud,callback){
 
         processData : false,
         success     : function(data) {
-            alert('['+data+']');
-            callback(data.trim());
+            alert('[@@@'+data+']@@@@@');
+                    var dataString = 'data='+$('#postdata').val()+'&imageid='+data.trim();
+         alert('[@@@'+dataString+']@@@@@');
+         $.ajax({
+                type: 'POST',
+                url: 'sharepost.jsp',
+                dataType: 'html',
+                data:dataString,
+                success: function(data) {
+                //   alert(data);
+                     alert('[[[[['+data+']]]]]]');
+                      $('#wal').append(data);
+                   //    setTimeout("postdata(null)",1000000);
+                },
+                error : function(request,error){
+                   alert("Request: "+JSON.stringify(request));
+    }
+            });
+             removeElement('pimage');
+              removeElement('loadimage');
+             
            // return data.trim() ; 
             
           //  $('#applyPop').css('display', 'none');
@@ -75,7 +89,7 @@ function ShowContent(jud,callback){
                     <input id="file" type="file" name="file" />
                 </span>
                 <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-                <a onclick='ShowContent()' class="btn btn-default fileinput-exists" data-dismiss="fileinput">Upload</a>
+                <!--a onclick='ShowContent()' class="btn btn-default fileinput-exists" data-dismiss="fileinput">Upload</a-->
             </div>
         </div>
     </form>

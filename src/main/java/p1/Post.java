@@ -35,10 +35,10 @@ public class Post {
         this.post = post;
     }
     
-    public Long addPost(String sessionid , String posttext,Long userid) {
+    public Long addPost(String sessionid , String posttext,Long userid,Long imageid) {
        Long postid = null;
         SamajUtils utils = new SamajUtils();
-       postid = utils.postText(user.getName(), sessionid, posttext,userid);
+       postid = utils.postText(user.getName(), sessionid, posttext,userid,imageid);
        return postid;
     }
     

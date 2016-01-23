@@ -8,6 +8,14 @@
         <servlet-name>Registration</servlet-name>
         <servlet-class>p1.Registration</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SendImage</servlet-name>
+        <servlet-class>p1.SendImage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FileServlet</servlet-name>
+        <servlet-class>p1.FileServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -16,27 +24,31 @@
         <servlet-name>Registration</servlet-name>
         <url-pattern>/Registration</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendImage</servlet-name>
+        <url-pattern>/SendImage</url-pattern>
+    </servlet-mapping>
+<servlet-mapping>
+	<servlet-name>FileServlet</servlet-name>
+	<url-pattern>/images/*</url-pattern>
+</servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    
-    <context-param> 
-    <description>Location to store uploaded file</description> 
-    <param-name>file-upload</param-name> 
-    <param-value>
+    <context-param>
+        <description>Location to store uploaded file</description>
+        <param-name>file-upload</param-name>
+        <param-value>
         D:\ram\
-     </param-value> 
-</context-param>
-    
+     </param-value>
+    </context-param>
     <welcome-file-list>
-        
-         <welcome-file>login.jsp</welcome-file>
-             <welcome-file>index.jsp</welcome-file>
+        <welcome-file>login.jsp</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
         <welcome-file>registration.jsp</welcome-file>
-         <welcome-file>chat.html</welcome-file>
-   
+        <welcome-file>chat.html</welcome-file>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
 </web-app>

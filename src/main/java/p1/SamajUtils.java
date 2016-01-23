@@ -9,8 +9,11 @@ import introb.DataObject;
 import introb.DataSet;
 import introb.IntrobSession;
 import introb.SessioniUtils;
+import java.io.File;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -76,6 +79,45 @@ public class SamajUtils {
        return id ;
     }
     
+    
+    public static String displayImage(Integer imageid,String outpath){
+         
+    String sql1 = "select imgoid,imgname,imgpath from images where id = "+imageid;
+    DataSet ds =  SessioniUtils.query(sql1);
+    Long date  = System.currentTimeMillis();
+    if(ds!=null&&ds.size()>0){
+           System.out.println("p1.SamajUtils.displayImage()"+ds);
+           new File(outpath +    date.toString() ).mkdir();
+           
+           
+        outpath = outpath +    date.toString() + "/"+ ds.get(0).get("imgname");
+    String sql2 = "select lo_export("+ds.get(0).get("imgoid")+",'"+outpath+"')";
+        System.out.println("p1.SamajUtils.displayImage()"+sql2);
+        
+    DataSet ds1 =  SessioniUtils.query(sql2);
+        
+     //   outpath = date.toString() + "/"+ ds.get(0).get("imgname");
+        
+        
+            
+        
+    }else{
+    
+        System.out.println("p1.SamajUtils.displayImage() no image to display");
+    }
+    
+    
+    return outpath ;
+    }
+    
+    
+    public static void addLike(Long userid){
+    
+    
+    
+    
+    }
+    
     public static Integer insertImage(String path, String imgname, String imgpath, String username) {
         System.out.println("p1.SamajUtils.insertImage()");
         Integer id = null;
@@ -108,7 +150,7 @@ public class SamajUtils {
 
     
     
-        public Long postText(String username , String sessionid , String post,Long userid){
+        public Long postText(String username , String sessionid , String post,Long userid,Long imageid){
             System.out.println("Post Text of SamajUtils");
         Long id = new Long(0);
         IntrobSession session = new IntrobSession(username);
@@ -120,6 +162,8 @@ public class SamajUtils {
             DataObject dataObj = new DataObject();
             dataObj.set("username", username);
             dataObj.set("sessionid", sessionid);
+            if(imageid!=null)
+            dataObj.set("imageid",imageid);
             dataObj.set("post", post);
             dataObj.set("userid", userid);
             System.out.println("Before"+dataObj);

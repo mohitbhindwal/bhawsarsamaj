@@ -3,12 +3,22 @@
 
 
 <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css">
+
+
+
+
+
+
+
 <script>
+    
       $('#<%= request.getParameter("id")%>').click(function(evt){
       evt.preventDefault();
       alert(evt.target.id);
       postcomment(evt);
    });
+   
+   
    
    
    function postcomment(evt){
@@ -35,6 +45,25 @@
  
    
 </script>
+
+
+ 
+     <script>
+                                
+                $('#like').click(function(event) {
+                    event.preventDefault();   
+                    alert( $(this).attr("name"));
+             
+                });
+           
+
+        
+
+        </script>
+    
+    
+    
+ 
    
 <div class="container">
     <div class="col-sm-8">
@@ -73,15 +102,19 @@
                 <p><%= request.getParameter("post") %></p>
                 
 
+                <%if(request.getParameter("imageid")!=null&&request.getParameter("imageid").length()>0){%>
                 <div class="row">
-                    <div class="col-xs-6 col-md-6">
-                    <img src="img/test1.jpg"/></div>
-                </div>
-
+                    <div class="col-xs-6 col-md-6" style="margin: 0px;padding: 0px">
+                     <jsp:include page="displayimage.jsp">
+                    <jsp:param name="imageid" value="${requestScope.imageid}" />
+                    </jsp:include>
+                    </div>
+                </div> 
+               <%}%>
                 
                 
                 <div class="stats">
-                    <a href="#" class="btn btn-default stat-item"><i class="fa fa-thumbs-up icon"></i>250</a>
+                    <a id="like" name ="<%= request.getParameter("id") %>" href="#" class="btn btn-default stat-item"><i class="fa fa-thumbs-up icon"></i>250</a>
                     <a href="#" class="btn btn-default stat-item"><i class="fa fa-share icon"></i>12</a>
                 </div>
             </div>

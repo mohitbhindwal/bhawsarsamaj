@@ -11,7 +11,7 @@ $(document).ready(function(){
 
   
  $("#upload").click(function(event) {
-    alert("uploadImage() of post.js  will call the uploader.jsp");  
+  //  alert("uploadImage() of post.js  will call the uploader.jsp");  
     uploadImage(event);
 });
  
@@ -51,20 +51,22 @@ function uploadImage(evt) {
 });
    
    function postdata(evt,imageid){
-       alert('postdata() of post.js is called when share button is clicked');
+    //   alert('postdata() of post.js is called when share button is clicked');
         
       // if image is to be uploaded
+      
+        if(evt!==null)
+             evt.preventDefault();
         
        if (!$('#loadimage').is(':empty')){
-        imageid = ShowContent(evt,callback);
-         return ;
+        imageid = ShowContent(evt);
+         return true;
          }
         
-         alert('return call imageid '+imageid);
+       //  alert('return call imageid '+imageid);
        
              var dataString = 'data='+$('#postdata').val() ;
-         if(evt!==null)
-             evt.preventDefault();
+       
          $.ajax({
                 type: 'POST',
                 url: 'sharepost.jsp',
