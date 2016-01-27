@@ -35,7 +35,12 @@
       <div class="tab-content">
         <div class="tab-pane fade in active" id="tab1">
           <h3>This is tab 1</h3>
+          
           <jsp:include page="share.jsp"></jsp:include>
+          <div id="wal">
+          <jsp:include page="getpost.jsp"></jsp:include>
+          </div>
+          
         </div>
         <div class="tab-pane fade in" id="tab2">
           <h3>This is tab 2</h3>

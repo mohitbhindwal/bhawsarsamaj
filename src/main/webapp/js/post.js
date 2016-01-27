@@ -73,9 +73,10 @@ function uploadImage(evt) {
                 dataType: 'html',
                 data:dataString,
                 success: function(data) {
-                //   alert(data);
+                    alert(data);
                     
-                      $('#wal').append(data);
+                      $('#wal').prepend(data);
+                       $('#postdata').val('');
                    //    setTimeout("postdata(null)",1000000);
                 },
                 error : function(request,error){
@@ -86,4 +87,29 @@ function uploadImage(evt) {
  
 
 
-
+  function anchorClicked(evt,id){
+      
+      alert('anchorClicked'+id);
+        var dataString = 'commentdata='+ document.getElementById(id+'_comment').value+'&postid='+id;
+      alert('dataString'+dataString);
+       //var dataString = 'commentdata='+$('#<%= request.getParameter("id")%>_comment').val()+'&postid=<%= request.getParameter("id")%>' ;
+       
+         $.ajax({
+                type: 'POST',
+                url: 'sharecomment.jsp',
+                dataType: 'html',
+                data:dataString,
+                success: function(data) {
+                alert(data);
+                
+                //document.getElementById(id+'_commentlist').appendChild(data);
+                 $('#'+id+'_commentlist').append(data);
+                  $('#'+id+'_comment').val('');
+              //  $('#_commentlist').append(data);
+                   //    setTimeout("postdata(null)",1000000);
+                },
+                error : function(request,error){
+                   alert("Request: "+JSON.stringify(request));
+    }
+            });
+  }

@@ -19,9 +19,10 @@ user.postText(user.getName(), user.getSessionId(),request.getParameter("mdata"))
  for(Long postid : userposts.posts.keySet()){
  Post post =  userposts.getPosts(postid);
  request.setAttribute("postid", post.getId());
-   request.setAttribute("post", post.getPost());
-   request.setAttribute("postman", user.getName());
-     request.setAttribute("imageid", post.getImageid());
+ request.setAttribute("post", post.getPost());
+ request.setAttribute("postman", user.getName());
+ request.setAttribute("imageid", post.getImageid());
+ request.setAttribute("comments", post.addAllDBComments());
 
 %>
  

@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -113,10 +114,32 @@ public class SamajUtils {
     return outpath ;
     }
     
+    public static  LinkedHashMap<Long, Comments> getALLCommentsOfPost(Long postid) {
+        LinkedHashMap<Long, Comments> comments = new LinkedHashMap<Long, Comments>();
+
+        String sql = "select id,postid,username,userid,fdatetime,comment from comment where postid = " + postid + " order by fdatetime";
+        DataSet ds = SessioniUtils.query(sql);
+        if (ds != null && ds.size() > 0) 
+            for (int i = 0; i < ds.size(); i++) {
+                DataObject dob = ds.get(i);
+                Comments comment = new Comments();
+                comment.setCommentText(dob.get("comment").toString());
+                comment.setId(Long.valueOf(dob.get("id").toString()));
+                comment.setPostid(Long.valueOf(dob.get("postid").toString()));
+                comment.setUsername(dob.get("username").toString());
+                comment.setUserid(Long.valueOf(dob.get("userid").toString()));
+                comments.put(Long.valueOf(dob.get("id").toString()), comment);
+            }
+          return comments;
+        }
+
+
     
+    
+    
+    
+ 
     public static void addLike(Long userid){
-    
-    
     
     
     }

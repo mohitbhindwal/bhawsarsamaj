@@ -1,6 +1,5 @@
-<!--Post start-->
-
-   
+<%@page import="p1.Comments"%>
+<%@page import="java.util.LinkedHashMap"%>
 <div class="container">
     <div class="col-sm-8">
         <div class="panel panel-primary post panel-shadow">
@@ -14,25 +13,41 @@
                     </div>
                     <h6 class="text-muted time">1 minute ago</h6>
                 </div>
-               <div class="pull-right">
-                                <div class="btn-group">
-                                    <button aria-expanded="false" type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                                        Actions
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu pull-right" role="menu">
-                                        <li><a href="#">Action</a>
-                                        </li>
-                                        <li><a href="#">Another action</a>
-                                        </li>
-                                        <li><a href="#">Something else here</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li><a href="#">Separated link</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                     <div class="btn-group pull-right">
+                                <button aria-expanded="false" type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-chevron-down"></i>
+                                </button>
+                                <ul class="dropdown-menu slidedown">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-refresh fa-fw"></i> Refresh
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-check-circle fa-fw"></i> Available
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-times fa-fw"></i> Busy
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-clock-o fa-fw"></i> Away
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-sign-out fa-fw"></i> Sign Out
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
+                    
+                    
             </div> 
             <div class="post-description"> 
                 <p><%= request.getParameter("post") %></p>
@@ -57,6 +72,25 @@
             <div class="post-footer">
                 <ul id="<%= request.getParameter("id")%>_commentlist" class="comments-list">
                   
+                    <%
+                    
+                      LinkedHashMap<Long,Comments> map =(LinkedHashMap<Long,Comments>)request.getAttribute("comments");
+                      System.out.print(map);
+                      for(Long id : map.keySet()){
+                      Comments comment =  map.get(id);
+                    request.setAttribute("commentid",comment.getId());
+                    request.setAttribute("commenttext",comment.getCommentText());
+                    
+                    %>
+                      <jsp:include page="comment.jsp">
+                          <jsp:param name="commentid" value="${commentid}"/>                          
+                            <jsp:param name="commenttext" value="${commenttext}"/>   
+                      </jsp:include>
+                      <%}%>
+                    
+                    
+                    
+                    
                     
                     
                 </ul>
@@ -65,7 +99,7 @@
                     <!--input class="form-control" placeholder="Add a comment" type="text"-->
                     <textarea class="form-control" id="<%= request.getParameter("id")%>_comment" placeholder="What are you doing right now?" ></textarea>
                     <span class="input-group-addon">
-                        <a   href="#" > <i class="fa fa-edit" id="<%= request.getParameter("id") %>"></i></a>  
+                        <a id="<%= request.getParameter("id") %>"  href="javascript:void(0);" onclick="anchorClicked(this,<%= request.getParameter("id") %>)"> <i class="fa fa-edit" ></i></a>  
                     </span>
                 </div>
             </div>  
@@ -73,76 +107,3 @@
     </div>
 </div>
                     
-
-<script>
-    
-      $('#<%= request.getParameter("id")%>').click(function(evt){
-      evt.preventDefault();
-      alert(evt.target.id);
-      postcomment<%= request.getParameter("id")%>(evt);
-   });
-   
-   
-   
-   
-   function postcomment<%= request.getParameter("id")%>(evt){
-         alert('postcomment');
-         var dataString = 'commentdata='+$('#<%= request.getParameter("id")%>_comment').val()+'&postid=<%= request.getParameter("id")%>' ;
-         if(evt!==null)
-             evt.preventDefault();
-         $.ajax({
-                type: 'POST',
-                url: 'sharecomment.jsp',
-                dataType: 'html',
-                data:dataString,
-                success: function(data) {
-                alert(data);
-                $('#<%= request.getParameter("id")%>_commentlist').append(data);
-                   //    setTimeout("postdata(null)",1000000);
-                },
-                error : function(request,error){
-                   alert("Request: "+JSON.stringify(request));
-    }
-            });
-   }
-   
- 
-   
-</script>
-
-
- 
-     <script>
-                                
-                $('#like').click(function(event) {
-                       if(event!==null)
-                    event.preventDefault();   
-                    alert( $(this).attr("name"));
-                    alert( $(this).text());
-                    var value1 = $(this).attr("value")
-                     var dataString = 'value='+ $(this).text()+'&postid=<%= request.getParameter("id")%>' ;
-       
-                $.ajax({
-                type: 'POST',
-                url: 'like.jsp',
-                dataType: 'html',
-                data:dataString,
-                success: function(data) {
-                alert(data);
-                    $('#like').text(data.trim());
-                },
-                error : function(request,error){
-                   alert("Request: "+JSON.stringify(request));
-    }
-            });
-                });
-           
-
-        
-
-        </script>
-    
-    
-    
- 
- 

@@ -1,4 +1,4 @@
-  
+     <!-- Image Upolder.jsp-->
    
     <link href="jancy/css/jasny-bootstrap.css" rel="stylesheet" media="screen">
     <link href="jancy/css/jasny-bootstrap.min.css" rel="stylesheet" media="screen">
@@ -23,7 +23,6 @@ function ShowContent(jud){
         enctype     : "multipart/form-data",
         cache       : false,
         contentType : false,
-
         processData : false,
         success     : function(data) {
             alert('[@@@'+data+']@@@@@');
@@ -37,7 +36,8 @@ function ShowContent(jud){
                 success: function(data) {
                 //   alert(data);
                      alert('[[[[['+data+']]]]]]');
-                      $('#wal').append(data);
+                      $('#wal').prepend(data);
+                        $('#postdata').val('');
                    //    setTimeout("postdata(null)",1000000);
                 },
                 error : function(request,error){

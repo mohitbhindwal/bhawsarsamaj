@@ -198,10 +198,12 @@
                  <p/>
                  <!--%@ include file="html/post.html" %-->
                  <p/>
-          <div id="wal">
-            <!--%@ include file="html/comments.html" %-->
-          <jsp:include page="getpost.jsp"></jsp:include>
-          </div>
+                 
+                 
+      
+          
+          
+          
         </div>
        </div>  <!-- /# container-fluid -->
       </div> <!-- /# page-wrapper -->

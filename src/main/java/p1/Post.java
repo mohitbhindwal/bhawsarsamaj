@@ -7,6 +7,7 @@ package p1;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  *
@@ -15,13 +16,16 @@ import java.util.HashMap;
 
 public class Post {
     
-    HashMap<Long,Comments> comments = new HashMap<Long,Comments>();
+    LinkedHashMap<Long,Comments> comments = new LinkedHashMap<Long,Comments>();
     
     
     
-    Long id ;
-    String post ;
-
+    private Long id ;
+    private String post ;
+    private Long imageid ;
+    private User user ;
+  
+  
     public Long getImageid() {
         return imageid;
     }
@@ -29,9 +33,10 @@ public class Post {
     public void setImageid(Long imageid) {
         this.imageid = imageid;
     }
-    Long imageid ;
+  
 
     public Post() {
+       
     }
     
     
@@ -53,7 +58,7 @@ public class Post {
     
     
 
-    private User user ;
+   
 
     public Comments getComments(Long commentid) {
         return comments.get(commentid);
@@ -72,6 +77,11 @@ public class Post {
         commentid = utils.postComments(commenttext,id,user.getName(),userid);
         comments.put(commentid, comment);
         return commentid;
+    }
+    
+    public   LinkedHashMap<Long,Comments> addAllDBComments(){
+    comments.putAll(SamajUtils.getALLCommentsOfPost(id));
+    return comments;
     }
     
     
