@@ -1,118 +1,52 @@
-<html>
-    <head>
-        
-        <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>bhawsar.com</title>
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    
- 
-    <link href="css/sb-admin.css" rel="stylesheet">
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    
-    
-        <style>
-            
-            
-            .btn3d {
-    transition:all .08s linear;
-    position:relative;
-    outline:medium none;
-    -moz-outline-style:none;
-    border:0px;
-    margin-right:10px;
-    margin-top:15px;
-}
-.btn3d:focus {
-    outline:medium none;
-    -moz-outline-style:none;
-}
-.btn3d:active {
-    top:9px;
-}
-.btn-default {
-    box-shadow:0 0 0 1px #ebebeb inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 8px 0 0 #adadad, 0 8px 0 1px rgba(0,0,0,0.4), 0 8px 8px 1px rgba(0,0,0,0.5);
-    background-color:#fff;
-}
-.btn-primary {
-    box-shadow:0 0 0 1px #428bca inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 8px 0 0 #357ebd, 0 8px 0 1px rgba(0,0,0,0.4), 0 8px 8px 1px rgba(0,0,0,0.5);
-    background-color:#428bca;
-}
- .btn-success {
-    box-shadow:0 0 0 1px #5cb85c inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 8px 0 0 #4cae4c, 0 8px 0 1px rgba(0,0,0,0.4), 0 8px 8px 1px rgba(0,0,0,0.5);
-    background-color:#5cb85c;
-}
- .btn-info {
-    box-shadow:0 0 0 1px #5bc0de inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 8px 0 0 #46b8da, 0 8px 0 1px rgba(0,0,0,0.4), 0 8px 8px 1px rgba(0,0,0,0.5);
-    background-color:#5bc0de;
-}
-.btn-warning {
-    box-shadow:0 0 0 1px #f0ad4e inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 8px 0 0 #eea236, 0 8px 0 1px rgba(0,0,0,0.4), 0 8px 8px 1px rgba(0,0,0,0.5);
-    background-color:#f0ad4e;
-}
-.btn-danger {
-    box-shadow:0 0 0 1px #c63702 inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 8px 0 0 #C24032, 0 8px 0 1px rgba(0,0,0,0.4), 0 8px 8px 1px rgba(0,0,0,0.5);
-    background-color:#c63702;
-}
 
-            
-            
-            
-        </style>
-        
-        
-        
-    </head>
-    <body>
+<html>
+<head>
+<meta charset="utf-8">
+<title>example</title>
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="white">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<head>
+
+<body>
+
 <div class="container">
-	<div class="row">
-		<h2>CSS3 3D Button Effects</h2>
-        <!-- Standard button -->
-        <button type="button" class="btn3d btn btn-default btn-lg"><span class="glyphicon glyphicon-download-alt"></span> Default</button>
-        
-        <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-        <button type="button" class="btn btn-primary btn-lg btn3d"><span class="glyphicon glyphicon-cloud"></span> Primary</button>
-        
-        <!-- Indicates a successful or positive action -->
-        <button type="button" class="btn btn-success btn-lg btn3d"><span class="glyphicon glyphicon-ok"></span> Success</button>
-        
-        <!-- Contextual button for informational alert messages -->
-        <button type="button" class="btn btn-info btn-lg btn3d"><span class="glyphicon glyphicon-question-sign"></span> Info</button>
-        
-        <!-- Indicates caution should be taken with this action -->
-        <button type="button" class="btn btn-warning btn-lg btn3d"><span class="glyphicon glyphicon-warning-sign"></span> Warning</button>
-        
-        <!-- Indicates a dangerous or potentially negative action -->
-        <button type="button" class="btn btn-danger btn-lg btn3d"><span class="glyphicon glyphicon-remove"></span> Danger</button>
-        
-        <!-- Deemphasize a button by making it look like a link while maintaining button behavior -->
-        <a href="http://www.jquery2dotnet.com/" class="btn btn-link btn-lg btn3d" role="button"><span class="glyphicon glyphicon-globe"></span> Link</a>
-        
-        <p>
-          <button type="button" class="btn btn-primary btn-lg btn3d"><span class="glyphicon glyphicon-thumbs-down"></span></button>
-          <button type="button" class="btn btn-danger btn-lg btn3d"><span class="glyphicon glyphicon-off"></span></button>
-        </p>
-        <p>
-          <button type="button" class="btn btn-primary btn-lg btn3d">Large button</button>
-          <button type="button" class="btn btn-default btn-lg btn3d">Large button</button>
-        </p>
-        <p>
-          <button type="button" class="btn btn-primary btn3d">Default button</button>
-          <button type="button" class="btn btn-default btn3d">Default button</button>
-        </p>
-        <p>
-          <button type="button" class="btn btn-primary btn-sm btn3d">Small button</button>
-          <button type="button" class="btn btn-default btn-sm btn3d">Small button</button>
-        </p>
-        <p>
-          <button type="button" class="btn btn-primary btn-xs btn3d">Extra small button</button>
-          <button type="button" class="btn btn-default btn-xs btn3d">Extra small button</button>
-        </p>
-	</div>
+
+	<h2><a href="../">Bootstrap List Filter</a></h2>
+
+	<h3>Dynamic Search Example</h3>
+
+	<form role="form">
+		<div class="form-group">
+			<input class="form-control" id="searchinput" type="search" placeholder="Search City..." />
+		</div>
+		<div id="searchlist" class="list-group">
+			<a class="list-group-item" href="http://osm.org/#map=12/-29.11761/59.65834"><span>Avellaneda</span></a>
+			<a class="list-group-item" href="http://osm.org/#map=12/-36.77698/59.85854"><span>Azul</span></a>
+			<a class="list-group-item" href="http://osm.org/#map=12/40.70583/19.95222"><span>Berat</span></a>
+			<a class="list-group-item" href="http://osm.org/#map=12/41.61028/20.00889"><span>Burrel</span></a>
+			<a class="list-group-item" href="http://osm.org/#map=12/-5.55/12.2"><span>Cabinda</span></a>
+			<a class="list-group-item" href="http://osm.org/#map=12/-13.78333/14.68333"><span>Caluquembe</span></a>
+			<!-- FILLED DYNAMICALLY -->
+		</div>
+	</form>
 </div>
-        </body>
+
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="js/bootstrap-list-filter.src.js"></script>
+<script>
+
+$('#searchlist').btsListFilter('#searchinput', {
+	sourceTmpl: '<a class="list-group-item" href="http://osm.org/#map=12/{lat}/{lon}"><span>{title}</span></a>',
+	sourceData: function(text, callback) {
+		return $.getScript('test.jsp?q='+text, function(json) {
+			callback(json);
+		});
+	}
+});
+</script>
+<script src="/labs-common.js"></script>
+</body>
 </html>

@@ -68,13 +68,13 @@ public class Post {
         comments.put(commentid, comment);
     }
     
-    public Long addComments(String commenttext,Long userid) {
+    public Long addComments(String commenttext,Long userid,String username) {
         Long commentid = new Long(0L);
         Comments comment = new Comments(this);
         comment.setCommentText(commenttext);
          SamajUtils utils = new SamajUtils();
          System.out.println("p1.Post.addComments()"+id);
-        commentid = utils.postComments(commenttext,id,user.getName(),userid);
+        commentid = utils.postComments(commenttext,id,username,userid);
         comments.put(commentid, comment);
         return commentid;
     }
