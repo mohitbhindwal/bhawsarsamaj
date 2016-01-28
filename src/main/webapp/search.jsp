@@ -1,7 +1,5 @@
 <link href="css/search.css" rel="stylesheet">
-<script>
-$('#searchlist').btsListFilter('#searchinput', {itemChild: 'span'});
-</script>
+ 
  
 	<div class="row">
 		<h2>Stylish Search Box</h2>
@@ -27,12 +25,7 @@ $('#searchlist').btsListFilter('#searchinput', {itemChild: 'span'});
 			<input class="form-control" id="searchinput" type="search" placeholder="Search City..." />
 		</div>
 		<div id="searchlist" class="list-group">
-			<a class="list-group-item" href="http://osm.org/#map=12/-29.11761/59.65834"><span>Avellaneda</span></a>
-			<a class="list-group-item" href="http://osm.org/#map=12/-36.77698/59.85854"><span>Azul</span></a>
-			<a class="list-group-item" href="http://osm.org/#map=12/40.70583/19.95222"><span>Berat</span></a>
-			<a class="list-group-item" href="http://osm.org/#map=12/41.61028/20.00889"><span>Burrel</span></a>
-			<a class="list-group-item" href="http://osm.org/#map=12/-5.55/12.2"><span>Cabinda</span></a>
-			<a class="list-group-item" href="http://osm.org/#map=12/-13.78333/14.68333"><span>Caluquembe</span></a>
+ 
 			<!-- FILLED DYNAMICALLY -->
 		</div>
 	</form>
@@ -45,12 +38,12 @@ $('#searchlist').btsListFilter('#searchinput', {itemChild: 'span'});
 <script>
 
 $('#searchlist').btsListFilter('#searchinput', {
-	sourceTmpl: '<a class="list-group-item" href="http://osm.org/#map=12/{lat}/{lon}"><span>{title}</span></a>',
+	sourceTmpl: '<a class="list-group-item" href="http://localhost:7070/bhawsarsamaj?pid=12/{id}"><span><img  style="width:50px;height:50px" src = "{title}"/></span><span><I><B>{name}<B><I></span></a>',
 	sourceData: function(text, callback) {
               alert(text);   
               callback('test');
 		return $.getJSON('test.jsp?q='+text, function(json) {
-			alert('test');
+			alert('test'+json);
                       callback(json);
 		});
 	}

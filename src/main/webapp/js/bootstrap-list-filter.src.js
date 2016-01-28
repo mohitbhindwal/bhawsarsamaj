@@ -64,7 +64,7 @@
 		}
 
 		self.reset = function() {
-			inputEl$.val('').trigger(opts.eventKey);
+			 inputEl$.val('').trigger(opts.eventKey);
 		};
 
 		if($.isFunction(opts.cancelNode)) {
