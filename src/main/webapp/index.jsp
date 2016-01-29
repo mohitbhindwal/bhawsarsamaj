@@ -11,7 +11,7 @@
     <title>bhawsar.com</title>
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/comments.css" rel="stylesheet">
+    <link href="css/comments.css" rel="stylesheet"> 
     <link href="css/post.css" rel="stylesheet">
     <link href="css/card.css" rel="stylesheet">
     <link href="css/carousel.css"rel="stylesheet">

@@ -7,6 +7,8 @@ package p1;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.SortedMap;
 
 /**
@@ -21,8 +23,8 @@ public class UserPosts {
     }
     
     
-    public HashMap<Long,Post> posts = new HashMap<Long,Post>();
-    
+    public LinkedHashMap<Long,Post> posts = new LinkedHashMap<Long,Post>();
+    public LinkedHashMap<Long,Post> friendposts = new LinkedHashMap<Long,Post>();
  //  public ArrayList<Post> posts = new ArrayList<Post>();
     
 
@@ -31,7 +33,10 @@ public class UserPosts {
     }
 
     public  Post getPosts(Long postid) {
-        return posts.get(postid);
+        Post temp =  posts.get(postid);
+        if(temp!=null)
+        return temp;
+        return friendposts.get(postid);
     }
 
     public void setPosts(Long postid,Post post ) {
@@ -48,9 +53,12 @@ public class UserPosts {
         
     }
     
-    public void loadPost(int lastNumberOfPost ){
-    SamajUtils utils = new SamajUtils();
-    posts.putAll(utils.loadPostOfUser(user, lastNumberOfPost));
+    public void loadPost(int lastNumberOfPost) {
+        SamajUtils utils = new SamajUtils();
+        posts.putAll(utils.loadPostOfUser(user, lastNumberOfPost));
+        for (Map.Entry<Long, User> entry : user.getFriends().entrySet()) {
+            friendposts.putAll(utils.loadPostOfUser(entry.getValue(), lastNumberOfPost));
+        }
     }
     
     

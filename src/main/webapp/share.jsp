@@ -16,7 +16,7 @@
                             <li><a id="upload" title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Picture"><i class="fa fa-picture-o"></i></a></li>
                                 <div id ="loadimage"></div>
                         </ul>
-                        <button name="post" id="post" class="btn btn-success green"><i class="fa fa-share"></i> Share</button>
+                        <button name="post" id="post" class="btn btn-primary"><i class="fa fa-share"></i> Share</button>
                     </form>
                 </div> 
             </div>

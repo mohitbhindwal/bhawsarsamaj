@@ -6,6 +6,14 @@ password  character varying(100),
 created_dt timestamp without time zone DEFAULT now()
 );
 
+alter table users add avtar oid ;
+alter table users add pic1 oid ;
+alter table users add pic2 oid ;
+alter table users add pic3 oid ;
+alter table users add friends text[];
+
+
+alter table users add avtar oid ;
 
 create table post (
 id serial primary key,
@@ -39,6 +47,7 @@ likeby   text[][]
 
 --insert into likes(postid,likeby) values(3,'{"mohit bhindwal","sham"}');
 --update likes set likeby = likeby || '{"mohitji bhindwal","shamji"}' 
+--update users set friends = '{{2},{3}}' where id = 1 ;
 
 CREATE TABLE images(id serial primary key , imgoid oid , imgname character varying(100), imgpath character varying(200)); 
 

@@ -20,12 +20,12 @@
             </button>
         </div>
         <div class="btn-group" role="group">
-            <button type="button" id="favorites" class="btn btn-info" href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+            <button type="button" id="favorites" class="btn btn-primary" href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                 <div class="hidden-xs">Posts</div>
             </button>
         </div>
         <div class="btn-group" role="group">
-            <button type="button" id="following" class="btn btn-warning" href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            <button type="button" id="following" class="btn btn-primary" href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                 <div class="hidden-xs">Search</div>
             </button>
         </div>
@@ -43,10 +43,11 @@
           
         </div>
         <div class="tab-pane fade in" id="tab2">
-          <h3>This is tab 2</h3>
+         <div id="wal2">
+         <jsp:include page="getfriendspost.jsp"></jsp:include>
+          </div>
         </div>
         <div class="tab-pane fade in" id="tab3">
-          <h3>This is tab 3ddddddddddddd</h3>
         <jsp:include page="search.jsp" />
         </div>
       </div>

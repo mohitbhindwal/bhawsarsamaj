@@ -5,7 +5,7 @@
     
     <div class="comment-body">
         <div class="comment-heading">
-            <h4 class="user">Gavino Free</h4>
+            <h4 class="user"><a style="color: black"> ${param.username}</a> </h4>
             <h5 class="time">5 minutes ago</h5>
         </div>
         <p>${commenttext}</p>

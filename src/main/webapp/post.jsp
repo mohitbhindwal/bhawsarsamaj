@@ -76,17 +76,22 @@
                     
                       LinkedHashMap<Long,Comments> map =(LinkedHashMap<Long,Comments>)request.getAttribute("comments");
                       System.out.print(map);
+                      if(map!=null&&map.size()>0)
                       for(Long id : map.keySet()){
                       Comments comment =  map.get(id);
                     request.setAttribute("commentid",comment.getId());
                     request.setAttribute("commenttext",comment.getCommentText());
+                    request.setAttribute("username",comment.getUsername());
+                    request.setAttribute("userid",comment.getUserid());
                     
                     %>
-                      <jsp:include page="comment.jsp">
-                          <jsp:param name="commentid" value="${commentid}"/>                          
-                            <jsp:param name="commenttext" value="${commenttext}"/>   
-                      </jsp:include>
-                      <%}%>
+                    <jsp:include page="comment.jsp">
+                        <jsp:param name="commentid" value="${commentid}"/>                          
+                        <jsp:param name="commenttext" value="${commenttext}"/>
+                        <jsp:param name="username" value="${username}"/>   
+                        <jsp:param name="userid" value="${userid}"/>
+                    </jsp:include>
+                    <%}%>
                     
                     
                     

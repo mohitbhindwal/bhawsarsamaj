@@ -28,18 +28,18 @@ public class SamajUtils {
     
     public HashMap<Long,Post> loadPostOfUser(User user ,int noOfPost){
         HashMap<Long,Post> posts = new HashMap<Long,Post>();
-       
-         String sql = "select post,id,imageid from post where username = '"+user.getName()+"' order by id desc limit "+noOfPost;
+         String sql = "select id,post,imageid,username,userid from post where username = '"+user.getName()+"' order by id desc limit "+noOfPost;
          IntrobSession session = new IntrobSession(user.getName());
-         
          try{
              session.open();
              DataSet ds = session.query(sql);
              System.out.println("ds loadPostOfUser==>"+ds);
              for(int i = 0 ;i<ds.size();i++){
              Post post = new Post(user);
-             post.setPost(ds.get(i).get("post").toString());
              post.setId(Long.valueOf(ds.get(i).get("id").toString()));
+             post.setPost(ds.get(i).get("post").toString());
+             post.setUsername(ds.get(i).get("username").toString());
+             post.setUserid(Integer.valueOf(ds.get(i).get("userid").toString()));
              Object imageids = ds.get(i).get("imageid");
              if(imageids!=null)
              post.setImageid(Long.valueOf(imageids.toString()));

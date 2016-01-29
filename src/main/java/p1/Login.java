@@ -31,6 +31,7 @@ public class Login extends HttpServlet {
                      if(user!=null){                  // login
                          HttpSession session=request.getSession();  
                          user.setSessionId(session.getId());
+                         user.loadFriendsOFUser();
                          session.setAttribute("user",user);
                          UserPosts userposts = new UserPosts(user);
                          userposts.loadPost(15);
