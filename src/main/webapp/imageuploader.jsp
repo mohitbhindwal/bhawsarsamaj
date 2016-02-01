@@ -5,6 +5,7 @@
 <%@ page import="org.apache.commons.fileupload.disk.*" %>
 <%@ page import="org.apache.commons.fileupload.servlet.*" %>
 <%@ page import="org.apache.commons.io.output.*" %>
+<jsp:include page="print.jsp"/>
 <%
    File file ;
    int maxFileSize = 5000 * 1024;
@@ -61,6 +62,6 @@
          System.out.println(ex);
       }
    }else{
-      
+      new RuntimeException("klklkl");
    }
 %>

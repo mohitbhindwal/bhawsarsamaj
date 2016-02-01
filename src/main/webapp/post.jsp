@@ -1,7 +1,7 @@
 <%@page import="p1.Comments"%>
 <%@page import="java.util.LinkedHashMap"%>
-<div class="container">
-    <div class="col-sm-8">
+<div class="row">
+   <div class="col-sm-8">
         <div class="panel panel-primary post panel-shadow">
             <div class="post-heading">
                 <div class="pull-left image">

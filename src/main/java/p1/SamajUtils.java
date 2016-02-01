@@ -133,8 +133,25 @@ public class SamajUtils {
           return comments;
         }
 
-
-    
+//{"title":"/bhawsarsamaj/images/D:/ramout/test.jpg","id":1213123123,"name":"222 bhindwal"}
+    public static String getJSON(String searchby){
+    StringBuffer json = new StringBuffer("");
+    DataSet ds = SessioniUtils.query("select id,name,avtar from users where name ilike '%"+searchby+"%'");
+    if(ds!=null&&ds.size()>0){
+        json.append("[");
+        for (int i = 0; i< ds.size(); i++) {
+            DataObject dob=ds.get(i);
+            String outpath = SamajUtils.displayImage(Integer.parseInt(dob.get("avtar").toString()),"D:/ramout/");
+            json.append("{\"title\":\"/bhawsarsamaj/images/"+outpath+"\",");
+            json.append("\"id\":"+Integer.parseInt(dob.get("id").toString())+",");
+            json.append("\"name\":\""+dob.get("name").toString()+"\"}");
+        }
+      json.append("]");
+        System.out.println("p1.SamajUtils.getJSON()"+json.toString());
+    }
+    System.out.println("p1.SamajUtils.getJSON()######"+json.toString());
+    return json.toString() ;
+ }
     
     
     
@@ -182,7 +199,7 @@ public class SamajUtils {
         IntrobSession session = new IntrobSession(username);
          
         try {
-        //    SessioniUtils.executeUpdate(sql);
+          //SessioniUtils.executeUpdate(sql);
         
               session.open();
             DataObject dataObj = new DataObject();

@@ -16,6 +16,7 @@
     <link href="css/card.css" rel="stylesheet">
     <link href="css/carousel.css"rel="stylesheet">
     <link href="css/sb-admin.css" rel="stylesheet">
+    <!--link href="css/sb-admin-rtl.css" rel="stylesheet"-->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
  
     

@@ -2,7 +2,7 @@
    
     <link href="jancy/css/jasny-bootstrap.css" rel="stylesheet" media="screen">
     <link href="jancy/css/jasny-bootstrap.min.css" rel="stylesheet" media="screen">
-    
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
     <script>
        
@@ -68,6 +68,73 @@ function ShowContent(jud){
         var element = document.getElementById(elementId);
         element.parentNode.removeChild(element);
     }
+    
+    
+    
+    
+    
+    
+function uploadfromdiv(userid,name){
+    alert('uploadfromdiv of uploader.jsp'+userid+'     '+name);
+    var url = 'imageuploader.jsp';
+    var form = $("#"+name+"_form" );
+    var data = new FormData(form[0]);
+
+    $.ajax({
+        type        : 'post',
+        dataType    : 'html',
+        url         : url,
+         async: true, 
+        data        : data,
+        enctype     : "multipart/form-data",
+        cache       : false,
+        contentType : false,
+        processData : false,
+        success     : function(data) {
+            alert('[@@@'+data+']@@@@@');
+                    var dataString =  'imageid='+data.trim()+"&userid="+userid+"&divname="+name;
+         alert('[@@@'+dataString+']@@@@@');
+         
+         
+              $.ajax({
+                type: 'GET',
+                url: 'userprofileimages.jsp',
+                dataType: 'html',
+                data:dataString,
+                success: function(data) {
+                //   alert(data);
+                     alert('Pic Updated Successfuly');
+                   //    setTimeout("postdata(null)",1000000);
+                },
+                error : function(request,error){
+                   alert("Request: "+JSON.stringify(request));
+    }
+            });
+            
+       
+             removeElement(''+name+'');
+         
+             
+           // return data.trim() ; 
+            
+          //  $('#applyPop').css('display', 'none');
+        },
+        complete : function(data) {
+          
+        },
+        error : function(data, status, error) {
+            alert('Fail! :<');
+        
+           
+                removeElement(name);
+        }
+    });
+}
+
+    
+    
+    
+    
  
  
     </script>
@@ -78,12 +145,13 @@ function ShowContent(jud){
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/ html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
-  
+   <c:if test="${param.divname == null}">
     <form action="imageuploader.jsp" id="pimage" method="post"  enctype="multipart/form-data">
         <div class="fileinput fileinput-new" data-provides="fileinput">
             <div id="imagepic" class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
             <div>
                     <span class="btn btn-default btn-file">
+                        
                     <span class="fileinput-new">Select image</span>
                     <span class="fileinput-exists">Change</span>
                     <input id="file" type="file" name="file" />
@@ -93,6 +161,37 @@ function ShowContent(jud){
             </div>
         </div>
     </form>
+     </c:if>
+    
+    <c:if test="${param.divname != null}">
+        <form action="imageuploader.jsp" id="${param.divname}_form" method="post"  enctype="multipart/form-data">
+        <div class="fileinput fileinput-new" data-provides="fileinput">
+            <div id="imagepic" class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+            <div>
+                    <span class="btn btn-default btn-file">
+                        
+                    <span class="fileinput-new">Select image</span>
+                    <span class="fileinput-exists">Change</span>
+                    <input id="file" type="file" name="file" />
+                    <input type="hidden" name="test" value="asdad"/>
+                </span>
+                <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                <a onclick='uploadfromdiv("${param.userid}","${param.divname}")' class="btn btn-default fileinput-exists" data-dismiss="fileinput">Upload</a>
+                <!--a onclick='ShowContent()' class="btn btn-default fileinput-exists" data-dismiss="fileinput">Upload</a-->
+            </div>
+        </div>
+    </form>
+   </c:if>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
         
     <script src="jancy/js/jasny-bootstrap.min.js"></script>

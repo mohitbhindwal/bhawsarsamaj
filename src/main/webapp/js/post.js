@@ -92,7 +92,7 @@ function uploadImage(evt) {
       alert('anchorClicked'+id);
         var dataString = 'commentdata='+ document.getElementById(id+'_comment').value+'&postid='+id;
       alert('dataString'+dataString);
-       //var dataString = 'commentdata='+$('#<%= request.getParameter("id")%>_comment').val()+'&postid=<%= request.getParameter("id")%>' ;
+      //var dataString = 'commentdata='+$('#<%= request.getParameter("id")%>_comment').val()+'&postid=<%= request.getParameter("id")%>' ;
        
          $.ajax({
                 type: 'POST',
@@ -113,3 +113,5 @@ function uploadImage(evt) {
     }
             });
   }
+  
+ 

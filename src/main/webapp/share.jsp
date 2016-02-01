@@ -8,7 +8,7 @@
             <div class="widget-area no-padding blank">
                 <div class="status-upload">
                     <form>
-                        <textarea id="postdata" placeholder="What are you doing right now?" style="border-width: 1px;border-color: green"></textarea>
+                        <textarea id="postdata" placeholder="What are you doing right now?" style="border-width: 1px;border-color: #337AB7"></textarea>
                         <ul id = "uploaddiv">
                             <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Audio"><i class="fa fa-music"></i></a></li>
                             <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Video"><i class="fa fa-video-camera"></i></a></li>

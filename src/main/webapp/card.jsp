@@ -37,7 +37,7 @@
           <h3>This is tab 1</h3>
           
           <jsp:include page="share.jsp"></jsp:include>
-          <div id="wal">
+          <div id="wal" class="container-fluid">
           <jsp:include page="getpost.jsp"></jsp:include>
           </div>
           
@@ -48,7 +48,9 @@
           </div>
         </div>
         <div class="tab-pane fade in" id="tab3">
-        <jsp:include page="search.jsp" />
+        <jsp:include page="tabs.jsp" />
+       
+       
         </div>
       </div>
     </div>

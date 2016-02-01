@@ -53,8 +53,8 @@ response.setDateHeader("Expires",-1);
                 <input type="text" placeholder="Username" name="Username" />
                 <input type="password" placeholder="Password" name="Password" />
                 <label id="output"><%= request.getAttribute("error")==null?"":request.getAttribute("error")%></label>
-                <input type="submit" value="Sign In" class="btn btn-success btn-sm" id="callme"/>
-                <input type="submit" value="Registration" class="btn btn-success btn-sm" />
+                <input type="submit" value="Sign In" class="btn btn-primary btn-sm" id="callme"/>
+                <input type="submit" value="Registration" class="btn btn-primary btn-sm" />
                 <div class="remember-forgot">
                     <div class="row">
                         <div class="col-md-6">

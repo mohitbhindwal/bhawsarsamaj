@@ -1,5 +1,23 @@
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <%@page import="p1.SamajUtils" %>
+ 
+ 
+<c:if test="${param.q != null}">
 
-	<form role="form">
+<% 
+    String json = SamajUtils.getJSON(request.getParameter("q")); 
+    out.print(json);
+
+%>
+
+
+</c:if>
+
+ 
+<c:if test="${param.q == null}">
+
+
+<form role="form">
 		<div class="form-group">
 			<input class="form-control" id="searchinput" type="search" placeholder="Search Bhawsar..." />
 		</div>
@@ -8,8 +26,6 @@
 			<!-- FILLED DYNAMICALLY -->
 		</div>
 	</form>
-        
-        
   
 <script src="js/jquery-2.0.3.js"></script>
 <script src="js/bootstrap-list-filter.min.js"></script>
@@ -21,10 +37,14 @@ $('#searchlist').btsListFilter('#searchinput', {
 	sourceData: function(text, callback) {
               alert(text);   
               callback('test');
-		return $.getJSON('test.jsp?q='+text, function(json) {
+		return $.getJSON('search.jsp?q='+text, function(json) {
 			alert('test'+json);
                       callback(json);
 		});
 	}
 });
 </script>
+
+</c:if>
+
+ 
