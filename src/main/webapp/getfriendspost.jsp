@@ -5,6 +5,7 @@
 
 <jsp:useBean id = "userposts" class = "p1.UserPosts" scope = "session"></jsp:useBean>
 <%
+    
  for(Long postid : userposts.friendposts.keySet()){
  Post post =  userposts.friendposts.get(postid);
  request.setAttribute("postid", post.getId());
@@ -12,6 +13,7 @@
  request.setAttribute("postman", post.getUsername());
  request.setAttribute("imageid", post.getImageid());
  request.setAttribute("comments", post.addAllDBComments());
+ request.setAttribute("avtarsrc", post.getAvtarsrc());
 
 %>
  

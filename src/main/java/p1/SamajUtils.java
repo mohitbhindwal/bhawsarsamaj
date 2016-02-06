@@ -84,6 +84,13 @@ public class SamajUtils {
     }
     
     
+    
+    public static String getImagesrcfromID(Integer id){
+        String outsrc = "/bhawsarsamaj/images/"+displayImage(id, "D:/ramout/");
+        System.out.println("p1.SamajUtils.getImagesrcfromID()"+outsrc);
+         return outsrc;
+    }
+    
     public static String displayImage(Integer imageid,String outpath){
          
     String sql1 = "select imgoid,imgname,imgpath from images where id = "+imageid;
@@ -91,10 +98,10 @@ public class SamajUtils {
     Long date  = System.currentTimeMillis();
     if(ds!=null&&ds.size()>0){
            System.out.println("p1.SamajUtils.displayImage()"+ds);
-           new File(outpath +    date.toString() ).mkdir();
+          // new File(outpath +    date.toString() ).mkdir();
            
            
-        outpath = outpath +    date.toString() + "/"+ ds.get(0).get("imgname");
+        outpath = outpath + "/"+ date.toString()+"_"+ds.get(0).get("imgname");
     String sql2 = "select lo_export("+ds.get(0).get("imgoid")+",'"+outpath+"')";
         System.out.println("p1.SamajUtils.displayImage()"+sql2);
         
@@ -117,7 +124,8 @@ public class SamajUtils {
     public static  LinkedHashMap<Long, Comments> getALLCommentsOfPost(Long postid) {
         LinkedHashMap<Long, Comments> comments = new LinkedHashMap<Long, Comments>();
 
-        String sql = "select id,postid,username,userid,fdatetime,comment from comment where postid = " + postid + " order by fdatetime";
+      //  String sql = "select id,postid,username,userid,fdatetime,comment from comment where postid = " + postid + " order by fdatetime";
+        String sql = "select c.id,c.postid,c.username,c.userid,c.fdatetime,c.comment,u.avtar from comment c , users u where postid = " + postid + " and c.userid = u.id order by fdatetime";
         DataSet ds = SessioniUtils.query(sql);
         if (ds != null && ds.size() > 0) 
             for (int i = 0; i < ds.size(); i++) {
@@ -128,6 +136,7 @@ public class SamajUtils {
                 comment.setPostid(Long.valueOf(dob.get("postid").toString()));
                 comment.setUsername(dob.get("username").toString());
                 comment.setUserid(Long.valueOf(dob.get("userid").toString()));
+                comment.setCommentoravtarID(Integer.parseInt(dob.get("avtar").toString()));
                 comments.put(Long.valueOf(dob.get("id").toString()), comment);
             }
           return comments;
@@ -135,19 +144,23 @@ public class SamajUtils {
 
 //{"title":"/bhawsarsamaj/images/D:/ramout/test.jpg","id":1213123123,"name":"222 bhindwal"}
     public static String getJSON(String searchby){
-    StringBuffer json = new StringBuffer("");
+    StringBuffer json = new StringBuffer("[]");
     DataSet ds = SessioniUtils.query("select id,name,avtar from users where name ilike '%"+searchby+"%'");
     if(ds!=null&&ds.size()>0){
+        json = new StringBuffer("");
         json.append("[");
         for (int i = 0; i< ds.size(); i++) {
             DataObject dob=ds.get(i);
-            String outpath = SamajUtils.displayImage(Integer.parseInt(dob.get("avtar").toString()),"D:/ramout/");
-            json.append("{\"title\":\"/bhawsarsamaj/images/"+outpath+"\",");
+            String title = "\"img/default_user.png\",";
+            if(dob.get("avtar")!=null){
+              String outpath = SamajUtils.displayImage(Integer.parseInt(dob.get("avtar").toString()),"D:/ramout/");
+                title = "\"/bhawsarsamaj/images/"+outpath+"\",";
+            }
+            json.append("{\"title\":"+title);
             json.append("\"id\":"+Integer.parseInt(dob.get("id").toString())+",");
-            json.append("\"name\":\""+dob.get("name").toString()+"\"}");
+            json.append("\"name\":\""+dob.get("name").toString()+"\"},");
         }
-      json.append("]");
-        System.out.println("p1.SamajUtils.getJSON()"+json.toString());
+      json = new StringBuffer(json.deleteCharAt(json.length()-1)+"]");
     }
     System.out.println("p1.SamajUtils.getJSON()######"+json.toString());
     return json.toString() ;

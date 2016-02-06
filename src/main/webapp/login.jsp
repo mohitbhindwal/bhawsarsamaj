@@ -32,10 +32,15 @@ response.setDateHeader("Expires",-1);
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    <script type="text/javascript">
+    window.history.forward();
+    function noBack() { window.history.forward(); }
+    </script>
 
 </head>
 
-<body style="margin-top: 0px">
+<body style="margin-top: 0px" onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
   <div class="container" >
     <div class="row">
         <div class="col-md-12">
@@ -47,14 +52,14 @@ response.setDateHeader("Expires",-1);
                 </div>
             </div>
             <div class="wrap">
-                <p class="form-title">Sign In</p>
+                <p class="form-title">Welcome to bhawsarsamaj.com</p>
                 
                 <form class="login" action="Login" method="post">
                 <input type="text" placeholder="Username" name="Username" />
                 <input type="password" placeholder="Password" name="Password" />
                 <label id="output"><%= request.getAttribute("error")==null?"":request.getAttribute("error")%></label>
                 <input type="submit" value="Sign In" class="btn btn-primary btn-sm" id="callme"/>
-                <input type="submit" value="Registration" class="btn btn-primary btn-sm" />
+                <!--input type="submit" value="Registration" class="btn btn-primary btn-sm" /-->
                 <div class="remember-forgot">
                     <div class="row">
                         <div class="col-md-6">

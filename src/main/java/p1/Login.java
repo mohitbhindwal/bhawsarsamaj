@@ -34,10 +34,11 @@ public class Login extends HttpServlet {
                          user.loadFriendsOFUser();
                          session.setAttribute("user",user);
                          UserPosts userposts = new UserPosts(user);
-                         userposts.loadPost(15);
+                         userposts.loadPost(15,true);
                          session.setAttribute("userposts", userposts);
+                         request.setAttribute("editmode", "true");
                           RequestDispatcher dr=request.getRequestDispatcher("index.jsp"); 
-                         dr.forward(request, response); 
+                         dr.forward(request, response);
                      }
                      else{
                      System.out.println("p1.Login.processRequest()redirect");

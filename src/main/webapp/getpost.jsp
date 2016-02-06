@@ -1,4 +1,5 @@
 
+<%@page import="java.util.Set"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="p1.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -16,14 +17,21 @@ user.postText(user.getName(), user.getSessionId(),request.getParameter("mdata"))
 
 <%
 
- for(Long postid : userposts.posts.keySet()){
+Set<Long> keyset = null;
+        
+if(!request.getAttribute("editmode").equals("true"))  
+   userposts =(p1.UserPosts)request.getAttribute("userposts") ;
+ 
+ 
+ keyset = userposts.posts.keySet();
+ for(Long postid :  keyset){
  Post post =  userposts.getPosts(postid);
  request.setAttribute("postid", post.getId());
  request.setAttribute("post", post.getPost());
- request.setAttribute("postman", user.getName());
+ request.setAttribute("postman", post.getUser().getName());
  request.setAttribute("imageid", post.getImageid());
  request.setAttribute("comments", post.addAllDBComments());
-
+ request.setAttribute("avtarsrc", post.getAvtarsrc());
 %>
  
   <jsp:include page="post.jsp">

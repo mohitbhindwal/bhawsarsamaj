@@ -30,20 +30,46 @@
 <script src="js/jquery-2.0.3.js"></script>
 <script src="js/bootstrap-list-filter.min.js"></script>
 
+
+
+
 <script>
 
 $('#searchlist').btsListFilter('#searchinput', {
-	sourceTmpl: '<a class="list-group-item" href="http://localhost:7070/bhawsarsamaj?pid=12/{id}"><span><img  style="width:50px;height:50px" src = "{title}"/></span><span><I><B>{name}<B><I></span></a>',
+	sourceTmpl: '<a class="list-group-item" onclick="getbody(this,{id});" href="javascript:void(0);" ><span><img  style="width:50px;height:50px" src = "{title}"/></span><span><I><B>{name}<B><I></span></a>',
 	sourceData: function(text, callback) {
-              alert(text);   
+             // alert(text);
               callback('test');
 		return $.getJSON('search.jsp?q='+text, function(json) {
-			alert('test'+json);
+			//alert('test'+json);
                       callback(json);
 		});
 	}
 });
+
+function getbody(evt,pid){
+
+alert(evt+'   ' + pid);
+         var dataString = 'userid='+pid;
+   $.ajax({
+        type: 'POST',
+        url: 'getbody.jsp',
+        dataType: 'html',
+        data: dataString,
+        success: function (data) {
+            alert('getbody success');
+            $('#body').html(data);
+        },
+        error: function (request, error) {
+            alert("Request: " + JSON.stringify(request));
+        }
+    });
+
+}
+
 </script>
+
+
 
 </c:if>
 

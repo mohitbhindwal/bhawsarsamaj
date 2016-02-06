@@ -29,6 +29,65 @@ public class User implements Serializable{
     private String name ;
     private String pwd ;
     private String username ;
+    private Integer avtaroid = null ;
+    private Integer pic1oid = null ;
+    private Integer pic2oid = null ;
+    private Integer pic3oid = null ;
+    private String sessionId;
+    private Long id ;
+    
+    public User(){
+    
+    }
+    
+    public User(Long id){
+    String sql = "select * from users where id = "+id;
+        DataSet ds = SessioniUtils.query(sql);
+        if(ds!=null&&ds.size()>0){
+            for(int i = 0 ;i<ds.size();i++){
+         setUsername(ds.get(0).get("username").toString());
+         setName(ds.get(0).get("name").toString());
+         setAvtaroid(Integer.parseInt(ds.get(0).get("avtar").toString()));
+         setPic1oid(Integer.parseInt(ds.get(0).get("pic1").toString()));
+         setPic2oid(Integer.parseInt(ds.get(0).get("pic2").toString()));
+         setPic3oid(Integer.parseInt(ds.get(0).get("pic3").toString()));
+        }
+    }
+}
+    public Integer getAvtaroid() {
+        return avtaroid;
+    }
+
+    public void setAvtaroid(Integer avtaroid) {
+        this.avtaroid = avtaroid;
+    }
+    
+
+    public Integer getPic1oid() {
+        return pic1oid;
+    }
+
+    public void setPic1oid(Integer pic1oid) {
+        this.pic1oid = pic1oid;
+    }
+
+    public Integer getPic2oid() {
+        return pic2oid;
+    }
+
+    public void setPic2oid(Integer pic2oid) {
+        this.pic2oid = pic2oid;
+    }
+
+    public Integer getPic3oid() {
+        return pic3oid;
+    }
+
+    public void setPic3oid(Integer pic3oid) {
+        this.pic3oid = pic3oid;
+    }
+    
+    
     private LinkedHashMap<Long,User>  friends = new LinkedHashMap<Long,User>();
 
     public LinkedHashMap<Long, User> getFriends() {
@@ -50,8 +109,7 @@ public class User implements Serializable{
     public void setId(Long id) {
         this.id = id;
     }
-    private String sessionId;
-    private Long id ;
+  
 
     public String getSessionId() {
         return sessionId;
@@ -85,9 +143,14 @@ public class User implements Serializable{
         if(ds==null||ds.size()==0)
             return null;
          user = new User();
-         user.setId(Long.valueOf(ds.get(0).get("id").toString()));
+         user.setId(Long.valueOf(ds.get(0).get("id").toString()));  
          user.setUsername(ds.get(0).get("username").toString());
          user.setName(ds.get(0).get("name").toString());
+         user.setAvtaroid(Integer.parseInt(ds.get(0).get("avtar").toString()));
+         user.setPic1oid(Integer.parseInt(ds.get(0).get("pic1").toString()));
+         user.setPic2oid(Integer.parseInt(ds.get(0).get("pic2").toString()));
+         user.setPic3oid(Integer.parseInt(ds.get(0).get("pic3").toString()));
+         
          return user ;
     }
     
@@ -121,6 +184,7 @@ public class User implements Serializable{
             user.setId(Long.valueOf(ds.get(i).get("id").toString()));
             user.setUsername(ds.get(i).get("username").toString());
             user.setName(ds.get(i).get("name").toString());
+            user.setAvtaroid(Integer.parseInt(ds.get(i).get("avtar").toString()));
             friends.put(user.getId(),user);
             }
         } 

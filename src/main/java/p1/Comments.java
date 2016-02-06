@@ -17,6 +17,17 @@ public class Comments {
     private Long postid ;
     private String username ;
     private Long userid ;
+    private Integer commentoravtarID;
+
+    public Integer getCommentoravtarID() {
+        return commentoravtarID;
+    }
+
+    public void setCommentoravtarID(Integer commentoravtarID) {
+        this.commentoravtarID = commentoravtarID;
+    }
+
+    
 
     public Long getId() {
         return id;

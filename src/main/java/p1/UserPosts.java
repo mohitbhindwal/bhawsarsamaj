@@ -53,9 +53,10 @@ public class UserPosts {
         
     }
     
-    public void loadPost(int lastNumberOfPost) {
+    public void loadPost(int lastNumberOfPost,boolean loadfriendsalso ) {
         SamajUtils utils = new SamajUtils();
         posts.putAll(utils.loadPostOfUser(user, lastNumberOfPost));
+        if(loadfriendsalso)
         for (Map.Entry<Long, User> entry : user.getFriends().entrySet()) {
             friendposts.putAll(utils.loadPostOfUser(entry.getValue(), lastNumberOfPost));
         }

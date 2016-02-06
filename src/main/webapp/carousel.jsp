@@ -1,16 +1,20 @@
-
-    <!-- Carousel
-    ================================================== -->
-    <div id="myCarousel" class="carousel slide" data-ride="carousel" style="margin: 0px;padding: 0px">
-      <!-- Indicators -->
-      <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-      </ol>
+<%@page import="p1.User"%><%@page  import="p1.SamajUtils"%>
+<%User muser  =(User)request.getAttribute("user");
+System.out.print(muser.getId());
+String src1 = SamajUtils.getImagesrcfromID(muser.getPic1oid());
+String src2 = SamajUtils.getImagesrcfromID(muser.getPic2oid());
+String src3 = SamajUtils.getImagesrcfromID(muser.getPic3oid());%>
+<!-- Carousel================================================== -->
+<div id="myCarousel" class="carousel slide" data-ride="carousel" style="margin: 0px;padding: 0px">
+<ol class="carousel-indicators">
+<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+<li data-target="#myCarousel" data-slide-to="1"></li>
+<li data-target="#myCarousel" data-slide-to="2"></li>
+</ol>
       <div class="carousel-inner" role="listbox">
         <div class="item active" >
-          <img class="first-slide" src="img/ganeshji.jpg" alt="First slide">
+            
+            <img class="first-slide" src="<%=src1%>" alt="First slide">
           <div class="container">
             <div class="carousel-caption">
       <!--         <h1>Example headline.</h1>
@@ -20,7 +24,7 @@
           </div>
         </div>
         <div class="item">
-          <img class="second-slide" src="img/ram1.jpg" alt="Second slide">
+          <img class="second-slide" src="<%=src2%>" alt="Second slide">
           <div class="container">
             <div class="carousel-caption">
            <!--    <h1>Another example headline.</h1>
@@ -30,7 +34,7 @@
           </div>
         </div>
         <div class="item">
-          <img class="third-slide" src="img/ram_naam.jpg" alt="Third slide">
+          <img class="third-slide" src="<%=src3%>" alt="Third slide">
           <div class="container">
             <div class="carousel-caption">
             <!--   <h1>One more for good measure.</h1>
@@ -48,4 +52,4 @@
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
       </a>
-    </div>
+</div><!-- Carousel End ================================================== -->

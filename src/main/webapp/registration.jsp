@@ -25,7 +25,7 @@
 </style>
 <div class="container">    
     <div id="signupbox" style="margin-top:50px;margin-left: 50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 pull-left">
-        <div class="panel panel-info">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 <div class="panel-title">Registration only for bhawsar</div>
             </div>  
@@ -131,7 +131,7 @@
                     <div class="form-group">
                         <!-- Button -->                                        
                         <div class="col-md-offset-3 col-md-9">
-                            <button id="btn-signup" type="submit" class="btn btn-info"><i class="icon-hand-right"></i> &nbsp Sign Up</button>
+                            <button id="btn-signup" type="submit" class="btn btn-primary"><i class="icon-hand-right"></i> &nbsp Sign Up</button>
                         </div>
                     </div>
                     <!-- #messages is where the messages are placed inside -->

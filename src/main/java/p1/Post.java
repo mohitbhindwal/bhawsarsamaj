@@ -25,6 +25,17 @@ public class Post {
     private Long imageid ;
     private User user ;
     private String username;
+    private String avtarsrc;
+    private Integer userid ;
+
+    public String getAvtarsrc() {
+        String src =  SamajUtils.getImagesrcfromID(getUser().getAvtaroid());
+        return src;
+    }
+
+    public void setAvtarsrc(String avtarsrc) {
+        this.avtarsrc = avtarsrc;
+    }
 
     public String getUsername() {
         return username;
@@ -41,7 +52,7 @@ public class Post {
     public void setUserid(Integer userid) {
         this.userid = userid;
     }
-    private Integer userid ;
+    
   
   
     public Long getImageid() {
@@ -86,7 +97,7 @@ public class Post {
         comments.put(commentid, comment);
     }
     
-    public Long addComments(String commenttext,Long userid,String username) {
+    public Comments addComments(String commenttext,Long userid,String username) {
         Long commentid = new Long(0L);
         Comments comment = new Comments(this);
         comment.setCommentText(commenttext);
@@ -94,7 +105,7 @@ public class Post {
          System.out.println("p1.Post.addComments()"+id);
         commentid = utils.postComments(commenttext,id,username,userid);
         comments.put(commentid, comment);
-        return commentid;
+        return comment;
     }
     
     public   LinkedHashMap<Long,Comments> addAllDBComments(){

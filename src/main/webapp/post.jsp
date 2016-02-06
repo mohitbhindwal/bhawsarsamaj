@@ -1,3 +1,4 @@
+<%@page import="p1.SamajUtils"%>
 <%@page import="p1.Comments"%>
 <%@page import="java.util.LinkedHashMap"%>
 <div class="row">
@@ -5,7 +6,7 @@
         <div class="panel panel-primary post panel-shadow">
             <div class="post-heading">
                 <div class="pull-left image">
-                    <img src="http://localhost:7070/newbhawsarsamaj/img/mohit.png" class="img-circle avatar" alt="user profile image">
+                    <img src="${avtarsrc}" class="img-circle avatar" alt="user profile image">
                 </div>
                 <div class="pull-left meta">
                     <div class="title h5">
@@ -83,7 +84,7 @@
                     request.setAttribute("commenttext",comment.getCommentText());
                     request.setAttribute("username",comment.getUsername());
                     request.setAttribute("userid",comment.getUserid());
-                    
+                    request.setAttribute("commentoravtaridsrc",SamajUtils.getImagesrcfromID(comment.getCommentoravtarID()));
                     %>
                     <jsp:include page="comment.jsp">
                         <jsp:param name="commentid" value="${commentid}"/>                          
