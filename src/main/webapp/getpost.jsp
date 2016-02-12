@@ -31,6 +31,7 @@ if(!request.getAttribute("editmode").equals("true"))
  request.setAttribute("postman", post.getUser().getName());
  request.setAttribute("imageid", post.getImageid());
  request.setAttribute("comments", post.addAllDBComments());
+ request.setAttribute("likeby", post.addAllLikeByOFPost());
  request.setAttribute("avtarsrc", post.getAvtarsrc());
 %>
  

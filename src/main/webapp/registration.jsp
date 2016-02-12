@@ -1,4 +1,5 @@
 <script src="js/registration.js"></script>
+
 <style>
     .bv-form .help-block {
         margin-bottom: 0;
@@ -30,7 +31,7 @@
                 <div class="panel-title">Registration only for bhawsar</div>
             </div>  
             <div class="panel-body" >
-                <form id="defaultForm" class="form-horizontal" role="form" action="index.jsp" method="post">
+                <form id="defaultForm" class="form-horizontal" role="form" data-toggle="validator" action="index.jsp"   method="post">
                     <div class="form-group">
                         <label for="firstname" class="col-md-3 control-label">First Name</label>
                         <div class="col-md-9">
@@ -131,7 +132,7 @@
                     <div class="form-group">
                         <!-- Button -->                                        
                         <div class="col-md-offset-3 col-md-9">
-                            <button id="btn-signup" type="submit" class="btn btn-primary"><i class="icon-hand-right"></i> &nbsp Sign Up</button>
+                            <button id="validateBtn"  type="submit" class="btn btn-primary"><i class="icon-hand-right"></i> &nbsp Sign Up</button>
                         </div>
                     </div>
                     <!-- #messages is where the messages are placed inside -->
@@ -147,7 +148,7 @@
 </div>
 
 <script type="text/javascript">
-$(document).ready(function() {
+ 
     // Generate a simple captcha
     function randomNumber(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
@@ -304,7 +305,7 @@ $(document).ready(function() {
                         message: 'Wrong answer',
                         callback: function(value, validator) {
                             var items = $('#captchaOperation').html().split(' '), sum = parseInt(items[0]) + parseInt(items[2]);
-                            return value == sum;
+                            return value === sum;
                         }
                     }
                 }
@@ -314,9 +315,26 @@ $(document).ready(function() {
 
     // Validate the form manually
     $('#validateBtn').click(function() {
-        $('#defaultForm').bootstrapValidator('validate');
+        alert('asdasddd');
+        var result =   $('#defaultForm').bootstrapValidator('validate').on('submit', function (e) {
+  if (e.isDefaultPrevented()) {
+    alert('not good');
+  } else {
+    // everything looks good!
+    alert('good');
+  }
+});
+        alert(result);
     });
 
-  
-});
+ // $('#defaultForm').bootstrapValidator().on('submit', function (e) {
+//  if (e.isDefaultPrevented()) {
+ //   alert('not good'+e.toString());
+    
+ // } else {
+    // everything looks good!
+ //   alert('good');
+ // }
+//});
+ 
 </script>

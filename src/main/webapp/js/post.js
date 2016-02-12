@@ -115,3 +115,22 @@ function uploadImage(evt) {
   }
   
  
+function likeme(evt, postid) {
+    alert('likeme');
+   // if (evt !== null)
+     //   evt.preventDefault();
+     alert('postid' + postid);alert($(evt).attr('href'));alert($(evt).text());
+    var dataString = 'postid=' + postid +'&currentvalue='+$(evt).text();
+    $.ajax({
+        type: 'POST',
+        url: 'like.jsp',
+        dataType: 'html',
+        data: dataString,
+        success: function (data) {
+            alert(data);
+            $(evt).html('<i class="fa fa-thumbs-up icon"></i>'+data.trim());
+        }
+    });
+}
+
+

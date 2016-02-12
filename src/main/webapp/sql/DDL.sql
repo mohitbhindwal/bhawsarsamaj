@@ -25,7 +25,7 @@ post text
 );
 
 alter table post add imageid integer REFERENCES images(id);
-
+alter table post add likeby text[][];
 
 create table comment (
 id serial primary key,
@@ -36,11 +36,11 @@ fdatetime timestamp without time zone DEFAULT now(),
 comment text
 );
 
-create table likes (
-id serial primary key,
-postid integer REFERENCES post(id),
-likeby   text[][]
-);
+--create table likes (
+---postid integer REFERENCES post(id),
+---ispost character varying(5) default 'true',
+---likeby   text[][]
+--);
 --select * from likes;
 --insert into likes(postid,likeby) values(3,'{mohit bhindwal}');
 --update likes set likeby = likeby || '{rohit bhindwal}' 

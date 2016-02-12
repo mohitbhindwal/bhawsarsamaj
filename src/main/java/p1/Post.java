@@ -17,6 +17,7 @@ import java.util.LinkedHashMap;
 public class Post {
     
     LinkedHashMap<Long,Comments> comments = new LinkedHashMap<Long,Comments>();
+    LinkedHashMap<Long,String> likeby = new LinkedHashMap<Long,String>();
     
     
     
@@ -27,6 +28,12 @@ public class Post {
     private String username;
     private String avtarsrc;
     private Integer userid ;
+    
+    public   LinkedHashMap<Long,String> addAllLikeByOFPost(){
+    likeby.putAll(SamajUtils.getaddAllLikeByOFPost(id));
+    return likeby;
+    }
+    
 
     public String getAvtarsrc() {
         String src =  SamajUtils.getImagesrcfromID(getUser().getAvtaroid());
@@ -113,7 +120,7 @@ public class Post {
     return comments;
     }
     
-    
+  
 
     public Long getId() {
         return id;

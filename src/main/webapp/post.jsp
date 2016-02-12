@@ -64,11 +64,13 @@
                 </div> 
                <%}%>
                 
-                
-                <div class="stats">
-                    <a id="like" name ="<%= request.getParameter("id") %>" href="#" class="btn btn-default stat-item"><i class="fa fa-thumbs-up icon"></i>250</a>
-                    <a href="#" class="btn btn-default stat-item"><i class="fa fa-share icon"></i>12</a>
-                </div>
+                <jsp:include page="like.jsp" >
+                        <jsp:param name="userid" value="${user.id}"/>
+                        <jsp:param name="displaylikes" value="true"/>
+                        <jsp:param name="postid" value="${param.id}"/>
+                </jsp:include>
+                    
+                    
             </div>
             <div class="post-footer">
                 <ul id="<%= request.getParameter("id")%>_commentlist" class="comments-list">

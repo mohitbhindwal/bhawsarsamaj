@@ -5,7 +5,7 @@
 <c:if test="${param.q != null}">
 
 <% 
-    String json = SamajUtils.getJSON(request.getParameter("q")); 
+    String json = SamajUtils.getJSON(request.getParameter("q"),request.getContextPath()); 
     out.print(json);
 
 %>
@@ -68,6 +68,8 @@ alert(evt+'   ' + pid);
 }
 
 </script>
+
+<jsp:include page="pagination.jsp"/>
 
 
 

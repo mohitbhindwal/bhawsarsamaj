@@ -5,13 +5,17 @@
  */
 package p1;
 
+import introb.ConnectionFactory;
 import introb.DataObject;
 import introb.DataSet;
 import introb.IntrobSession;
 import introb.SessioniUtils;
 import java.io.File;
+import java.sql.Array;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -143,7 +147,7 @@ public class SamajUtils {
         }
 
 //{"title":"/bhawsarsamaj/images/D:/ramout/test.jpg","id":1213123123,"name":"222 bhindwal"}
-    public static String getJSON(String searchby){
+    public static String getJSON(String searchby,String contextpath){
     StringBuffer json = new StringBuffer("[]");
     DataSet ds = SessioniUtils.query("select id,name,avtar from users where name ilike '%"+searchby+"%'");
     if(ds!=null&&ds.size()>0){
@@ -154,7 +158,7 @@ public class SamajUtils {
             String title = "\"img/default_user.png\",";
             if(dob.get("avtar")!=null){
               String outpath = SamajUtils.displayImage(Integer.parseInt(dob.get("avtar").toString()),"D:/ramout/");
-                title = "\"/bhawsarsamaj/images/"+outpath+"\",";
+                title = "\""+contextpath+"/images/"+outpath+"\",";
             }
             json.append("{\"title\":"+title);
             json.append("\"id\":"+Integer.parseInt(dob.get("id").toString())+",");
@@ -166,12 +170,73 @@ public class SamajUtils {
     return json.toString() ;
  }
     
+    public static void main(String[] args){
     
+        getaddAllLikeByOFPost(2L);
+    }
     
- 
-    public static void addLike(Long userid){
+        public static LinkedHashMap<Long,String> getaddAllLikeByOFPost(Long postid){
+       LinkedHashMap<Long, String> likeby = new LinkedHashMap<Long, String>();
+        String sql = "select likeby from post  where   id ="+postid;
+         Connection con =  null;
+        Statement smt = null;
+        ResultSet rs = null;
+         try{
+          con = ConnectionFactory.getConnection();
+          smt = con.createStatement();
+          rs = smt.executeQuery(sql);
+          rs.next();
+          Array array =  rs.getArray(1);
+           if(array!=null){
+          Object [] arrays = (Object [])array.getArray();
+          
+          if(arrays!=null)
+          for(Object  id : arrays){
+              System.out.println("p1.User.loadFriendsOFUser()aaa"+((String[])id)[0]);
+                       
+          }
+          
+               for (int i = 0; i < arrays.length/2; i++) {
+                   Object id = arrays[i*2];
+                   Object name = arrays[i*2+1];
+                   likeby.put(Long.valueOf(((String[])id)[0]), ((String[])name)[0]);
+               }
+          
+          
+          
+               System.out.println("p1.SamajUtils.getaddAllLikeByOFPost()llllllllll"+likeby);
+          
+            
+            }
+        } catch (Exception e) {
+            System.out.println("p1.User.loadFriendsOFUser()" + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (smt != null) {
+                    smt.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        return likeby;
+    }
+  }
+    public static void addLike(Long userid,String username , Long postid){
     
-    
+        String sql = "update post set likeby = likeby || '{{"+userid+"},{"+username+"}}'  where id ="+postid;
+        try {
+            SessioniUtils.executeUpdate(sql);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            Logger.getLogger(SamajUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public static Integer insertImage(String path, String imgname, String imgpath, String username) {
