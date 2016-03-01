@@ -57,6 +57,12 @@ public class User implements Serializable{
     public Integer getAvtaroid() {
         return avtaroid;
     }
+    
+    public String getAvtarsrc() {
+        String src =  SamajUtils.getImagesrcfromID(getAvtaroid());
+        return src;
+    }
+
 
     public void setAvtaroid(Integer avtaroid) {
         this.avtaroid = avtaroid;

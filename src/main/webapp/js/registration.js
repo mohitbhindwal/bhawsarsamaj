@@ -6519,7 +6519,7 @@ if (typeof jQuery === 'undefined') {
                 sum = [8, 7, 6, 5, 4, 3, 2, 1, 0, 9, 10][sum - 1];
                 return (sum + '' === value.substr(8, 1));
             } else if (value.length === 9 || value.length === 10) {
-                // Validate Czech birth number (Rodné číslo), which is also national identifier
+                // Validate Czech birth number (Rodné �?íslo), which is also national identifier
                 var year  = 1900 + parseInt(value.substr(0, 2), 10),
                     month = parseInt(value.substr(2, 2), 10) % 50 % 20,
                     day   = parseInt(value.substr(4, 2), 10);
@@ -7750,3 +7750,4 @@ if (typeof jQuery === 'undefined') {
         }
     };
 }(window.jQuery));
+

@@ -28,11 +28,15 @@ if(!request.getAttribute("editmode").equals("true"))
  Post post =  userposts.getPosts(postid);
  request.setAttribute("postid", post.getId());
  request.setAttribute("post", post.getPost());
- request.setAttribute("postman", post.getUser().getName());
+ request.setAttribute("postman", post.getUsername());
+ System.out.print("!!!!!! postmanid"+post.getUsername()+" for postid"+post.getId());
+ request.setAttribute("postmanid", post.getUserid());
  request.setAttribute("imageid", post.getImageid());
  request.setAttribute("comments", post.addAllDBComments());
  request.setAttribute("likeby", post.addAllLikeByOFPost());
  request.setAttribute("avtarsrc", post.getAvtarsrc());
+ request.setAttribute("creationdate", post.getCreationDate());
+ 
 %>
  
   <jsp:include page="post.jsp">

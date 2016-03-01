@@ -7,7 +7,7 @@
                 User muser  =(User)request.getAttribute("user");
                 System.out.print(muser.getAvtaroid());
                 String avtarid = SamajUtils.getImagesrcfromID(muser.getAvtaroid());
-                
+                 System.out.print(request.getAttribute("isfriends"));
 %>
 
 <div class="col-lg-12" style="margin: 0px;padding: 0px;">
@@ -46,15 +46,32 @@
     </div>
 
             <div class="well">
-
+            <!-- Modal one -->
+                        <div id="mohitmodal">
+ 
+                        </div>
+                       <!---->
+                       
                 <div class="tab-content">
                     <!-- Tab1-->
                     <div class="tab-pane fade in active" id="tab1">
-                        <h3>This is tab 1</h3>
+                         <!--This is Tab1 start-->
+                   
+                       
+                        
+                        
+                        
                          <%if(request.getAttribute("editmode").equals("true")){%>
                         <jsp:include page="share.jsp"></jsp:include>
                         <%}%>
                             <div id="wal" class="container-fluid">
+                                 <%if(request.getAttribute("isfriends")!=null&&request.getAttribute("isfriends").equals("false")){%>
+                                 <div id="sendfriendrequestdiv">
+                                 <button type="button" class="btn btn-primary btn-lg" onclick="sendfriendrequest(${sessionScope.user.id},${userid},'${sendername}');" style="border-radius: 24px;">Send Friend Request</button>
+                                 </div>
+                                <p></p>
+                                <%}%>
+                                
                             <jsp:include page="getpost.jsp"></jsp:include>
                             </div>
                         </div><!-- Tab1 End-->
@@ -63,6 +80,7 @@
                         <!-- Tab2-->
                     <div class="tab-pane fade in" id="tab2">
                             <div id="wal2">
+ 
                             <jsp:include page="getfriendspost.jsp"></jsp:include>
                             </div>
                     </div><!-- Tab2 End-->

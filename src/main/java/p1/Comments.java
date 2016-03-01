@@ -5,19 +5,23 @@
  */
 package p1;
 
+import java.text.SimpleDateFormat;
+
 /**
  *
  * @author m
  */
 public class Comments {
 
-    private Post post ;
-    private String commentText ;
-    private Long id ;
-    private Long postid ;
-    private String username ;
-    private Long userid ;
+    private Post post;
+    private String commentText;
+    private Long id;
+    private Long postid;
+    private String username;
+    private Long userid;
     private Integer commentoravtarID;
+    public static SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
+    public String creationDate;
 
     public Integer getCommentoravtarID() {
         return commentoravtarID;
@@ -26,8 +30,6 @@ public class Comments {
     public void setCommentoravtarID(Integer commentoravtarID) {
         this.commentoravtarID = commentoravtarID;
     }
-
-    
 
     public Long getId() {
         return id;
@@ -60,20 +62,22 @@ public class Comments {
     public void setUserid(Long userid) {
         this.userid = userid;
     }
-    
-    
-    
-    
-    
-    
+
+    public String getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
+    }
+
     public Comments(Post post) {
-        this.post=post;
+        this.post = post;
     }
-    
+
     public Comments() {
-        
+
     }
-    
 
     public String getCommentText() {
         return commentText;
@@ -82,9 +86,6 @@ public class Comments {
     public void setCommentText(String commentText) {
         this.commentText = commentText;
     }
-    
-    
-    
 
     public Post getPost() {
         return post;
@@ -93,9 +94,5 @@ public class Comments {
     public void setPost(Post post) {
         this.post = post;
     }
-    
-    
-    
-    
-    
+
 }

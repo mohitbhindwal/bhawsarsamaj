@@ -11,11 +11,13 @@
     Long imageid = null;
     if(imgid!=null&&imgid.length()>0)
     imageid = Long.valueOf(request.getParameter("imageid"));
-   Long postid = userposts.addPosts(session.getId(),request.getParameter("data"),user.getId(),imageid);
-   System.out.print("Generated postid is "+postid);
-   request.setAttribute("postid", postid);
+   Post post = userposts.addPosts(session.getId(),request.getParameter("data"),user.getId(),imageid);
+   System.out.print("Generated postid is "+post.getId());
+   request.setAttribute("postid", post.getId());
    request.setAttribute("post", request.getParameter("data"));
    request.setAttribute("postman", user.getName());
+   request.setAttribute("creationdate", post.getCreationDate());
+    request.setAttribute("avtarsrc", user.getAvtarsrc());
      if(imgid!=null&&imgid.length()>0)
    request.setAttribute("imageid", imageid);
 %>

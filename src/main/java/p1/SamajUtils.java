@@ -16,6 +16,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -25,6 +27,10 @@ import java.util.logging.Logger;
 
 /**
  *
+select p.id,p.post,p.imageid,p.username,p.userid,p.fdatetime,s.sharetime from post p 
+left join share s on p.id=s.sharebyid
+
+
  * @author m
  */
 public class SamajUtils {
@@ -32,18 +38,29 @@ public class SamajUtils {
     
     public HashMap<Long,Post> loadPostOfUser(User user ,int noOfPost){
         HashMap<Long,Post> posts = new HashMap<Long,Post>();
-         String sql = "select id,post,imageid,username,userid from post where username = '"+user.getName()+"' order by id desc limit "+noOfPost;
+            
+        String sql = 
+                    
+                    "select id,post,imageid,username,userid,fdatetime from post where userid = "+user.getId()+
+                    
+                    " or id in ( select sharepostid from share where sharebyid = "+user.getId() +" limit 10 ) order by fdatetime desc limit "+noOfPost ;
+                        
+            
+         System.out.println("sql------->"+sql);       
+            
+            
          IntrobSession session = new IntrobSession(user.getName());
          try{
              session.open();
              DataSet ds = session.query(sql);
              System.out.println("ds loadPostOfUser==>"+ds);
              for(int i = 0 ;i<ds.size();i++){
-             Post post = new Post(user);
+             Post post = new Post();
              post.setId(Long.valueOf(ds.get(i).get("id").toString()));
              post.setPost(ds.get(i).get("post").toString());
+             post.setCreationDate(Comments.sdf.format(ds.get(i).getDate("fdatetime")));
              post.setUsername(ds.get(i).get("username").toString());
-             post.setUserid(Integer.valueOf(ds.get(i).get("userid").toString()));
+             post.setUserid(Long.valueOf(ds.get(i).get("userid").toString()));
              Object imageids = ds.get(i).get("imageid");
              if(imageids!=null)
              post.setImageid(Long.valueOf(imageids.toString()));
@@ -63,31 +80,75 @@ public class SamajUtils {
     }
     
     
-    public Long postComments(String comment , Long postid,String username,Long userid){
+    public Comments postComments(String commenttext , Long postid,String username,Long userid,Post post) {
         System.out.println("post Comments of SamajUtils");
          Long id = new Long(0);
+         Comments comment = null ;
        IntrobSession session = new IntrobSession(username);
         try{
              session.open();
             DataObject dataObj = new DataObject();
             dataObj.set("username", username);
-            dataObj.set("comment", comment);
+            dataObj.set("comment", commenttext);
             dataObj.set("postid", postid);
             dataObj.set("userid", userid);
+             try {
+                dataObj.set("fdatetime",Comments.sdf.parse(Comments.sdf.format(new Date())));
+             } catch (ParseException ex) {
+                 Logger.getLogger(SamajUtils.class.getName()).log(Level.SEVERE, null, ex);
+             }
             System.out.println("Before"+dataObj);
             session.insert(dataObj, "comment", "id");
             System.out.println("After"+dataObj);
             id = dataObj.getLong("id");
-        } catch (SQLException ex) {
+             comment = new Comments(post);
+           comment.setCommentText(commenttext);
+          
+           comment.setCreationDate(Comments.sdf.format(dataObj.getDate("fdatetime")));
+            System.out.println("p1.Post.addComments()"+id);
+          } catch (SQLException ex) {
+            ex.printStackTrace();
+        }finally{try{
+        if(session!=null)session.close();
+        }catch(Exception e){e.printStackTrace();}
+        }
+       return comment ;
+    }
+    
+    
+    public static Integer sharepost(Long sharebyid ,String sharebyname , Long sharefromid , String sharefromname,Integer postid){
+    
+     IntrobSession session = new IntrobSession();
+     System.out.println("post Comments of SamajUtils");
+         Integer id = new Integer(0);
+   
+        try{
+            session.open();
+            DataObject dataObj = new DataObject();
+            dataObj.set("sharebyid", sharebyid);
+            dataObj.set("sharebyname", sharebyname);
+            dataObj.set("sharefromid", sharefromid);
+            dataObj.set("sharefromname", sharefromname);
+            dataObj.set("sharepostid", postid);
+        
+            System.out.println("Before"+dataObj);
+            session.insert(dataObj, "share", "id");
+            System.out.println("After"+dataObj);
+            id = dataObj.getInteger("id");
+            System.out.println("p1.SamajUtils.sharepost() = "+id);
+          } catch (SQLException ex) {
             ex.printStackTrace();
         }finally{try{
         if(session!=null)session.close();
         }catch(Exception e){e.printStackTrace();}
         }
        return id ;
+    
     }
     
-    
+    public static String getAvtarSrcFromUserID(Long userid){
+       return  getImagesrcfromID(Integer.parseInt(SessioniUtils.query("select avtar from users where id = "+userid).get(0).get("avtar").toString()));
+    }
     
     public static String getImagesrcfromID(Integer id){
         String outsrc = "/bhawsarsamaj/images/"+displayImage(id, "D:/ramout/");
@@ -140,11 +201,99 @@ public class SamajUtils {
                 comment.setPostid(Long.valueOf(dob.get("postid").toString()));
                 comment.setUsername(dob.get("username").toString());
                 comment.setUserid(Long.valueOf(dob.get("userid").toString()));
+                comment.setCreationDate(Comments.sdf.format(dob.getDate("fdatetime")));
                 comment.setCommentoravtarID(Integer.parseInt(dob.get("avtar").toString()));
                 comments.put(Long.valueOf(dob.get("id").toString()), comment);
             }
           return comments;
         }
+     
+          
+    public static Integer registreuser(String firstname , String lastname , String gender,String email ,
+             String password, String day,String month,String year,String myhour, String minute ,String seconds, 
+             String birthplace , String myaddress)   
+           {
+               SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy hh:mm:ss");
+        System.out.println("Registreuser of SamajUtils");
+        Integer id = null ;
+        IntrobSession session = new IntrobSession();
+        try {
+            session.open();
+            DataObject dataObj = new DataObject();
+            dataObj.set("name", firstname+" "+lastname);
+            //dataObj.set("lastname", lastname);
+            dataObj.set("gender",gender);
+            dataObj.set("password", password);
+            dataObj.set("username", email);
+                   try {
+                       dataObj.set("dob", sdf.parse(day+"-"+month+"-"+year+" "+myhour+":"+minute+":"+seconds));
+                   } catch (ParseException ex) {
+                      ex.printStackTrace();
+                   }
+            dataObj.set("pob", birthplace);
+            dataObj.set("address", myaddress);
+            dataObj.set("password", password);
+            System.out.println("Before"+dataObj);
+            session.insert(dataObj, "users", "id");
+            System.out.println("After"+dataObj);
+            id = Integer.valueOf(dataObj.get("id").toString());
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }finally{try{
+        if(session!=null)session.close();
+        }catch(Exception e){e.printStackTrace();}
+        }
+        return id;
+    }
+    
+    
+       public static boolean isFriends(Long userid1 , Long userid2 ){
+        System.out.println("p1.User.isFriends() for "+userid1+"  and "+userid2);
+        String sql = "select friends from users where id = "+userid1;
+        Connection con =  null;
+        Statement smt = null;
+        ResultSet rs = null;
+        if(userid1==userid2)return true;
+        try{
+          con = ConnectionFactory.getConnection();
+          smt = con.createStatement();
+          rs = smt.executeQuery(sql);
+          rs.next();
+          Array array =  rs.getArray(1);
+          if(array!=null){
+          Object [] arrays = (Object [])array.getArray();
+          if(arrays!=null)
+          for(Object  id : arrays){
+              System.out.println("p1.User.loadFriendsOFUser()aaa"+((String[])id)[0]);
+               if( userid2.toString().equals(((String[])id)[0]))
+                   return true ;
+             }    
+          }
+        } catch (Exception e) {
+            System.out.println("p1.User.loadFriendsOFUser()" + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (smt != null) {
+                    smt.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+          return false ;
+       }
+    
+    
+    
+    
+ 
 
 //{"title":"/bhawsarsamaj/images/D:/ramout/test.jpg","id":1213123123,"name":"222 bhindwal"}
     public static String getJSON(String searchby,String contextpath){
@@ -172,12 +321,12 @@ public class SamajUtils {
     
     public static void main(String[] args){
     
-        getaddAllLikeByOFPost(2L);
+        getaddAllLikeByOFPost(2L,true);
     }
     
-        public static LinkedHashMap<Long,String> getaddAllLikeByOFPost(Long postid){
+        public static LinkedHashMap<Long,String> getaddAllLikeByOFPost(Long postid,boolean frompost){
        LinkedHashMap<Long, String> likeby = new LinkedHashMap<Long, String>();
-        String sql = "select likeby from post  where   id ="+postid;
+        String sql = "select likeby from "+ (frompost==true?"post":"comment") + " where   id ="+postid;
          Connection con =  null;
         Statement smt = null;
         ResultSet rs = null;
@@ -228,9 +377,9 @@ public class SamajUtils {
         return likeby;
     }
   }
-    public static void addLike(Long userid,String username , Long postid){
+    public static void addLike(Long userid,String username , Long postid , boolean frompost){
     
-        String sql = "update post set likeby = likeby || '{{"+userid+"},{"+username+"}}'  where id ="+postid;
+        String sql = "update "+ (frompost==true?"post":"comment") + " set likeby = likeby || '{{"+userid+"},{"+username+"}}'  where id ="+postid;
         try {
             SessioniUtils.executeUpdate(sql);
         } catch (SQLException ex) {
@@ -238,6 +387,20 @@ public class SamajUtils {
             Logger.getLogger(SamajUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
+     public static void addPendingRequest(String requestsendbyuserid,String requestsendbyusername 
+              ,String requestsendtouserid){
+        
+          String sql = "update users set pendingrequest = pendingrequest || '{{"+requestsendbyuserid+"},{"+requestsendbyusername+"}}'  where id ="+requestsendtouserid;
+        try {
+            SessioniUtils.executeUpdate(sql);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            Logger.getLogger(SamajUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     }
+    
     
     public static Integer insertImage(String path, String imgname, String imgpath, String username) {
         System.out.println("p1.SamajUtils.insertImage()");
@@ -271,11 +434,11 @@ public class SamajUtils {
 
     
     
-        public Long postText(String username , String sessionid , String post,Long userid,Long imageid){
+        public Post postText(String username , String sessionid , String posttext,Long userid,Long imageid , User user){
             System.out.println("Post Text of SamajUtils");
         Long id = new Long(0);
         IntrobSession session = new IntrobSession(username);
-         
+         Post post = null;
         try {
           //SessioniUtils.executeUpdate(sql);
         
@@ -285,12 +448,26 @@ public class SamajUtils {
             dataObj.set("sessionid", sessionid);
             if(imageid!=null)
             dataObj.set("imageid",imageid);
-            dataObj.set("post", post);
-            dataObj.set("userid", userid);
+            dataObj.set("post", posttext);
+            dataObj.set("userid", userid);  try {
+            dataObj.set("fdatetime",Comments.sdf.parse(Comments.sdf.format(new Date())));
+             } catch (ParseException ex) {
+                 Logger.getLogger(SamajUtils.class.getName()).log(Level.SEVERE, null, ex);
+             }
+            
             System.out.println("Before"+dataObj);
             session.insert(dataObj, "post", "id");
             System.out.println("After"+dataObj);
             id = Long.valueOf(dataObj.get("id").toString());
+            
+            post = new Post(user);
+            post.setId(id);
+            post.setUsername(username);
+            post.setCreationDate(Comments.sdf.format(dataObj.getDate("fdatetime")));
+            post.setPost(posttext);
+            post.setUserid(userid);
+            post.setImageid(imageid);
+            
         } catch (SQLException ex) {
             ex.printStackTrace();
         }finally{try{
@@ -299,7 +476,7 @@ public class SamajUtils {
         }
         
         
-        return id ;
+        return post ;
         
     }
 }

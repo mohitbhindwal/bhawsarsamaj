@@ -34,7 +34,7 @@ public class Login extends HttpServlet {
                          user.loadFriendsOFUser();
                          session.setAttribute("user",user);
                          UserPosts userposts = new UserPosts(user);
-                         userposts.loadPost(2,true);
+                         userposts.loadPost(30,true);
                          session.setAttribute("userposts", userposts);
                          request.setAttribute("editmode", "true");
                           RequestDispatcher dr=request.getRequestDispatcher("index.jsp"); 

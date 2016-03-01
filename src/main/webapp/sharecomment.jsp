@@ -14,8 +14,8 @@
   request.setAttribute("commenttext", request.getParameter("commentdata").toString());
   request.setAttribute("commentoravtaridsrc",SamajUtils.getImagesrcfromID(user.getAvtaroid()));
   request.setAttribute("username", user.getName());
+  request.setAttribute("creationdate", comment.getCreationDate());
 %>
-
 
 <jsp:include page="comment.jsp">
         <jsp:param name="commentid" value="${requestScope.commentid}"/>

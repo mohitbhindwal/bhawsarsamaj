@@ -8,6 +8,7 @@ package p1;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import sun.applet.Main;
 
 /**
  *
@@ -27,16 +28,17 @@ public class Post {
     private User user ;
     private String username;
     private String avtarsrc;
-    private Integer userid ;
+    private Long userid ;
+    private String creationDate;
     
     public   LinkedHashMap<Long,String> addAllLikeByOFPost(){
-    likeby.putAll(SamajUtils.getaddAllLikeByOFPost(id));
+    likeby.putAll(SamajUtils.getaddAllLikeByOFPost(id,true));
     return likeby;
     }
     
 
     public String getAvtarsrc() {
-        String src =  SamajUtils.getImagesrcfromID(getUser().getAvtaroid());
+        String src =  SamajUtils.getAvtarSrcFromUserID(userid);
         return src;
     }
 
@@ -52,11 +54,11 @@ public class Post {
         this.username = username;
     }
 
-    public Integer getUserid() {
+    public Long getUserid() {
         return userid;
     }
 
-    public void setUserid(Integer userid) {
+    public void setUserid(Long userid) {
         this.userid = userid;
     }
     
@@ -85,14 +87,13 @@ public class Post {
         this.post = post;
     }
     
-    public Long addPost(String sessionid , String posttext,Long userid,Long imageid) {
-       Long postid = null;
-        SamajUtils utils = new SamajUtils();
-       postid = utils.postText(user.getName(), sessionid, posttext,userid,imageid);
-       return postid;
+    public String getCreationDate() {
+        return creationDate;
     }
-    
-    
+
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
+    }
 
    
 
@@ -105,13 +106,10 @@ public class Post {
     }
     
     public Comments addComments(String commenttext,Long userid,String username) {
-        Long commentid = new Long(0L);
-        Comments comment = new Comments(this);
-        comment.setCommentText(commenttext);
-         SamajUtils utils = new SamajUtils();
-         System.out.println("p1.Post.addComments()"+id);
-        commentid = utils.postComments(commenttext,id,username,userid);
-        comments.put(commentid, comment);
+        SamajUtils utils = new SamajUtils();
+        System.out.println("p1.Post.addComments()"+id);
+        Comments comment = utils.postComments(commenttext,id,username,userid,this);
+        comments.put(comment.getId(), comment);
         return comment;
     }
     
@@ -143,7 +141,6 @@ public class Post {
     }
     
     
-    
-    
+   
     
 }

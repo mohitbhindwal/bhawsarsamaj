@@ -5,6 +5,16 @@
  */
 
 
+ $('#loading-image').html('<img src="img/loading.gif" />');
+ $('#loading-image').hide();
+$('#loading-image').bind('ajaxStart', function(){
+    $(this).show();
+}).bind('ajaxStop', function(){
+    $(this).hide();
+});
+
+
+
 $(document).ready(function(){
     $("[data-toggle=tooltip]").tooltip();
 });
@@ -37,14 +47,7 @@ function uploadImage(evt) {
     });
 }
  
-        
-            
-            
- 
- 
- 
-    
-  
+   
    
    $("#post").click(function(evt){
          postdata(evt,null);
@@ -115,22 +118,149 @@ function uploadImage(evt) {
   }
   
  
-function likeme(evt, postid) {
-    alert('likeme');
-   // if (evt !== null)
-     //   evt.preventDefault();
-     alert('postid' + postid);alert($(evt).attr('href'));alert($(evt).text());
-    var dataString = 'postid=' + postid +'&currentvalue='+$(evt).text();
+function likeme(evt, postid,frompost) {
+     alert('likeme');
+     alert($(evt).attr('isclicked') );
+     alert('postid' + postid + ' frompost '+frompost);
+     alert($(evt).text());
+     if( $(evt).attr('isclicked') === 'true')
+     {
+         alert('already checked');
+         return ;
+     }
+    var dataString = 'postid=' + postid +'&frompost='+frompost;
     $.ajax({
         type: 'POST',
         url: 'like.jsp',
         dataType: 'html',
         data: dataString,
         success: function (data) {
-            alert(data);
-            $(evt).html('<i class="fa fa-thumbs-up icon"></i>'+data.trim());
+            alert('likemevalue received'+data);
+            if(frompost){
+            $('#'+postid+'_likevalue').html('&nbsp;'+data.trim()+'&nbsp;');
+            $('#'+postid+'_likevalue').css('color', '#337ab7');
+        }else{
+            $('#'+postid+'_clikevalue').html('&nbsp;'+data.trim()+'&nbsp;');
+            $('#'+postid+'_clikevalue').css('color', '#337ab7');
+        }
+        $(evt).attr('isclicked','true');
+           // $(evt).html('<i class="fa fa-thumbs-up icon"></i>'+data.trim());
         }
     });
 }
 
 
+ 
+
+function likebyuser(evt, postid, frompost) {
+    alert('likebyuser postid' + postid + ' frompost ' + frompost);
+    
+    var dataString = 'postid=' + postid + '&frompost=' + frompost;
+    $.ajax({
+        type: 'POST',
+        url: 'likebyuser.jsp',
+        dataType: 'html',
+        data: dataString,
+        success: function (data) {
+            alert('likemevalue received'+data);
+            $('#mohitmodal').html(data);
+             setTimeout(function(){
+                 $('#myModal').modal('show'); 
+             }, (1 *  500));
+            $('#myModal').on('hidden.bs.modal', function (e) {
+                   $('#mohitmodal').html('');
+                  });
+        }
+    });
+}
+
+function sharebyuser(evt, postid, frompost) {
+    alert('sharebyuser postid' + postid + ' frompost ' + frompost);
+    alert($(evt).text());
+    var dataString = 'postid=' + postid + '&frompost=' + false;
+    $.ajax({
+        type: 'POST',
+        url: 'sharebyuser.jsp',
+        dataType: 'html',
+        data: dataString,
+        success: function (data) {
+             alert('sharebyuser received'+data);
+            $('#mohitmodal').html(data);
+                 setTimeout(function(){
+                 $('#myModal').modal('show'); 
+             }, (1 *  500));
+            $('#myModal').on('hidden.bs.modal', function (e) {
+                   $('#mohitmodal').html('');
+                  });
+            
+            
+            
+            
+            
+            
+            
+            // $(evt).html('<i class="fa fa-thumbs-up icon"></i>'+data.trim());
+        }
+    });
+}
+
+
+
+
+function sendfriendrequest(sender,receiver , sendername ){
+    
+    
+    alert('sendfriendrequest sender = '+sender+ ' receiver ' + receiver  );
+ 
+   
+    var dataString = 'sender=' + sender +'&receiver='+receiver + '&sendername='+sendername;
+    $.ajax({
+        type: 'POST',
+        url: 'sendfriendrequest.jsp',
+        dataType: 'html',
+        data: dataString,
+        success: function (data) {
+            alert(data.trim());
+              $('#sendfriendrequestdiv').html(data.trim());
+        }
+    });
+}
+
+function openmenu(menu){
+        
+    alert(menu);
+       $.ajax({
+        type: 'POST',
+        url: 'friends.jsp',
+         dataType: 'html',
+     //   data: dataString,
+        success: function (data) {
+            alert(data.trim());
+              $('#body').html(data.trim());
+        }
+    });
+    
+}
+
+
+function shareposttomyfriends(sharebyid,sharebyusername, postid){
+    
+    alert('share by'+sharebyid + 'postid '+postid);
+    var dataString = 'sharetomyfriends=' + true +'&sharebyuserid='+sharebyid +'&sharebyusername'+sharebyusername+'&postid='+postid;
+          $.ajax({
+        type: 'POST',
+        url: 'sharebyuser.jsp',
+         dataType: 'html',
+         data: dataString,
+        success: function (data) {
+            $('#myModal').modal('hide');
+            $('#mohitmodal').html('');
+        },
+          error: function (request, error) {
+             $('#myModal').modal('hide');
+             $('#mohitmodal').html('');
+        }
+    });
+    
+    
+}

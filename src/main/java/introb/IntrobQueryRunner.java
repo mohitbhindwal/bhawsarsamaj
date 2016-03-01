@@ -29,7 +29,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 public class IntrobQueryRunner {
 	private boolean m_isDebugOn;
-	private boolean m_blnConvertTimeStampToUtilDate;
+	private boolean m_blnConvertTimeStampToUtilDate = true;
 	private Statement m_stmt = null;
 	private String m_strUserName;
         public static Properties properties =null;
@@ -62,7 +62,7 @@ public class IntrobQueryRunner {
                 
 		//ResourceBundle objResourceBundle = ResourceBundle.getBundle("E:\\mohit\\bhawsarsamaj\\src\\java\\introb\\introb");
 		m_isDebugOn = "true".startsWith(properties.get("debug").toString().trim().toLowerCase());
-		m_blnConvertTimeStampToUtilDate = "true".startsWith(properties.get("converttimestamptoutildate").toString().trim().toLowerCase());
+		//m_blnConvertTimeStampToUtilDate = "true".startsWith(properties.get("converttimestamptoutildate").toString().trim().toLowerCase());
 	}
 
 	
@@ -82,10 +82,12 @@ public class IntrobQueryRunner {
 		    Object obj = params.get(i);
 		    if (m_blnConvertTimeStampToUtilDate && obj instanceof Date){
 			obj = new Timestamp(((Date)obj).getTime());
-		    }
-		    if (obj instanceof Date){
+                        stmt.setTimestamp(i+1,(Timestamp)obj);
+                        System.out.println("introb.IntrobQueryRunner.fillStatement()@@@@@@@@"+obj);
+		    }else if (obj instanceof Date){
 			obj = (Date) obj;
-			stmt.setObject(i + 1, obj, Types.DATE);				
+			stmt.setObject(i + 1, obj, Types.DATE);	
+                        System.out.println("introb.IntrobQueryRunner.fillStatement()#####"+obj);
 		    }
 		    else if (obj instanceof String ) {
 			if(!obj.toString().contains("$$"))

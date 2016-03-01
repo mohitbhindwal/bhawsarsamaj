@@ -5,7 +5,6 @@ response.setHeader("Expires","0");
 response.setDateHeader("Expires",-1); 
 %> 
 
-<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -65,7 +64,7 @@ response.setDateHeader("Expires",-1);
                         <div class="col-md-6">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox"  name="checkbox"/>
+                                    <input type="checkbox"  name="rememberme"/>
                                     Remember Me
                                 </label>
                             </div>

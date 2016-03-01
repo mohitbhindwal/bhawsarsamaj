@@ -54,7 +54,7 @@ public class FileServlet extends HttpServlet {
     }
 	
 	protected final void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("In do get");
+		System.out.println("In do get");    
  
         // Get requested file by path info.
         String requestedFile = request.getPathInfo();
@@ -110,10 +110,13 @@ public class FileServlet extends HttpServlet {
             while ((length = input.read(buffer)) > 0) {
                 output.write(buffer, 0, length);
             }
+        }catch(Exception e){
+        System.out.println("p1.FileServlet.doGet() "+e.getMessage());
+        e.printStackTrace();
         } finally {
-            // Gently close streams.
             close(output);
             close(input);
+            file.delete();
         }
 	}
  

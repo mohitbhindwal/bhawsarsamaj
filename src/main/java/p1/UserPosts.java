@@ -43,15 +43,17 @@ public class UserPosts {
         posts.put(postid, post);
     }
     
-    public Long addPosts(String sessionid ,String posttext,Long userid,Long imageid) {
+    public Post addPosts(String sessionid ,String posttext,Long userid,Long imageid) {
         Long postid = null;
-        Post post = new Post(user);
-        postid =   post.addPost(sessionid, posttext,userid,imageid);
+        SamajUtils utils = new SamajUtils();
+        Post post = utils.postText(user.getName(), sessionid, posttext,userid,imageid,user);
         post.setId(postid);
         setPosts(postid,post);
-        return postid;
+        return post;
         
     }
+    
+  
     
     public void loadPost(int lastNumberOfPost,boolean loadfriendsalso ) {
         SamajUtils utils = new SamajUtils();

@@ -16,7 +16,9 @@
             </div>
             <div class="tab-pane" id="registration">
                 <p><h2>Registration</h2></p>
+            <div class="container" id="myregistrationdiv"> 
                 <jsp:include page="registration.jsp" />
+            </div>
             </div>
         </div>
     </div>

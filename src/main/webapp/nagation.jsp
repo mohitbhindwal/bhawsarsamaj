@@ -118,7 +118,7 @@
                         <a onclick="getbody(this,${user.id});" href="javascript:void(0);"><i class="fa fa-fw fa-dashboard"></i> ${user.name}</a>
                     </li>
                     <li>
-                        <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
+                        <a onclick="openmenu('friends.jsp')" href="javascript:void(0);"><i class="fa fa-fw fa-user"></i> Friends</a>
                     </li>
                     <li>
                         <a href="tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>

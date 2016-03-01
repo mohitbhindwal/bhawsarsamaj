@@ -48,8 +48,10 @@ $('#searchlist').btsListFilter('#searchinput', {
 });
 
 function getbody(evt,pid){
-
-alert(evt+'   ' + pid);
+    alert('userid is'+pid);
+    $('#myModal').modal('hide');
+$('#loading-image').show();
+//alert(evt+'   ' + pid);
          var dataString = 'userid='+pid;
    $.ajax({
         type: 'POST',
@@ -57,9 +59,12 @@ alert(evt+'   ' + pid);
         dataType: 'html',
         data: dataString,
         success: function (data) {
-            alert('getbody success');
+            //alert('getbody success');
             $('#body').html(data);
         },
+        complete: function(){
+         $('#loading-image').hide();
+      },
         error: function (request, error) {
             alert("Request: " + JSON.stringify(request));
         }

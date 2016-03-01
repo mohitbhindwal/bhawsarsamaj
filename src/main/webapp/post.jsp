@@ -1,6 +1,5 @@
-<%@page import="p1.SamajUtils"%>
-<%@page import="p1.Comments"%>
-<%@page import="java.util.LinkedHashMap"%>
+<%@page import="p1.User"%><%@page import="java.util.Map"%><%@page import="p1.SamajUtils"%><%@page import="p1.Comments"%><%@page import="java.util.LinkedHashMap"%>
+
 <div class="row">
    <div class="col-sm-8">
         <div class="panel panel-primary post panel-shadow">
@@ -8,13 +7,17 @@
                 <div class="pull-left image">
                     <img src="${avtarsrc}" class="img-circle avatar" alt="user profile image">
                 </div>
+                
+                
                 <div class="pull-left meta">
-                    <div class="title h5">
-                        <a href="#"><b><%= request.getParameter("postman")%><%= request.getParameter("id")%></b></a>
+                 <div class="title h5">
+                     <a onclick="getbody(this,${postmanid});" href="javascript:void(0);">
+                                <b><%= request.getParameter("postman")%></b></a> 
+                                 <h5 class="time">${creationdate}</h5> 
                     </div>
-                    <h6 class="text-muted time">1 minute ago</h6>
                 </div>
-                     <div class="btn-group pull-right">
+                    
+     <div class="btn-group pull-right">
                                 <button aria-expanded="false" type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-chevron-down"></i>
                                 </button>
@@ -63,14 +66,48 @@
                     </div>
                 </div> 
                <%}%>
-                
-                <jsp:include page="like.jsp" >
-                        <jsp:param name="userid" value="${user.id}"/>
-                        <jsp:param name="displaylikes" value="true"/>
-                        <jsp:param name="postid" value="${param.id}"/>
-                </jsp:include>
+               
+                 <!-- Like button start -->
+                 <% 
+                     boolean selflike = false; 
+                      int likecount = 0 ;
+                     if(request.getAttribute("likeby")!=null){
+                      likecount = ((Map)request.getAttribute("likeby")).size();
+                     Long userid = ((User)session.getAttribute("user")).getId();
+                     selflike =  ((LinkedHashMap)request.getAttribute("likeby")).keySet().contains(userid);
+                    }
+                    String color = selflike == true? "#337ab7":"#bfbfbf";
                     
-                    
+                 %>
+                 
+                 <div class="stats" style="margin-left: 0px"  >
+
+
+                     <div class="btn-group">
+                         <button type="button"  isclicked="<%=selflike%>" 
+                                 onclick="likeme(this,<%= request.getParameter("id")%>,true)" 
+                                 class="btn btn-default btn-link" 
+                                 style="color: <%=color%>;padding-left: 0px;padding-right: 0px">
+                             <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true" id="<%=request.getParameter("id")%>_likevalue">&nbsp;<%=likecount%></span></button> 
+                         <button type="button" style="color:#bfbfbf" class="btn btn-default btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                             <span class="caret" style="color:#bfbfbf"></span>
+                         </button><ul class="dropdown-menu"><li>
+                                 <a onclick="likebyuser(this,<%= request.getParameter("id")%>,true)"  
+                                    data-toggle="modal" data-target="#myModal" >Like By</a></li>
+                         </ul></div>
+
+           
+           
+             <button type="button"  onclick="sharebyuser(this,<%= request.getParameter("id")%>,false)"
+          class="btn btn-default btn-link" style="color: <%=color%>;padding-left: 0px;padding-right: 0px">share</button>
+   <!--a onclick="sharebyuser(this,<%= request.getParameter("id")%>,false)"
+      class="btn btn-default stat-item"><i class="fa fa-share icon"></i>
+       <span id="<%=request.getParameter("id")%>_sharevalue">0</span></a-->
+
+
+    </div>
+                 <!-- Like button end -->
+   
             </div>
             <div class="post-footer">
                 <ul id="<%= request.getParameter("id")%>_commentlist" class="comments-list">
@@ -86,6 +123,7 @@
                     request.setAttribute("commenttext",comment.getCommentText());
                     request.setAttribute("username",comment.getUsername());
                     request.setAttribute("userid",comment.getUserid());
+                    request.setAttribute("creationdate",comment.getCreationDate());
                     request.setAttribute("commentoravtaridsrc",SamajUtils.getImagesrcfromID(comment.getCommentoravtarID()));
                     %>
                     <jsp:include page="comment.jsp">
@@ -93,19 +131,14 @@
                         <jsp:param name="commenttext" value="${commenttext}"/>
                         <jsp:param name="username" value="${username}"/>   
                         <jsp:param name="userid" value="${userid}"/>
+                        <jsp:param name="userid" value="${userid}"/>
                     </jsp:include>
                     <%}%>
-                    
-                    
-                    
-                    
-                    
-                    
                 </ul>
                 
                <div class="input-group"> 
                     <!--input class="form-control" placeholder="Add a comment" type="text"-->
-                    <textarea class="form-control" id="<%= request.getParameter("id")%>_comment" placeholder="What are you doing right now?" ></textarea>
+                    <textarea class="form-control" id="<%= request.getParameter("id")%>_comment"></textarea>
                     <span class="input-group-addon">
                         <a id="<%= request.getParameter("id") %>"  href="javascript:void(0);" onclick="anchorClicked(this,<%= request.getParameter("id") %>)"> <i class="fa fa-edit" ></i></a>  
                     </span>
@@ -114,4 +147,3 @@
         </div>
     </div>
 </div>
-                    
