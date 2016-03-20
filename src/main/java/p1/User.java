@@ -16,6 +16,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,12 +30,13 @@ public class User implements Serializable{
     private String name ;
     private String pwd ;
     private String username ;
-    private Integer avtaroid = null ;
-    private Integer pic1oid = null ;
-    private Integer pic2oid = null ;
-    private Integer pic3oid = null ;
+    private Long avtaroid = null ;
+    private Long pic1oid = null ;
+    private Long pic2oid = null ;
+    private Long pic3oid = null ;
     private String sessionId;
     private Long id ;
+    private HashMap friendRequest = new HashMap();
     
     public User(){
     
@@ -46,15 +48,16 @@ public class User implements Serializable{
         if(ds!=null&&ds.size()>0){
             for(int i = 0 ;i<ds.size();i++){
          setUsername(ds.get(0).get("username").toString());
-         setName(ds.get(0).get("name").toString());
-         setAvtaroid(Integer.parseInt(ds.get(0).get("avtar").toString()));
-         setPic1oid(Integer.parseInt(ds.get(0).get("pic1").toString()));
-         setPic2oid(Integer.parseInt(ds.get(0).get("pic2").toString()));
-         setPic3oid(Integer.parseInt(ds.get(0).get("pic3").toString()));
+         setName(ds.get(0).get("name").toString()); 
+         setId(Long.valueOf(ds.get(0).get("id").toString()));
+         setAvtaroid(Long.parseLong(ds.get(0).get("avtar").toString()));
+         setPic1oid(Long.parseLong(ds.get(0).get("pic1").toString()));
+         setPic2oid(Long.parseLong(ds.get(0).get("pic2").toString()));
+         setPic3oid(Long.parseLong(ds.get(0).get("pic3").toString()));
         }
     }
 }
-    public Integer getAvtaroid() {
+    public Long getAvtaroid() {
         return avtaroid;
     }
     
@@ -64,32 +67,32 @@ public class User implements Serializable{
     }
 
 
-    public void setAvtaroid(Integer avtaroid) {
+    public void setAvtaroid(Long avtaroid) {
         this.avtaroid = avtaroid;
     }
     
 
-    public Integer getPic1oid() {
+    public Long getPic1oid() {
         return pic1oid;
     }
 
-    public void setPic1oid(Integer pic1oid) {
+    public void setPic1oid(Long pic1oid) {
         this.pic1oid = pic1oid;
     }
 
-    public Integer getPic2oid() {
+    public Long getPic2oid() {
         return pic2oid;
     }
 
-    public void setPic2oid(Integer pic2oid) {
+    public void setPic2oid(Long pic2oid) {
         this.pic2oid = pic2oid;
     }
 
-    public Integer getPic3oid() {
+    public Long getPic3oid() {
         return pic3oid;
     }
 
-    public void setPic3oid(Integer pic3oid) {
+    public void setPic3oid(Long pic3oid) {
         this.pic3oid = pic3oid;
     }
     
@@ -152,17 +155,40 @@ public class User implements Serializable{
          user.setId(Long.valueOf(ds.get(0).get("id").toString()));  
          user.setUsername(ds.get(0).get("username").toString());
          user.setName(ds.get(0).get("name").toString());
-         user.setAvtaroid(Integer.parseInt(ds.get(0).get("avtar").toString()));
-         user.setPic1oid(Integer.parseInt(ds.get(0).get("pic1").toString()));
-         user.setPic2oid(Integer.parseInt(ds.get(0).get("pic2").toString()));
-         user.setPic3oid(Integer.parseInt(ds.get(0).get("pic3").toString()));
-         
+         user.setAvtaroid(Long.parseLong(ds.get(0).get("avtar").toString()));
+         user.setPic1oid(Long.parseLong(ds.get(0).get("pic1").toString()));
+         user.setPic2oid(Long.parseLong(ds.get(0).get("pic2").toString()));
+         user.setPic3oid(Long.parseLong(ds.get(0).get("pic3").toString()));
+ 
          return user ;
     }
     
     public void loadFriendsOFUser(){
+    
+      String sql = "select * from users where id in (SELECT CASE WHEN requestsenttoid = "+ id +" THEN requestsentbyid WHEN requestsentbyid= " +id + "  THEN requestsenttoid END FROM friendrequest where status = 'accepted')";
+      
+      
+      
+      
+      System.out.println("Executing sql"+sql);
+        DataSet ds = SessioniUtils.query(sql);
+           if(ds!=null&&ds.size()>0){
+            for(int i = 0 ;i<ds.size();i++){
+            User user = new User();
+            user.setId(Long.valueOf(ds.get(i).get("id").toString()));
+            user.setUsername(ds.get(i).get("username").toString());
+            user.setName(ds.get(i).get("name").toString());
+            user.setAvtaroid(Long.parseLong(ds.get(i).get("avtar").toString()));
+            friends.put(user.getId(),user);
+            }
+        }
+           ds = null;
+    }
+    
+    
+ /*   public void loadFriendsOFUser(){
         System.out.println("p1.User.loadFriendsOFUser()");
-        String sql = "select friends from users where id = "+id;
+        String sql = "select friends,pendingrequest from users where id = "+id;
         Connection con =  null;
         Statement smt = null;
         ResultSet rs = null;
@@ -172,6 +198,7 @@ public class User implements Serializable{
           rs = smt.executeQuery(sql);
           rs.next();
           Array array =  rs.getArray(1);
+          Array friendrequest =  rs.getArray(2);
           if(array!=null){
           Object [] arrays = (Object [])array.getArray();
           String ids = "(";
@@ -190,14 +217,19 @@ public class User implements Serializable{
             user.setId(Long.valueOf(ds.get(i).get("id").toString()));
             user.setUsername(ds.get(i).get("username").toString());
             user.setName(ds.get(i).get("name").toString());
-            user.setAvtaroid(Integer.parseInt(ds.get(i).get("avtar").toString()));
+            user.setAvtaroid(Long.parseLong(ds.get(i).get("avtar").toString()));
             friends.put(user.getId(),user);
             }
         } 
      }
               System.out.println("p1.User.loadFriendsOFUser()friends"+friends);
-            }
-        } catch (Exception e) {
+ }
+          if(friendrequest!=null){
+          
+           Object [] farrays = (Object [])friendrequest.getArray();
+          
+          }
+  } catch (Exception e) {
             System.out.println("p1.User.loadFriendsOFUser()" + e.getMessage());
             e.printStackTrace();
         } finally {
@@ -215,10 +247,20 @@ public class User implements Serializable{
                 e.printStackTrace();
             }
         }
-    }
+    }*/
     
-    
+      public void loadFriendsRequestOFUser(){
+          DataSet ds =  SessioniUtils.query("select  * from friendrequest where requestsenttoid = "+id + " and status = 'pending'");
+           for (int i = 0; i <  ds.size(); i++) {
+              DataObject dob = ds.get(i);
+              
+              
+              friendRequest.put(dob.get("id")+"_"+dob.get("requestsentbyid") + "#" +SamajUtils.getAvtarSrcFromUserID(Long.valueOf(dob.get("requestsentbyid").toString())) , dob.get("requestsentbyname"));
+          }
+      }
 
-    
+    public HashMap getFriendRequestMap(){
+    return friendRequest;
+    }
     
 }

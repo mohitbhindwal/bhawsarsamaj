@@ -76,7 +76,27 @@ public class SessioniUtils {
    
 	
    
-   
+   	public static int insertupdatedelete(String sql){
+		 DataSet ds = null;
+		 IntrobSession session = null;
+                 Integer i = null ;
+		 try{
+			 session = new IntrobSession();
+			 session.open();
+			 i  = session.insertupdatedelete(sql);
+		 }catch (Exception e) {
+			 e.printStackTrace();
+		}finally{
+			try {
+			if(session!=null)
+				session.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		 return i;
+	}
+        
  
 	public static String executeQuery(String sql){
 		Connection con = null;

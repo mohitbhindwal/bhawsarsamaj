@@ -1,9 +1,37 @@
+  <%
+    Cookie[] cookies=request.getCookies();
+    String userName = "", password = "" ,rememberVal="";
+    if (cookies != null) {
+         for (Cookie cookie : cookies) {
+             System.out.println("cookie "+cookie.getName()+" " +cookie.getValue());
+             
+           if(cookie.getName().equals("bhawsarid")) {
+             userName = cookie.getValue();
+           }
+           if(cookie.getName().equals("bhawsarpwd")){
+             password = cookie.getValue();
+           }
+           if(cookie.getName().equals("bhawsarrem")){
+             rememberVal = cookie.getValue();
+             if(rememberVal.equals("on")||rememberVal.equals("yes")||rememberVal.equals("checked")||rememberVal.equals("true"))
+                 rememberVal="checked";
+             else
+                 rememberVal="";
+           }
+        }
+    }
+   %>
+
+
 <% 
-response.setHeader("Pragma","no-cache"); 
-response.setHeader("Cache-Control","no-store"); 
-response.setHeader("Expires","0"); 
-response.setDateHeader("Expires",-1); 
+//response.setHeader("Pragma","no-cache"); 
+//response.setHeader("Cache-Control","no-store"); 
+//response.setHeader("Expires","0"); 
+//response.setDateHeader("Expires",-1); 
 %> 
+
+
+
 
 <html lang="en">
 <head>
@@ -54,8 +82,8 @@ response.setDateHeader("Expires",-1);
                 <p class="form-title">Welcome to bhawsarsamaj.com</p>
                 
                 <form class="login" action="Login" method="post">
-                <input type="text" placeholder="Username" name="Username" />
-                <input type="password" placeholder="Password" name="Password" />
+                    <input type="text" placeholder="Username" name="Username"  value="<%=userName%>" />
+                    <input type="password" placeholder="Password" name="Password"  value="<%=password%>"/>
                 <label id="output"><%= request.getAttribute("error")==null?"":request.getAttribute("error")%></label>
                 <input type="submit" value="Sign In" class="btn btn-primary btn-sm" id="callme"/>
                 <!--input type="submit" value="Registration" class="btn btn-primary btn-sm" /-->
@@ -64,13 +92,16 @@ response.setDateHeader("Expires",-1);
                         <div class="col-md-6">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox"  name="rememberme"/>
+                                    <input type="checkbox"  name="rememberme" value="<%=rememberVal%>" <%=rememberVal%>/>
                                     Remember Me
                                 </label>
                             </div>
                         </div>
                         <div class="col-md-6 forgot-pass-content">
-                            <a href="javascription:void(0)" class="forgot-pass">Forgot Password</a>
+                            <a onclick="getModal(this)" class="forgot-pass">Forgot Password</a>
+               <!--button type="button" class="btn btn-link forgot-pass" data-toggle="modal" data-target="#forgotpwd">
+                Forgot Password
+               </button-->
                         </div>
                     </div>
                 </div>
@@ -79,6 +110,30 @@ response.setDateHeader("Expires",-1);
         </div>
     </div>
     
+                                    
+                                    
+ <div class="modal fade" id="forgotpwd" tabindex="-1" role="dialog" aria-labelledby="myModallLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+          <h4 class="modal-title" id="myModalLabel">Forgot Password</h4>
+      </div>
+      <div class="modal-body">
+       <p>Don't worry if your password is lost, password will be sent on your mail id used to sing in.<p>
+           <input type="text" name="forgotpwd" maxlength="50"></br></br></br>
+           <button type="button" class="btn btn-primary">Send Password</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>                               
+                                    
+     
 </div>
 
   

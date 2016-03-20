@@ -1,3 +1,4 @@
+<%@page import="p1.Login"%>
 <%@page import="introb.DataObject"%>
 <%@page import="introb.SessioniUtils"%>
 <%@page import="introb.DataSet"%>
@@ -28,7 +29,7 @@
         DataObject dob=ds.get(0);
             String title = "\"img/default_user.png\",";
             if(dob.get("avtar")!=null){
-              String outpath = SamajUtils.displayImage(Integer.parseInt(dob.get("avtar").toString()),"D:/ramout/");
+              String outpath = SamajUtils.displayImage(Long.parseLong(dob.get("avtar").toString()),Login.imagefolder);
                 title = request.getContextPath()+"/images/"+outpath;
                 System.out.print("------->"+title);
             }

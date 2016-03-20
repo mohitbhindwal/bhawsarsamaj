@@ -3,54 +3,57 @@ id serial primary key,
 username character varying(300),
 name character varying(300),
 password  character varying(100),
-created_dt timestamp without time zone DEFAULT now()
+created_dt timestamp without time zone DEFAULT now(),
+avtar integer default 1 ,
+pic1 integer default 1 ,
+pic2 integer default 1 ,
+pic3 integer default 1 ,
+friends text[],
+rememberme character varying(5) default 'false',
+dob timestamp  without time zone ,
+pob text ,
+address text ,
+gender character varying(6),
+pendingrequest text[][]
 );
 
-alter table users add avtar integer default 1 ;
-alter table users add pic1 integer default 1 ;
-alter table users add pic2 integer default 1 ;
-alter table users add pic3 integer default 1 ;
-alter table users add friends text[];
-alter table users add pic3 oid ;
-alter table users add rememberme character varying(5) default 'false';
-alter table users add dob timestamp  without time zone ;
-alter table users add pob text ;
-alter table users add address text ;
-alter table users add gender character varying(6);
-alter table users add pendingrequest text[][];
 
+CREATE TABLE images(id serial primary key , imgoid oid , imgname character varying(100), imgpath character varying(200)); 
 
 
 create table post (
 id serial primary key,
 username character varying(300),
 userid integer REFERENCES users(id),
-fdatetime timestamp without time zone DEFAULT now(),
+fdatetime timestamp without time zone DEFAULT DATE_TRUNC('second', NOW()),
 sessionid character varying(300),
-post text
+post text,
+imageid integer REFERENCES images(id),
+likeby text[][],
+url text
 );
-
-alter table post add imageid integer REFERENCES images(id);
-alter table post add likeby text[][];
-alter table post drop column fdatetime;
-alter table post add COLUMN fdatetime timestamp without time zone DEFAULT DATE_TRUNC('second', NOW());
-
-
-
 
 create table comment (
 id serial primary key,
 postid integer REFERENCES post(id),
 username character varying(300),
 userid integer REFERENCES users(id),
-fdatetime timestamp without time zone DEFAULT now(),
-comment text
+fdatetime timestamp without time zone DEFAULT DATE_TRUNC('second', NOW()),
+comment text ,
+likeby text[][]
+ );
+ 
+
+create table friendrequest(
+id serial primary key,
+requestsentbyid integer REFERENCES users(id),
+requestsentbyname character varying(300),
+requestsenttoid integer REFERENCES users(id),
+requestsenttoname character varying(300),
+status character varying(30),
+createtime timestamp without time zone DEFAULT DATE_TRUNC('second', NOW()),
+UNIQUE (requestsentbyid,requestsenttoid)
 );
-
-alter table comment add likeby text[][];
-alter table comment drop column fdatetime;
-alter table comment add COLUMN fdatetime timestamp without time zone DEFAULT DATE_TRUNC('second', NOW());
-
 
 create table share (
 id serial primary key,
@@ -76,7 +79,7 @@ sharetime timestamp without time zone DEFAULT DATE_TRUNC('second', NOW())
 --update likes set likeby = likeby || '{"mohitji bhindwal","shamji"}' 
 --update users set friends = '{{2},{3}}' where id = 1 ;
 
-CREATE TABLE images(id serial primary key , imgoid oid , imgname character varying(100), imgpath character varying(200)); 
+
 
 drop table comment;
 drop table users;
@@ -84,3 +87,4 @@ drop table post;
 
 insert into users(username,name,password) values('m@gmail.com','mohit bhindwal','mb'); 
 
+--insert into  images(imgoid,imgname,imgpath) values (  lo_import('E:\mohit\bhawsarsamaj\src\main\webapp\img\default_user.png'),'default_user.png','E:\mohit\bhawsarsamaj\src\main\webapp\img\default_user.png')    ;

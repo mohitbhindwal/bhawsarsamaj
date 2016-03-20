@@ -27,8 +27,17 @@ public class Post {
     private Long imageid ;
     private User user ;
     private String username;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
     private String avtarsrc;
     private Long userid ;
+    private String url;
     private String creationDate;
     
     public   LinkedHashMap<Long,String> addAllLikeByOFPost(){

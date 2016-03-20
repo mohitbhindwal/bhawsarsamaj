@@ -3,14 +3,14 @@
 function onuploadimage(divname,userid){
     alert('onuploadimage clicked '+divname+' '+userid);
     var dataString = 'divname='+divname+'&userid='+userid;
-             alert('dataString'+dataString);
+         //    alert('dataString'+dataString);
     $.ajax({
         type: 'POST',
         url: 'uploader.jsp',
         dataType: 'html',
         data: dataString,
         success: function (data) {
-            alert(data);
+          //  alert(data);
 
             $('#'+divname+'').append(data);
             //    setTimeout("postdata(null)",1000000);
@@ -22,8 +22,8 @@ function onuploadimage(divname,userid){
 }
 </script>
 
-<div class="row">
-    <table class="table">
+<div class="row" style="margin: 5px">
+    <table class="table" >
         <tr>
             <td> <button id="myavtar" onclick="onuploadimage('myavtardiv',${user.id});" class="btn btn-lg btn-block btn-primary" name="${user.id}">Avtar</button></td>
             <td> <button id="profilepic1" onclick="onuploadimage('profilepicdiv1',${user.id});" class="btn btn-lg btn-block btn-primary" name="${user.id}">Profile Pic 1</button></td>

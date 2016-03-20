@@ -1,3 +1,4 @@
+<%@page import="p1.Login"%>
 <%@page import="p1.User"%>
 <%@page import="introb.DataObject"%>
 <%@page import="introb.SessioniUtils"%>
@@ -46,6 +47,8 @@ if(request.getParameter("sharetomyfriends")!=null){
             <span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Share</h4>
       </div>
+         
+  
         <div class="modal-body">
             <ul class="list-group">
             
@@ -62,7 +65,7 @@ if(request.getParameter("frompost").equals("false")){
         DataObject dob=ds.get(0);
             String title = "\"img/default_user.png\",";
             if(dob.get("avtar")!=null){
-              String outpath = SamajUtils.displayImage(Integer.parseInt(dob.get("avtar").toString()),"D:/ramout/");
+              String outpath = SamajUtils.displayImage(Long.parseLong(dob.get("avtar").toString()),Login.imagefolder);
                 title = request.getContextPath()+"/images/"+outpath;
                 System.out.print("------->"+title);
             }
@@ -82,9 +85,24 @@ if(request.getParameter("frompost").equals("false")){
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" data-dismiss="modal" onclick="shareposttomyfriends(${sessionScope.user.id},'${sessionScope.user.name}',<%=request.getParameter("postid")%>);" class="btn btn-primary">Share</button>
-      </div>
+        <!--button type="button" id="sharepostblue" class="btn btn-primary" data-dismiss="modal" onclick="shareposttomyfriends(${sessionScope.user.id},'${sessionScope.user.name}',<%=request.getParameter("postid")%>);" >Share</button-->
+        <button type="button" id="sharepostblue" class="btn btn-primary"   >Share</button>
+      </div>    
     </div>
   </div>
 </div>
       
+         <script>
+           $(function () {
+    $("#sharepostblue").on('click', function() {
+           $('#myModal').on('hidden.bs.modal', function (e) {
+                   shareposttomyfriends(${sessionScope.user.id},'${sessionScope.user.name}',<%=request.getParameter("postid")%>);
+                  });
+       $('#myModal').modal('hide');
+          // $('#mohitmodal').html('');
+ 
+});
+
+    
+
+      </script>

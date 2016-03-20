@@ -48,9 +48,13 @@ $('#searchlist').btsListFilter('#searchinput', {
 });
 
 function getbody(evt,pid){
-    alert('userid is'+pid);
+  //  alert('userid is'+pid);
+    try{
     $('#myModal').modal('hide');
-$('#loading-image').show();
+    }catch(err){
+        console.log('err'+err);
+    }
+ //   $('#loading-image').show();
 //alert(evt+'   ' + pid);
          var dataString = 'userid='+pid;
    $.ajax({
@@ -63,7 +67,9 @@ $('#loading-image').show();
             $('#body').html(data);
         },
         complete: function(){
-         $('#loading-image').hide();
+            
+        
+   //      $('#loading-image').hide();
       },
         error: function (request, error) {
             alert("Request: " + JSON.stringify(request));

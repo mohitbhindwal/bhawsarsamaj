@@ -43,10 +43,10 @@ public class UserPosts {
         posts.put(postid, post);
     }
     
-    public Post addPosts(String sessionid ,String posttext,Long userid,Long imageid) {
+    public Post addPosts(String sessionid ,String posttext,Long userid,Long imageid,String url) {
         Long postid = null;
         SamajUtils utils = new SamajUtils();
-        Post post = utils.postText(user.getName(), sessionid, posttext,userid,imageid,user);
+        Post post = utils.postText(user.getName(), sessionid, posttext,userid,imageid,user,url);
         post.setId(postid);
         setPosts(postid,post);
         return post;

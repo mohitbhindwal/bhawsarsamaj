@@ -8,7 +8,7 @@
 <%
 
 if(request.getParameter("sender")!=null){
-SamajUtils.addPendingRequest(request.getParameter("sender").toString(),request.getParameter("sendername").toString(), request.getParameter("receiver").toString());
+SamajUtils.addPendingRequest(request.getParameter("sender").toString(),request.getParameter("sendername").toString(), request.getParameter("receiver").toString(),request.getParameter("receivername").toString());
 %>
 <button type="button" class="btn btn-primary btn-lg" style="border-radius: 24px;">Friend Request Sent</button>
 <%

@@ -9,7 +9,7 @@
  
 
 function ShowContent(jud){
-    alert('ShowContent');
+   // alert('ShowContent');
     var url = 'imageuploader.jsp';
     var form = $("#pimage");
     var data = new FormData(form[0]);
@@ -25,9 +25,9 @@ function ShowContent(jud){
         contentType : false,
         processData : false,
         success     : function(data) {
-            alert('[@@@'+data+']@@@@@');
+        //    alert('[@@@'+data+']@@@@@');
                     var dataString = 'data='+$('#postdata').val()+'&imageid='+data.trim();
-         alert('[@@@'+dataString+']@@@@@');
+     //    alert('[@@@'+dataString+']@@@@@');
          $.ajax({
                 type: 'POST',
                 url: 'sharepost.jsp',
@@ -35,7 +35,7 @@ function ShowContent(jud){
                 data:dataString,
                 success: function(data) {
                 //   alert(data);
-                     alert('[[[[['+data+']]]]]]');
+               //      alert('[[[[['+data+']]]]]]');
                       $('#wal').prepend(data);
                         $('#postdata').val('');
                    //    setTimeout("postdata(null)",1000000);
@@ -75,7 +75,7 @@ function ShowContent(jud){
     
     
 function uploadfromdiv(userid,name){
-    alert('uploadfromdiv of uploader.jsp'+userid+'     '+name);
+   // alert('uploadfromdiv of uploader.jsp'+userid+'     '+name);
     var url = 'imageuploader.jsp';
     var form = $("#"+name+"_form" );
     var data = new FormData(form[0]);
@@ -91,9 +91,9 @@ function uploadfromdiv(userid,name){
         contentType : false,
         processData : false,
         success     : function(data) {
-            alert('[@@@'+data+']@@@@@');
+          //  alert('[@@@'+data+']@@@@@');
                     var dataString =  'imageid='+data.trim()+"&userid="+userid+"&divname="+name;
-         alert('[@@@'+dataString+']@@@@@');
+        // alert('[@@@'+dataString+']@@@@@');
          
          
               $.ajax({

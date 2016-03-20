@@ -19,15 +19,15 @@ public class Comments {
     private Long postid;
     private String username;
     private Long userid;
-    private Integer commentoravtarID;
+    private Long commentoravtarID;
     public static SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
     public String creationDate;
 
-    public Integer getCommentoravtarID() {
+    public Long getCommentoravtarID() {
         return commentoravtarID;
     }
 
-    public void setCommentoravtarID(Integer commentoravtarID) {
+    public void setCommentoravtarID(Long commentoravtarID) {
         this.commentoravtarID = commentoravtarID;
     }
 

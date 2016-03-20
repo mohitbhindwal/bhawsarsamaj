@@ -14,7 +14,7 @@
       out.print("<div class=\"row\">\n");
   for(; i < ds.size();i++,j++){
       DataObject dob = ds.get(i);
-      String imgsrc = SamajUtils.getImagesrcfromID(Integer.parseInt(dob.get("avtar").toString()));
+      String imgsrc = SamajUtils.getImagesrcfromID(Long.parseLong(dob.get("avtar").toString()));
   //if(j==0)out.print("<div class=\"row\">\n");%>
   <div class="col-lg-3 col-md-6">
             <div class="panel panel-primary">

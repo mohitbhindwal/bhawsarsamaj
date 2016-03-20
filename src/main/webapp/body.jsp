@@ -1,14 +1,23 @@
 <%@page import="p1.User"%>
 <%@page import="p1.SamajUtils"%>
 <jsp:include page="carousel.jsp"/>
+<jsp:include page="print.jsp"/>
     
-
 <%
                 User muser  =(User)request.getAttribute("user");
                 System.out.print(muser.getAvtaroid());
                 String avtarid = SamajUtils.getImagesrcfromID(muser.getAvtaroid());
-                 System.out.print(request.getAttribute("isfriends"));
+                 System.out.print("is Friend Attribute -->"+request.getAttribute("isfriends"));
 %>
+
+<span id="loading">
+    <img src="img/loading.gif">
+</span>
+
+<span id="fade"></span>
+        <!--span id="modal">
+            <img id="loader" src="img/loading.gif" />
+        </span-->
 
 <div class="col-lg-12" style="margin: 0px;padding: 0px;">
     <div class="card hovercard" style="margin: 0px;padding: 0px;">
@@ -43,7 +52,7 @@
             </button>
         </div>
         <%}%>
-    </div>
+    </div>  
 
             <div class="well">
             <!-- Modal one -->
@@ -64,15 +73,22 @@
                          <%if(request.getAttribute("editmode").equals("true")){%>
                         <jsp:include page="share.jsp"></jsp:include>
                         <%}%>
+                        
                             <div id="wal" class="container-fluid">
-                                 <%if(request.getAttribute("isfriends")!=null&&request.getAttribute("isfriends").equals("false")){%>
+                                 <%if(request.getAttribute("isfriends")!=null&&request.getAttribute("isfriends").equals("notfriends")){%>
                                  <div id="sendfriendrequestdiv">
-                                 <button type="button" class="btn btn-primary btn-lg" onclick="sendfriendrequest(${sessionScope.user.id},${userid},'${sendername}');" style="border-radius: 24px;">Send Friend Request</button>
+                                 <button type="button" class="btn btn-primary btn-lg" onclick="sendfriendrequest(${sessionScope.user.id},'${sendername}',${userid},'${username}');" style="border-radius: 24px;">Send Friend Request</button>
                                  </div>
                                 <p></p>
-                                <%}%>
-                                
-                            <jsp:include page="getpost.jsp"></jsp:include>
+                                <%}else if(request.getAttribute("isfriends")!=null&&request.getAttribute("isfriends").equals("pending")){%>
+                                 <button type="button" class="btn btn-primary btn-lg" style="border-radius: 24px;">Friend Request Pending</button>
+                                <%}
+                                 else if(request.getAttribute("isfriends")!=null&&request.getAttribute("isfriends").equals("accepted")){%>
+                                <%System.out.println("Get Post called");%>    
+                                <jsp:include page="getpost.jsp"></jsp:include>
+                              <%}%>
+                        
+                            
                             </div>
                         </div><!-- Tab1 End-->
 

@@ -1,3 +1,4 @@
+<%@page import="p1.Login"%>
 <%@page import="org.apache.commons.io.IOUtils"%>
 <%@page import="java.io.InputStream"%>
 <%@page import="java.io.OutputStream"%>
@@ -10,8 +11,8 @@
 <%@page import="p1.SamajUtils"%>
 <%
 System.out.print("Display Image");
-Integer imageid = Integer.valueOf(request.getParameter("imageid"));
-String outpath = SamajUtils.displayImage(imageid,"D:/ramout/");
+Long imageid = Long.valueOf(request.getParameter("imageid"));
+String outpath = SamajUtils.displayImage(imageid,Login.imagefolder);
 %>
 <!--img alt="Image" src="/images/<%=outpath%>"-->
 <!--img src="${pageContext.request.contextPath}/images/foo.png"-->

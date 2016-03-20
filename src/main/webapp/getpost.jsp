@@ -1,4 +1,9 @@
+<%
 
+response.setContentType("text/html; charset=UTF-8"); 
+response.setCharacterEncoding("UTF-8"); 
+
+%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="p1.*"%>
@@ -36,6 +41,7 @@ if(!request.getAttribute("editmode").equals("true"))
  request.setAttribute("likeby", post.addAllLikeByOFPost());
  request.setAttribute("avtarsrc", post.getAvtarsrc());
  request.setAttribute("creationdate", post.getCreationDate());
+ request.setAttribute("url", post.getUrl());    
  
 %>
  

@@ -10,14 +10,18 @@
                     <form>
                         <textarea id="postdata"  style="border-width: 1px;border-color: #337AB7"></textarea>
                         <ul id = "uploaddiv">
-                            <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Audio"><i class="fa fa-music"></i></a></li>
-                            <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Video"><i class="fa fa-video-camera"></i></a></li>
-                            <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Sound Record"><i class="fa fa-microphone"></i></a></li>
+                            <!--li><a id="uploadvideo" title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Video"><i class="fa fa-video-camera"></i></a></li-->
+                            <!--li><a href="#myVModal" data-toggle="modal" title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Video"><i class="fa fa-video-camera"></i></a></li-->
+                              
+                     
                             <li><a id="upload" title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Picture"><i class="fa fa-picture-o"></i></a></li>
-                                <div id ="loadimage"></div>
+                            <li><div id ="loadimage"></div></li>
+                            
                         </ul>
                         <button name="post" id="post" class="btn btn-primary"><i class="fa fa-share"></i> Share</button>
                     </form>
+                    <div id = "loadvideo"></div>
+                  
                 </div> 
             </div>
         </div>

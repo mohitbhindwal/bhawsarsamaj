@@ -1,7 +1,10 @@
 package introb;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
@@ -40,8 +43,13 @@ public class ConnectionFactory {
 		return c;
 	}
 
-	public static void main(String[] args) {
-		System.out.println(ConnectionFactory.getConnection());
+	public static void main(String[] args) throws SQLException, UnsupportedEncodingException {
+		System.out.println();
+                Connection con = ConnectionFactory.getConnection();
+                ResultSet rs =  con.createStatement().executeQuery("select post from post where id = 4 ");
+                rs.next();
+                System.out.println(new String(rs.getString(1).getBytes("UTF-8"),"UTF-8"));
+                con.close();
 	}
 
 

@@ -1,3 +1,4 @@
+<%@page import="java.util.Locale"%>
 <%@page import="p1.User"%><%@page import="java.util.Map"%><%@page import="p1.SamajUtils"%><%@page import="p1.Comments"%><%@page import="java.util.LinkedHashMap"%>
 
 <div class="row">
@@ -24,10 +25,10 @@
                                 <ul class="dropdown-menu slidedown">
                                     <li>
                                         <a href="#">
-                                            <i class="fa fa-refresh fa-fw"></i> Refresh
+                                            <i class="fa fa-remove fa-fw"></i> Block
                                         </a>
                                     </li>
-                                    <li>
+                                    <!--li>
                                         <a href="#">
                                             <i class="fa fa-check-circle fa-fw"></i> Available
                                         </a>
@@ -47,15 +48,16 @@
                                         <a href="#">
                                             <i class="fa fa-sign-out fa-fw"></i> Sign Out
                                         </a>
-                                    </li>
+                                    </li-->
                                 </ul>
                             </div>
                     
-                    
+                 
             </div> 
             <div class="post-description"> 
-                <p><%= request.getParameter("post") %></p>
                 
+                <p lang="hi"><%= new String(request.getParameter("post").getBytes("UTF-8"),"UTF-8")%> </p>
+                 
 
                 <%if(request.getParameter("imageid")!=null&&request.getParameter("imageid").length()>0){%>
                 <div class="row">
@@ -67,6 +69,17 @@
                 </div> 
                <%}%>
                
+               
+                <%if(request.getAttribute("url")!=null&&request.getAttribute("url").toString().length()>0){%>
+                 
+                   <div  class="embed-responsive embed-responsive-16by9">
+                        <iframe id="myVideo" class="embed-responsive-item"  src="<%=request.getAttribute("url")%>" allowfullscreen>
+                        </iframe>
+ 
+                    
+                </div> 
+                
+                <%}%>
                  <!-- Like button start -->
                  <% 
                      boolean selflike = false; 

@@ -36,17 +36,33 @@ left join share s on p.id=s.sharebyid
 public class SamajUtils {
     
     
-    public HashMap<Long,Post> loadPostOfUser(User user ,int noOfPost){
-        HashMap<Long,Post> posts = new HashMap<Long,Post>();
+    public LinkedHashMap<Long,Post> loadPostOfUser(User user ,int noOfPost){
+        
+        
+        System.out.print("Loading post of user "+user.getId());
+        LinkedHashMap<Long,Post> posts = new LinkedHashMap<Long,Post>();
             
-        String sql = 
+        String sqlold = 
                     
-                    "select id,post,imageid,username,userid,fdatetime from post where userid = "+user.getId()+
+                    "select id,post,imageid,username,userid,fdatetime,url from post where userid = "+user.getId()+
                     
-                    " or id in ( select sharepostid from share where sharebyid = "+user.getId() +" limit 10 ) order by fdatetime desc limit "+noOfPost ;
+                    " or id in ( select sharepostid from share where sharebyid = "+user.getId() +" order by sharetime desc limit 10 ) order by fdatetime desc limit "+noOfPost ;
                         
             
-         System.out.println("sql------->"+sql);       
+        String sqlold2 = "select * from post where id in (\n" +
+" select id from (\n" +
+" select id,fdatetime from post where userid =   \n" + user.getId()+
+" union\n" +
+" select sharepostid , sharetime as fdatetime from share where sharebyid = "+user.getId()+" order by fdatetime desc )  as T  ) limit "+noOfPost ;
+        
+  String sql = "select T1.id as id ,T2.fdatetime,T1.username,T1.userid,T1.sessionid,T1.post,T1.imageid,T1.likeby,T1.url from post T1 inner join "+
+  " (select id,fdatetime from post where userid = "  + user.getId()+
+  " union select sharepostid as id, sharetime as fdatetime from share where sharebyid = " + user.getId()+ " ) T2 on T1.id =  T2.id order by T2.fdatetime desc";
+
+        
+        
+        
+   System.out.println("sql------->"+sql);       
             
             
          IntrobSession session = new IntrobSession(user.getName());
@@ -61,6 +77,9 @@ public class SamajUtils {
              post.setCreationDate(Comments.sdf.format(ds.get(i).getDate("fdatetime")));
              post.setUsername(ds.get(i).get("username").toString());
              post.setUserid(Long.valueOf(ds.get(i).get("userid").toString()));
+             Object url = ds.get(i).get("url");
+             if(url!=null)
+             post.setUrl(url.toString());
              Object imageids = ds.get(i).get("imageid");
              if(imageids!=null)
              post.setImageid(Long.valueOf(imageids.toString()));
@@ -147,16 +166,16 @@ public class SamajUtils {
     }
     
     public static String getAvtarSrcFromUserID(Long userid){
-       return  getImagesrcfromID(Integer.parseInt(SessioniUtils.query("select avtar from users where id = "+userid).get(0).get("avtar").toString()));
+       return  getImagesrcfromID(Long.parseLong(SessioniUtils.query("select avtar from users where id = "+userid).get(0).get("avtar").toString()));
     }
     
-    public static String getImagesrcfromID(Integer id){
-        String outsrc = "/bhawsarsamaj/images/"+displayImage(id, "D:/ramout/");
+    public static String getImagesrcfromID(Long id){
+        String outsrc = "/bhawsarsamaj/images/"+displayImage(id, Login.imagefolder);
         System.out.println("p1.SamajUtils.getImagesrcfromID()"+outsrc);
          return outsrc;
     }
     
-    public static String displayImage(Integer imageid,String outpath){
+    public static String displayImage(Long imageid,String outpath){
          
     String sql1 = "select imgoid,imgname,imgpath from images where id = "+imageid;
     DataSet ds =  SessioniUtils.query(sql1);
@@ -202,7 +221,7 @@ public class SamajUtils {
                 comment.setUsername(dob.get("username").toString());
                 comment.setUserid(Long.valueOf(dob.get("userid").toString()));
                 comment.setCreationDate(Comments.sdf.format(dob.getDate("fdatetime")));
-                comment.setCommentoravtarID(Integer.parseInt(dob.get("avtar").toString()));
+                comment.setCommentoravtarID(Long.parseLong(dob.get("avtar").toString()));
                 comments.put(Long.valueOf(dob.get("id").toString()), comment);
             }
           return comments;
@@ -247,47 +266,17 @@ public class SamajUtils {
     }
     
     
-       public static boolean isFriends(Long userid1 , Long userid2 ){
+       public static String isFriends(Long userid1 , Long userid2 ){
         System.out.println("p1.User.isFriends() for "+userid1+"  and "+userid2);
-        String sql = "select friends from users where id = "+userid1;
-        Connection con =  null;
-        Statement smt = null;
-        ResultSet rs = null;
-        if(userid1==userid2)return true;
-        try{
-          con = ConnectionFactory.getConnection();
-          smt = con.createStatement();
-          rs = smt.executeQuery(sql);
-          rs.next();
-          Array array =  rs.getArray(1);
-          if(array!=null){
-          Object [] arrays = (Object [])array.getArray();
-          if(arrays!=null)
-          for(Object  id : arrays){
-              System.out.println("p1.User.loadFriendsOFUser()aaa"+((String[])id)[0]);
-               if( userid2.toString().equals(((String[])id)[0]))
-                   return true ;
-             }    
-          }
-        } catch (Exception e) {
-            System.out.println("p1.User.loadFriendsOFUser()" + e.getMessage());
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (smt != null) {
-                    smt.close();
-                }
-                if (con != null) {
-                    con.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        
+        String sql = "select status from friendrequest where (( requestsentbyid = "+userid1 + " and requestsenttoid = " + userid2 + " ) or ( requestsentbyid = "+userid2 + " and requestsenttoid = " + userid1 + "))";
+        
+        System.out.println("Executing query"+sql);  
+        DataSet ds = SessioniUtils.query(sql);
+        if(ds!=null&&ds.size()>0){
+         return ds.get(0).get("status").toString();
         }
-          return false ;
+        return "notfriends";
        }
     
     
@@ -306,7 +295,7 @@ public class SamajUtils {
             DataObject dob=ds.get(i);
             String title = "\"img/default_user.png\",";
             if(dob.get("avtar")!=null){
-              String outpath = SamajUtils.displayImage(Integer.parseInt(dob.get("avtar").toString()),"D:/ramout/");
+              String outpath = SamajUtils.displayImage(Long.parseLong(dob.get("avtar").toString()),Login.imagefolder);
                 title = "\""+contextpath+"/images/"+outpath+"\",";
             }
             json.append("{\"title\":"+title);
@@ -390,17 +379,30 @@ public class SamajUtils {
     
     
      public static void addPendingRequest(String requestsendbyuserid,String requestsendbyusername 
-              ,String requestsendtouserid){
+              ,String requestsendtouserid,String requestsendtousername){
         
-          String sql = "update users set pendingrequest = pendingrequest || '{{"+requestsendbyuserid+"},{"+requestsendbyusername+"}}'  where id ="+requestsendtouserid;
+          //String sql = "update users set pendingrequest = pendingrequest || '{{"+requestsendbyuserid+"},{"+requestsendbyusername+"}}'  where id ="+requestsendtouserid;
+        Long id = new Long(0);
+        IntrobSession session = new IntrobSession(requestsendbyusername);
         try {
-            SessioniUtils.executeUpdate(sql);
-        } catch (SQLException ex) {
+          //SessioniUtils.executeUpdate(sql);
+        
+            session.open();
+            DataObject dataObj = new DataObject();
+            dataObj.set("requestsentbyid",     Integer.parseInt(requestsendbyuserid));
+            dataObj.set("requestsentbyname",     requestsendbyusername);
+            dataObj.set("requestsenttoid", Integer.parseInt(requestsendtouserid));
+            dataObj.set("requestsenttoname", requestsendtousername);
+            dataObj.set("status", "pending");
+            session.insert(dataObj, "friendrequest", "id");
+        } catch (SQLException ex) { 
             ex.printStackTrace();
             Logger.getLogger(SamajUtils.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       }finally{try{
+        if(session!=null)session.close();
+        }catch(Exception e){e.printStackTrace();}
      }
-    
+     }
     
     public static Integer insertImage(String path, String imgname, String imgpath, String username) {
         System.out.println("p1.SamajUtils.insertImage()");
@@ -434,7 +436,7 @@ public class SamajUtils {
 
     
     
-        public Post postText(String username , String sessionid , String posttext,Long userid,Long imageid , User user){
+        public Post postText(String username , String sessionid , String posttext,Long userid,Long imageid , User user,String url){
             System.out.println("Post Text of SamajUtils");
         Long id = new Long(0);
         IntrobSession session = new IntrobSession(username);
@@ -449,6 +451,8 @@ public class SamajUtils {
             if(imageid!=null)
             dataObj.set("imageid",imageid);
             dataObj.set("post", posttext);
+            if(url!=null)
+            dataObj.set("url", url);
             dataObj.set("userid", userid);  try {
             dataObj.set("fdatetime",Comments.sdf.parse(Comments.sdf.format(new Date())));
              } catch (ParseException ex) {
@@ -479,4 +483,20 @@ public class SamajUtils {
         return post ;
         
     }
+        
+       public static boolean changeFriendRequestStatus(String status,Integer id){
+        boolean isSuccess=true;
+        
+        try {
+            
+            
+            SessioniUtils.executeUpdate("update friendrequest set status = '"+status +"' where id = "+id);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            isSuccess=false;
+        }
+        return isSuccess;
+        }
+        
+        
 }

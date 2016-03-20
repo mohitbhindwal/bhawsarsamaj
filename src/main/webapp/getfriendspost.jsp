@@ -19,6 +19,7 @@
  request.setAttribute("comments", post.addAllDBComments());
  request.setAttribute("avtarsrc", post.getAvtarsrc());
  request.setAttribute("creationdate", post.getCreationDate());
+ request.setAttribute("url", post.getUrl());
 
 %>
  

@@ -13,7 +13,8 @@
  
      
 <%
-  LinkedHashMap<Long, User> friends =  ((User)session.getAttribute("user")).getFriends();
+    User loginuser = (User)session.getAttribute("user");
+  LinkedHashMap<Long, User> friends =  loginuser.getFriends();
   if(friends.size()==0)out.print("<h1><I>No Friends</I></h1>");
  
  
@@ -22,9 +23,9 @@
       out.print("</p><table class=\"table\" style=\"padding: 0px;border: 0px\"><tbody>");
   for( Long keys : friends.keySet()){
        User user = friends.get(keys);
-      String imgsrc = SamajUtils.getImagesrcfromID(Integer.parseInt(user.getAvtaroid().toString()));
+      String imgsrc = SamajUtils.getImagesrcfromID(Long.parseLong(user.getAvtaroid().toString()));
  %>
-  <tr style="padding: 0px;border: 0px;"  ><td style="padding: 0px;border: 0px;margin: 0px">
+  <tr style="padding: 0px;border: 0px;" id ="unfriend_<%=user.getId()%>" ><td style="padding: 0px;border: 0px;margin: 0px">
   <div class="col-lg-3 col-md-6">
             <div class="panel panel-primary">
                 <div class="panel-heading">
@@ -38,11 +39,11 @@
                         </div>
                     </div>
                 </div>
-                <a onclick="getbody(this,<%= user.getId()%>);" href="javascript:void(0);" >
+                 
                     <div class="panel-footer">
-                        <button id="block" class="btn btn-primary">Block</button>
+                        <button id="block" class="btn btn-primary" onclick='unfriend(<%= loginuser.getId()%> ,<%= user.getId()%>)' >UnFriend</button>
                     </div>
-                </a>
+                 
             </div>
         </div>
  </td></tr>
